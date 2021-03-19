@@ -26,6 +26,7 @@ const actions = {
                 .then(function (response) {
                     if (response.data.status === 200) {
                         state.commit("SET_USER", response.data.data.user);
+                        state.commit("SET_ACCESS_TOKEN", response.data.data.access_token);
                     } else {
                         window.sessionStorage.clear();
                     }
@@ -47,6 +48,7 @@ const actions = {
                 .then(function (response) {
                     if (response.data.status === 200) {
                         state.commit("SET_USER", response.data.data.user);
+                        state.commit("SET_ACCESS_TOKEN", response.data.data.access_token);
                     } else {
                         window.sessionStorage.clear();
                     }
@@ -59,7 +61,7 @@ const actions = {
     },
     logout(state) {
         return new Promise((resolve, reject) => {
-            axios.post('/api/v1/user/logout', {}, {
+            axios.post('/api/v1/logout', {}, {
                 headers: {
                     Accept: "application/json",
                     Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -67,6 +69,7 @@ const actions = {
             }).then(function (response) {
                 if (response.data.status === 200) {
                     state.commit("SET_USER", "");
+                    state.commit("SET_ACCESS_TOKEN", "");
                     window.sessionStorage.clear();
                 }
                 resolve(response);

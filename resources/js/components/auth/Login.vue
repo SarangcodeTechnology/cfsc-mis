@@ -78,7 +78,7 @@ export default {
                 .dispatch("login", mypointer.user)
                 .then(function (response) {
                     if (response.data.status == 200) {
-                        mypointer.$router.push("/home").catch(() => {
+                        mypointer.$router.push("/dashboard").catch(() => {
                         });
                         mypointer.$store.dispatch("addNotification", {
                             type: response.data.type,

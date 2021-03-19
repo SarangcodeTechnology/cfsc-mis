@@ -9,6 +9,9 @@ Vue.use(VueRouter)
 const App = () => import("./components/App");
 const Login = () => import("./components/auth/Login");
 const Register = () => import("./components/auth/Register");
+const Dashboard = () => import("./components/pages/Dashboard");
+const Home = () => import("./components/pages/Home");
+const ChangePassword = () => import("./components/auth/ChangePassword");
 
 const opts = {
 
@@ -17,26 +20,43 @@ const opts = {
         {
             path: "/",
             component: App,
-            name: 'App',
+            name: 'app',
             beforeEnter(to, from, next) {
                 if (store.getters.GET_USER) {
-                    next("/home");
+                    next();
                 } else {
                     next("/login");
                 }
             },
-        },
-        {
-            path: "/home",
-            component: Dashboard,
-            name: 'Dashboard',
-            beforeEnter(to, from, next) {
-                if (store.getters.GET_USER) {
-                    next("/")
-                } else {
-                    next("/login");
-                }
-            },
+            children: [
+                {
+                    path: "",
+                    component: Dashboard,
+                    name: 'Dashboard',
+                    beforeEnter(to, from, next) {
+                        if (store.getters.GET_USER) {
+                            next("/dashboard");
+                        } else {
+                            next("/login");
+                        }
+                    },
+                },
+                {
+                    path: "/dashboard",
+                    component: Dashboard,
+                    name: 'dashboard',
+                },
+                {
+                    path: "/home",
+                    component: Home,
+                    name: 'home',
+                },
+                {
+                    path: "/change-password",
+                    component: ChangePassword,
+                    name: 'change-password',
+                },
+            ]
         },
         {
             path: "/login",
@@ -46,7 +66,7 @@ const opts = {
         {
             path: "/register",
             component: Register,
-            name: 'Register'
+            name: 'register'
         }
 
     ]
