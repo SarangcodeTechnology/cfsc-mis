@@ -44,9 +44,9 @@
                                             v-on:keyup.enter="login"
                                         ></v-text-field>
                                         <v-divider></v-divider>
-                                        <v-btn block class="ma-2" color="#2E7D32" dark depressed tile x-large
+                                        <v-btn block class="ma-2" color="#2E7D32" dark x-large
                                                @click="login">
-                                            साईन ईन
+                                            <span>साईन ईन</span>
                                         </v-btn>
                                     </v-form>
                                 </v-col>
@@ -55,72 +55,8 @@
                     </v-card>
                 </v-col>
             </v-row>
-            <!--        <v-row align="center" justify="center">-->
-            <!--            <v-col class="d-flex justify-content-center align-items-center" cols="4">-->
-            <!--                <v-container>-->
-            <!--                    <v-container>-->
-            <!--                        <v-row align="center" justify="center">-->
-            <!--                            <v-col cols="3">-->
-            <!--                                <v-img src="/images/nepal_emblem.png"></v-img>-->
-            <!--                            </v-col>-->
-            <!--                            <v-col cols="9">-->
-            <!--                                <h5>नेपाल सरकार</h5>-->
-            <!--                                <h5>वन तथा बातावरण मन्त्रालय</h5>-->
-            <!--                                <h4><strong>सामुदायिक वन अध्ययन केन्द्र </strong></h4>-->
-            <!--                            </v-col>-->
-            <!--                        </v-row>-->
-            <!--                        <v-divider></v-divider>-->
-            <!--                        <v-row align="center" justify="center">-->
-            <!--                            <h2><strong>सामुदायिक वन अध्ययन केन्द्र वव्यवस्थापन सूचना प्रणाली</strong></h2>-->
-            <!--                        </v-row>-->
-            <!--                    </v-container>-->
-            <!--                    <v-container>-->
-            <!--                        <p>सामुदायिक वन अध्ययन केन्द्र वव्यवस्थापन सूचना प्रणालीमा तपाइलाइ स्वागत छ । सूरू-->
-            <!--                            गर्नको लागी आफ्नाे खातामा साईन ईन गर्नुहोस् ।</p>-->
-            <!--                    </v-container>-->
-            <!--                    <v-divider/>-->
-            <!--                    <v-container>-->
-            <!--                        <v-form>-->
-            <!--                            <v-text-field-->
-            <!--                                v-model="user.email"-->
-            <!--                                append-icon="fas fa-user"-->
-            <!--                                color="#2E7D32"-->
-            <!--                                label="यूजरनेम"-->
-            <!--                                outlined-->
-            <!--                                placeholder="यूजरनेम हाल्नुहा्ेस्"-->
-            <!--                                v-on:keyup.enter="login"-->
-            <!--                            ></v-text-field>-->
-            <!--                            <v-text-field-->
-            <!--                                v-model="user.password"-->
-            <!--                                append-icon="fas fa-key"-->
-            <!--                                autocomplete="on"-->
-            <!--                                color="#2E7D32"-->
-            <!--                                label="पासवर्ड"-->
-            <!--                                outlined-->
-            <!--                                placeholder="पासवर्ड हाल्नुहा्ेस्"-->
-            <!--                                type="password"-->
-            <!--                                v-on:keyup.enter="login"-->
-            <!--                            ></v-text-field>-->
-            <!--                        </v-form>-->
-            <!--                        <v-divider></v-divider>-->
-            <!--                        &lt;!&ndash;                            <v-checkbox v-model="rememberLogin" color="#2E7D32" hide-details&ndash;&gt;-->
-            <!--                        &lt;!&ndash;                                        label="खाता विवरण सम्झनुहाेस्" v-on:change="setRememberLogin"></v-checkbox>&ndash;&gt;-->
-            <!--                        <v-row align="center" class="d-flex justify-content-center">-->
-            <!--                            <v-col cols="6">-->
-            <!--                                <v-btn block class="ma-2" color="#2E7D32" dark depressed tile x-large-->
-            <!--                                       @click="login">-->
-            <!--                                    साईन ईन-->
-            <!--                                </v-btn>-->
-            <!--                            </v-col>-->
-            <!--                            &lt;!&ndash;                                <v-col class="text-right">&ndash;&gt;-->
-            <!--                            &lt;!&ndash;                                    <span @click="forgotPassword">पासवर्ड विर्सनुभयाे? </span>&ndash;&gt;-->
-            <!--                            &lt;!&ndash;                                </v-col>&ndash;&gt;-->
-            <!--                        </v-row>-->
-            <!--                    </v-container>-->
-            <!--                </v-container>-->
-            <!--            </v-col>-->
-            <!--        </v-row>-->
         </v-container>
+        <notification-list/>
     </v-app>
 
 </template>
@@ -133,21 +69,15 @@ export default {
                 email: "",
                 password: "",
             },
-            rememberLogin: false,
         };
     },
     methods: {
-        setRememberLogin() {
-            var mypointer = this;
-            mypointer.$store.commit("setRememberLogin", mypointer.rememberLogin);
-        },
         login() {
             var mypointer = this;
             this.$store
                 .dispatch("login", mypointer.user)
                 .then(function (response) {
                     if (response.data.status == 200) {
-                        mypointer.$tabs.reset();
                         mypointer.$router.push("/home").catch(() => {
                         });
                         mypointer.$store.dispatch("addNotification", {
@@ -170,8 +100,6 @@ export default {
                         message: error,
                     });
                 });
-        },
-        forgotPassword() {
         },
     },
 };

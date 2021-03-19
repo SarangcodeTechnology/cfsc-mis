@@ -22,5 +22,4 @@ Route::get('/clear-cache', function () {
 });
 
 //auth::routes();
-
 Route::get('/{any}', '\App\Http\Controllers\SinglePageController@index')->where('any', '.*');

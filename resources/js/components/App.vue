@@ -13,6 +13,7 @@
         </v-main>
         <v-footer app>
         </v-footer>
+        <notification-list/>
     </v-app>
 </template>
 

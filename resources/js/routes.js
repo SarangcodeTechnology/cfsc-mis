@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import store from "./store";
+
+
 Vue.use(VueRouter)
 
 const App = () => import("./components/App");
@@ -12,19 +15,38 @@ const opts = {
     mode: "history",
     routes: [
         {
-            path:"/",
+            path: "/",
             component: App,
-            name:'App'
+            name: 'App',
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER) {
+                    next("/home");
+                } else {
+                    next("/login");
+                }
+            },
         },
         {
-            path:"/login",
+            path: "/home",
+            component: Dashboard,
+            name: 'Dashboard',
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER) {
+                    next("/")
+                } else {
+                    next("/login");
+                }
+            },
+        },
+        {
+            path: "/login",
             component: Login,
-            name:'Login'
+            name: 'Login'
         },
         {
-            path:"/register",
+            path: "/register",
             component: Register,
-            name:'Register'
+            name: 'Register'
         }
 
     ]
