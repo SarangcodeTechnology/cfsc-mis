@@ -13,6 +13,11 @@ const Dashboard = () => import("./components/pages/Dashboard");
 const Home = () => import("./components/pages/Home");
 const ChangePassword = () => import("./components/auth/ChangePassword");
 
+// trial 
+const BrowseTrial = () => import("./components/pages/trial/browse");
+const EditAddTrial = () => import("./components/pages/trial/edit-add");
+
+
 const opts = {
 
     mode: "history",
@@ -56,6 +61,11 @@ const opts = {
                     component: ChangePassword,
                     name: 'change-password',
                 },
+                {
+                    path: "/trial",
+                    component: BrowseTrial,
+                    name: 'browse-trial'
+                }
             ]
         },
         {
@@ -67,7 +77,8 @@ const opts = {
             path: "/register",
             component: Register,
             name: 'register'
-        }
+        },
+
 
     ]
 }

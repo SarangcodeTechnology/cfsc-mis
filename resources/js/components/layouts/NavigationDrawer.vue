@@ -3,11 +3,8 @@
         <v-list-item>
             <v-list-item-content>
                 <v-list-item-title class="title">
-                    Application
+                    CFSC MIS
                 </v-list-item-title>
-                <v-list-item-subtitle>
-                    subtext
-                </v-list-item-subtitle>
             </v-list-item-content>
         </v-list-item>
         <v-list
@@ -40,8 +37,7 @@ export default {
             items: [
                 {title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard'},
                 {title: 'Home', icon: 'mdi-home', route: '/home'},
-                {title: 'Login', icon: 'mdi-image', route: '/login'},
-                {title: 'Register', icon: 'mdi-help-box', route: '/register'},
+                {title: 'Trial', icon: 'mdi-border-all', route: '/trial'},
             ],
         }
     },
