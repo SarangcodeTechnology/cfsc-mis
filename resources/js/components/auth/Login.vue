@@ -73,19 +73,19 @@ export default {
     },
     methods: {
         login() {
-            var mypointer = this;
+            let tempthis = this;
             this.$store
-                .dispatch("login", mypointer.user)
+                .dispatch("login", tempthis.user)
                 .then(function (response) {
                     if (response.data.status == 200) {
-                        mypointer.$router.push("/dashboard").catch(() => {
+                        tempthis.$router.push("/dashboard").catch(() => {
                         });
-                        mypointer.$store.dispatch("addNotification", {
+                        tempthis.$store.dispatch("addNotification", {
                             type: response.data.type,
                             message: response.data.message,
                         });
                     } else {
-                        mypointer.$store.dispatch("addNotification", {
+                        tempthis.$store.dispatch("addNotification", {
                             type: response.data.type,
                             message: "Error! Code: " +
                                 response.data.status +
@@ -95,7 +95,7 @@ export default {
                     }
                 })
                 .catch(function (error) {
-                    mypointer.$store.dispatch("addNotification", {
+                    tempthis.$store.dispatch("addNotification", {
                         type: "error",
                         message: error,
                     });

@@ -14,7 +14,7 @@
             <v-list class="pa-0 ma-0" dense>
                 <v-list-item>
                     <v-list-item-avatar tile>
-                        <v-img height="90%" src="/images/nepal_emblem.png"></v-img>
+                        <v-img height="100%" src="/images/nepal_emblem.png"></v-img>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="pa-0 ma-0"><h5>व्यवस्थापन सूचना प्रणाली</h5>
@@ -86,6 +86,7 @@ export default {
                 return this.$store.state.user;
             },
         },
+
     }
 }
 </script>

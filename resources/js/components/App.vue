@@ -1,10 +1,52 @@
 <template>
     <v-app>
-        <v-navigation-drawer app>
+        <v-navigation-drawer v-model="expandDrawer" :expand-on-hover="expandOnHover" :mini-variant="miniVariant"
+                             dark app>
+            <v-list
+                dense
+                nav
+            >
+                <v-list-item class="pl-1 d-flex align-items-center">
+                    <v-list-item-avatar>
+                        <v-btn class="mr-1"
+                            icon
+                            @click.stop="miniVariant = !miniVariant"
+                        >
+                            <v-icon v-if="!miniVariant" class="fas fa-chevron-left"></v-icon>
+                            <v-icon v-if="miniVariant" class="fas fa-chevron-right"></v-icon>
+                        </v-btn>
+                    </v-list-item-avatar>
+                        <v-list-item-title class="title">
+                            <span>CFSC MIS</span>
+                        </v-list-item-title>
+
+                </v-list-item>
+            </v-list>
             <navigation-drawer/>
         </v-navigation-drawer>
 
-        <v-app-bar app>
+        <v-app-bar app flat>
+            <v-app-bar-nav-icon
+                @click.stop="expandDrawer = !expandDrawer"
+            ></v-app-bar-nav-icon>
+            <v-btn
+                icon
+                @click="goBack"
+            >
+                <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+            <v-btn
+                icon
+                @click="goForward"
+            >
+                <v-icon>mdi-arrow-right</v-icon>
+            </v-btn>
+            <v-btn
+                icon
+                @click="refresh"
+            >
+                <v-icon>mdi-refresh</v-icon>
+            </v-btn>
             <v-spacer></v-spacer>
             <app-bar/>
         </v-app-bar>
@@ -12,8 +54,8 @@
             <router-view>
             </router-view>
         </v-main>
-        <v-footer app>
-        </v-footer>
+        <!--        <v-footer app>-->
+        <!--        </v-footer>-->
         <notification-list/>
     </v-app>
 </template>
@@ -21,11 +63,39 @@
 <script>
 export default {
     data() {
-        return {}
+        return {
+            expandDrawer: true,
+            expandOnHover: false,
+            miniVariant: false,
+        }
+    },
+    methods: {
+        goBack() {
+            this.$router.go(-1);
+        },
+        goForward() {
+            this.$router.go(1);
+        },
+        refresh(){
+            this.$router.go(0);
+        }
     },
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #9E9E9E;
+}
 
 </style>

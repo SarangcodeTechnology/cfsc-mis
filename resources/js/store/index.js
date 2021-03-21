@@ -3,19 +3,25 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 import auth from "./modules/auth";
+import webservice from "./modules/webservice";
 
 Vue.use(Vuex)
 
 const opts = {
     modules: {
         auth,
+        webservice,
     },
 
     state: {
-        notifications: []
+        notifications: [],
+        miniVariant: false,
     },
 
     mutations: {
+        SET_MINIVARIANT(state, payload) {
+            state.miniVariant = payload;
+        },
         ADD_NOTIFICATION(state, notification) {
             state.notifications.push({
                 type: notification.type,
@@ -31,6 +37,9 @@ const opts = {
     },
 
     actions: {
+        setMiniVariant(state, payload) {
+            state.commit('SET_MINIVARIANT', payload)
+        },
         addNotification(state, notification) {
             state.commit('ADD_NOTIFICATION', notification);
         },
@@ -39,7 +48,11 @@ const opts = {
         }
     },
 
-    getters: {},
+    getters: {
+        GET_MINIVARIANT(state) {
+            return state.miniVariant;
+        }
+    },
     plugins: [createPersistedState({
             storage: window.sessionStorage,
         }

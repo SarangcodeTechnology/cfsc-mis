@@ -13,9 +13,9 @@ const Dashboard = () => import("./components/pages/Dashboard");
 const Home = () => import("./components/pages/Home");
 const ChangePassword = () => import("./components/auth/ChangePassword");
 
-// trial 
-const BrowseTrial = () => import("./components/pages/trial/browse");
-const EditAddTrial = () => import("./components/pages/trial/edit-add");
+// trial
+const CFData = () => import("./components/pages/cfdata/browse");
+const CFDataEdit = () => import("./components/pages/cfdata/edit");
 
 
 const opts = {
@@ -25,7 +25,6 @@ const opts = {
         {
             path: "/",
             component: App,
-            name: 'app',
             beforeEnter(to, from, next) {
                 if (store.getters.GET_USER) {
                     next();
@@ -37,7 +36,7 @@ const opts = {
                 {
                     path: "",
                     component: Dashboard,
-                    name: 'Dashboard',
+                    name: 'app',
                     beforeEnter(to, from, next) {
                         if (store.getters.GET_USER) {
                             next("/dashboard");
@@ -62,21 +61,40 @@ const opts = {
                     name: 'change-password',
                 },
                 {
-                    path: "/trial",
-                    component: BrowseTrial,
-                    name: 'browse-trial'
+                    path: "/cf-data",
+                    component: CFData,
+                    name: 'cf-data'
+                },
+                {
+                    path: "/cf-data-edit",
+                    component: CFDataEdit,
+                    name: 'cf-data-edit'
                 }
             ]
         },
         {
             path: "/login",
             component: Login,
-            name: 'Login'
+            name: 'Login',
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER) {
+                    next("/dashboard");
+                } else {
+                    next();
+                }
+            },
         },
         {
             path: "/register",
             component: Register,
-            name: 'register'
+            name: 'register',
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER) {
+                    next("/dashboard");
+                } else {
+                    next();
+                }
+            },
         },
 
 

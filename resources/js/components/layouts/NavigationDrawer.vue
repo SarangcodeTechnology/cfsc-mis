@@ -1,12 +1,4 @@
 <template>
-    <v-container fluid>
-        <v-list-item>
-            <v-list-item-content>
-                <v-list-item-title class="title">
-                    CFSC MIS
-                </v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
         <v-list
             dense
             nav
@@ -27,20 +19,27 @@
                 </v-list-item-content>
             </v-list-item>
         </v-list>
-    </v-container>
 </template>
 
 <script>
 export default {
     data() {
         return {
+            miniVariant: false,
             items: [
                 {title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard'},
                 {title: 'Home', icon: 'mdi-home', route: '/home'},
-                {title: 'Trial', icon: 'mdi-border-all', route: '/trial'},
+                {title: 'CF Data', icon: 'mdi-border-all', route: '/cf-data'},
             ],
         }
     },
+    methods: {
+        setMiniVariant() {
+            var tempthis = this;
+            this.miniVariant = !this.miniVariant;
+            this.$store.dispatch("setMiniVariant", tempthis.miniVariant);
+        }
+    }
 }
 </script>
 
