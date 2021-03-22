@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class CfData extends Model
 {
+    protected $connection = 'cfsc_mis_data';
 }
