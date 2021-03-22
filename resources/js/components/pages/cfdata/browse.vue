@@ -13,7 +13,6 @@
                     :pageCount="numberOfPages"
                     :server-items-length="totalCfData"
                     fixed-header
-                    height="83vh"
                     loading-text="Loading Data... Please wait"
                 >
                     <template v-slot:top="{ pagination, options, updateOptions }">
