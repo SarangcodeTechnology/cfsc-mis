@@ -87,10 +87,7 @@ export default {
                     } else {
                         tempthis.$store.dispatch("addNotification", {
                             type: response.data.type,
-                            message: "Error! Code: " +
-                                response.data.status +
-                                " Message: " +
-                                response.data.message,
+                            message: response.data.message,
                         });
                     }
                 })

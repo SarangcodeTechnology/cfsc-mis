@@ -15,19 +15,13 @@
                     fixed-header
                     loading-text="Loading Data... Please wait"
                 >
-                    <template v-slot:item.approval_revision_date_bs="{ item }">
-                        {{ JSON.parse(item.approval_revision_date_bs).join(", ") }}
-                    </template>
-                    <template v-slot:item.approval_revision_date_ad="{ item }">
-                        {{ JSON.parse(item.approval_revision_date_ad).join(", ") }}
-                    </template>
                     <template v-slot:top="{ pagination, options, updateOptions }">
                         <v-container fluid>
-                            <v-row >
+                            <v-row>
                                 <v-col cols="3">
                                     <div class="d-flex align-content-center">
                                         <h5 class="mb-0 align-self-center">
-                                        CF DATA
+                                            CF DATA
                                         </h5>
                                         <v-divider
                                             class="mx-4 mt-0"
@@ -40,7 +34,8 @@
                                     </div>
                                 </v-col>
                                 <v-col cols="5">
-                                    <v-text-field v-model="search" dense label="Search" outlined @change="getDataFromApi" ></v-text-field>
+                                    <v-text-field v-model="search" dense label="Search" outlined
+                                                  @change="getDataFromApi"></v-text-field>
                                 </v-col>
                                 <v-col cols="4">
                                     <v-data-footer
@@ -52,9 +47,24 @@
                                 </v-col>
                             </v-row>
                         </v-container>
-
                     </template>
+                    <template v-slot:item.approval_revision_date_bs="{ item }">
+                        {{ JSON.parse(item.approval_revision_date_bs).join(", ") }}
+                    </template>
+                    <template v-slot:item.actions="{ item }">
+                        <div class="d-flex justify-content-center align-items-center">
 
+                            <v-btn icon x-small @click="editData">
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                            <v-btn color="red" icon x-small @click="deleteData">
+                                <v-icon>mdi-delete</v-icon>
+                            </v-btn>
+                        </div>
+                    </template>
+                    <template v-slot:item.approval_revision_date_ad="{ item }">
+                        {{ JSON.parse(item.approval_revision_date_ad).join(", ") }}
+                    </template>
                 </v-data-table>
             </v-col>
         </v-row>
@@ -74,18 +84,19 @@ export default {
             options: {},
             totalItems: 20,
             headers: [
-                {text: 'District', value: 'district.name'},
+                {text: 'Actions', value: 'actions'},
+                {text: 'FUG Name', value: 'fug_name'},
+                {text: 'FUG Code', value: 'fug_code'},
+                {text: 'CFID', value: 'cfid'},
                 {text: 'Province', value: 'province.name'},
+                {text: 'District', value: 'district.name'},
                 {text: 'Local Level Name', value: 'local_level.name'},
                 {text: 'Local Level Type', value: 'local_level.type'},
                 {text: 'LLId', value: 'local_level.llid'},
                 {text: 'Physiography', value: 'physiography.name'},
                 {text: 'X', value: 'x'},
                 {text: 'Y', value: 'y'},
-                {text: 'CFID', value: 'cfid'},
                 {text: 'Subdivision', value: 'subdivision.name'},
-                {text: 'FUG Code', value: 'fug_code'},
-                {text: 'FUG Name', value: 'fug_name'},
                 {text: 'Approval Date BS', value: 'approval_date_bs'},
                 {text: 'Approval Date AD', value: 'approval_date_ad'},
                 {text: 'Approval FY', value: 'approval_fy'},
@@ -99,9 +110,9 @@ export default {
                 {text: 'Forest Condition', value: 'forest_condition.code'},
                 {text: 'No. of person in Committee', value: 'no_of_person_in_committee'},
                 {text: 'Women in Committee', value: 'women_in_committee'},
-                {text: 'Remarks', value: 'remarks'},
                 {text: 'Approval Revision Date BS', value: 'approval_revision_date_bs'},
                 {text: 'Approval Revision Date AD', value: 'approval_revision_date_ad'},
+                {text: 'Remarks', value: 'remarks'},
             ],
         }
     },
@@ -118,11 +129,16 @@ export default {
         this.getDataFromApi()
     },
     methods: {
+        editData() {
+        },
+        deleteData() {
+        },
         goToEditPage() {
+            this.$store.dispatch("");
             this.$router.push('/cf-data-edit');
         },
         getDataFromApi() {
-            var tempthis = this;
+            const tempthis = this;
             this.loading = true
             const {page, itemsPerPage} = tempthis.options;
             let pageNumber = page - 1;

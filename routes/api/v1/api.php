@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +17,4 @@ Route::post('login', '\App\Http\Controllers\AuthController@login');
 Route::post('register', '\App\Http\Controllers\AuthController@register');
 Route::middleware('auth:api')->post('logout', '\App\Http\Controllers\AuthController@logout');
 Route::middleware('auth:api')->get('cf-data', '\App\Http\Controllers\api\v1\DataController@CFData');
+Route::middleware('auth:api')->get('load-resources', '\App\Http\Controllers\api\v1\DataController@loadResources');

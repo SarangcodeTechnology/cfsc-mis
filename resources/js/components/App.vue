@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-navigation-drawer v-model="expandDrawer" :expand-on-hover="expandOnHover" :mini-variant="miniVariant"
-                             dark app>
+                             app color="#2E7D32" dark>
             <v-list
                 dense
                 nav
@@ -9,23 +9,23 @@
                 <v-list-item class="pl-1 d-flex align-items-center">
                     <v-list-item-avatar>
                         <v-btn class="mr-1"
-                            icon
-                            @click.stop="miniVariant = !miniVariant"
+                               icon
+                               @click.stop="miniVariant = !miniVariant"
                         >
                             <v-icon v-if="!miniVariant" class="fas fa-chevron-left"></v-icon>
                             <v-icon v-if="miniVariant" class="fas fa-chevron-right"></v-icon>
                         </v-btn>
                     </v-list-item-avatar>
-                        <v-list-item-title class="title">
-                            <span>CFSC MIS</span>
-                        </v-list-item-title>
+                    <v-list-item-title class="title">
+                        <span>CFSC MIS</span>
+                    </v-list-item-title>
 
                 </v-list-item>
             </v-list>
             <navigation-drawer/>
         </v-navigation-drawer>
 
-        <v-app-bar app flat>
+        <v-app-bar app color="#E0E0E0" flat>
             <v-app-bar-nav-icon
                 @click.stop="expandDrawer = !expandDrawer"
             ></v-app-bar-nav-icon>
@@ -47,7 +47,20 @@
             >
                 <v-icon>mdi-refresh</v-icon>
             </v-btn>
-            <v-spacer></v-spacer>
+            <v-container fluid>
+                <v-breadcrumbs :items="breadcrumbs">
+                    <template v-slot:item="{ item }">
+                        <v-breadcrumbs-item
+                            :to="item.meta.breadcrumb.link"
+                            router
+                        >
+                            {{ item.meta.breadcrumb.text }}
+                        </v-breadcrumbs-item>
+                    </template>
+                </v-breadcrumbs>
+            </v-container>
+
+
             <app-bar/>
         </v-app-bar>
         <v-main>
@@ -76,10 +89,16 @@ export default {
         goForward() {
             this.$router.go(1);
         },
-        refresh(){
+        refresh() {
             this.$router.go(0);
         }
     },
+    computed: {
+        breadcrumbs: function () {
+            return this.$route.matched;
+        }
+    }
+
 }
 </script>
 

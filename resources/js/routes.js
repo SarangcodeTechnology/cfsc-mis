@@ -19,7 +19,6 @@ const CFDataEdit = () => import("./components/pages/cfdata/edit");
 
 
 const opts = {
-
     mode: "history",
     routes: [
         {
@@ -30,6 +29,12 @@ const opts = {
                     next();
                 } else {
                     next("/login");
+                }
+            },
+            meta: {
+                breadcrumb: {
+                    name: "/",
+                    link: "/"
                 }
             },
             children: [
@@ -44,31 +49,67 @@ const opts = {
                             next("/login");
                         }
                     },
+                    meta: {
+                        breadcrumb: {
+                            text: "/",
+                            link: "/"
+                        }
+                    },
                 },
                 {
                     path: "/dashboard",
                     component: Dashboard,
                     name: 'dashboard',
+                    meta: {
+                        breadcrumb: {
+                            text: "Dashboard",
+                            link: "/dashboard"
+                        }
+                    },
                 },
                 {
                     path: "/home",
                     component: Home,
                     name: 'home',
+                    meta: {
+                        breadcrumb: {
+                            text: "Home",
+                            link: "/home"
+                        }
+                    },
                 },
                 {
                     path: "/change-password",
                     component: ChangePassword,
                     name: 'change-password',
+                    meta: {
+                        breadcrumb: {
+                            text: "Change Password",
+                            link: "/change-password"
+                        }
+                    },
                 },
                 {
                     path: "/cf-data",
                     component: CFData,
-                    name: 'cf-data'
+                    name: 'cf-data',
+                    meta: {
+                        breadcrumb: {
+                            text: "CF Data",
+                            link: "/cf-data"
+                        }
+                    },
                 },
                 {
                     path: "/cf-data-edit",
                     component: CFDataEdit,
-                    name: 'cf-data-edit'
+                    name: 'cf-data-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "CF Data Details",
+                            link: "/cf-data-edit"
+                        }
+                    },
                 }
             ]
         },

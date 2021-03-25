@@ -3,7 +3,7 @@ import {Promise} from 'es6-promise';
 
 const state = {
     user: "",
-    accessToken:"",
+    accessToken: "",
 };
 
 const mutations = {
@@ -27,6 +27,7 @@ const actions = {
                     if (response.data.status === 200) {
                         state.commit("SET_USER", response.data.data.user);
                         state.commit("SET_ACCESS_TOKEN", response.data.data.access_token);
+                        state.dispatch("loadResources");
                     } else {
                         window.sessionStorage.clear();
                     }
