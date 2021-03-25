@@ -37,7 +37,7 @@
                         <v-list-item-title>पासवर्ड परिवर्तन</v-list-item-title>
                     </v-list-item>
 
-                    <v-list-item @click="logout()" menu = !menu">
+                    <v-list-item @click="logout(), menu = !menu">
                         <v-list-item-icon>
                             <v-icon>mdi-logout-variant</v-icon>
                         </v-list-item-icon>
