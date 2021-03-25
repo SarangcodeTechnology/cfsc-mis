@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/check', function(){
+   $data = DB::table('getting_data')->get();
+
+   return $data;
+});
 
 //Clear Cache
 Route::get('/clear-cache', function () {

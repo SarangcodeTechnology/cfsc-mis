@@ -2,17 +2,9 @@ import axios from 'axios';
 import {Promise} from 'es6-promise';
 
 const state = {
-    user: "",
-    accessToken: "",
 };
 
 const mutations = {
-    SET_USER(state, payload) {
-        state.user = payload;
-    },
-    SET_ACCESS_TOKEN(state, payload) {
-        state.accessToken = payload;
-    }
 };
 
 const actions = {
