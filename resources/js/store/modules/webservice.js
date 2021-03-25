@@ -25,6 +25,7 @@ const actions = {
                     params: {
                         page: payload.page,
                         totalItems: payload.totalItems,
+                        search: payload.search
                     },
 
                     headers: {

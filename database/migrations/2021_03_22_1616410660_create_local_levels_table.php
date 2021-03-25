@@ -8,7 +8,7 @@ class CreateLocalLevelsTable extends Migration
 {
     public function up()
     {
-        Schema::create('local_levels', function (Blueprint $table) {
+        Schema::connection('cfsc_mis_data')->create('local_levels', function (Blueprint $table) {
 
 		$table->increments('id');
 		$table->integer('llid',);
