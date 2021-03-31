@@ -10,6 +10,8 @@ class CfData extends Model
     protected $connection = 'cfsc_mis_data';
     protected $table = 'cf_data';
 
+    protected $guarded = [];
+
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id');

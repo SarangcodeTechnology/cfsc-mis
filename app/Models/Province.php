@@ -11,10 +11,10 @@ class Province extends Model
     public $timestamps = false;
 
     public function districts(){
-        return $this->hasMany(District::class,'province_id');
+        return $this->hasMany(District::class,'province_id')->orderBy('name');
     }
 
     public function localLevels(){
-        return $this->hasManyThrough(LocalLevel::class, District::class);
+        return $this->hasManyThrough(LocalLevel::class, District::class)->orderBy('name');
     }
 }

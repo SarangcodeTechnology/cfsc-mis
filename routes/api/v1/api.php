@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\v1\DataController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', '\App\Http\Controllers\AuthController@login');
-Route::post('register', '\App\Http\Controllers\AuthController@register');
-Route::middleware('auth:api')->post('logout', '\App\Http\Controllers\AuthController@logout');
-Route::middleware('auth:api')->get('cf-data', '\App\Http\Controllers\api\v1\DataController@CFData');
-Route::middleware('auth:api')->get('load-resources', '\App\Http\Controllers\api\v1\DataController@loadResources');
+Route::post('login', [AuthController::class,'login']);
+Route::post('register', [AuthController::class,'register']);
+Route::middleware('auth:api')->post('logout', [AuthController::class,'logout']);
+Route::middleware('auth:api')->get('cf-data', [DataController::class,'CFData']);
+Route::middleware('auth:api')->post('save-cf-data',[DataController::class,'saveCfData']);
+Route::middleware('auth:api')->post('delete-cf-data',[DataController::class,'deleteCfData']);
+Route::middleware('auth:api')->get('load-resources',[DataController::class,'loadResources']);
