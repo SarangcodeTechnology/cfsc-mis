@@ -17,6 +17,13 @@ const ChangePassword = () => import("./components/auth/ChangePassword");
 const CFData = () => import("./components/pages/cfdata/browse");
 const CFDataEdit = () => import("./components/pages/cfdata/edit");
 
+const User = () => import("./components/pages/users/browse");
+const UserEdit = () => import("./components/pages/users/edit");
+
+const Role = () => import("./components/pages/roles/browse");
+const RoleEdit = () => import("./components/pages/roles/edit");
+
+
 
 const opts = {
     mode: "history",
@@ -101,6 +108,39 @@ const opts = {
                     },
                 },
                 {
+                    path: "/users",
+                    component: User,
+                    name: 'users',
+                    meta: {
+                        breadcrumb: {
+                            text: "User",
+                            link: "/users"
+                        }
+                    },
+                },
+                {
+                    path: "/roles",
+                    component: Role,
+                    name: 'roles',
+                    meta: {
+                        breadcrumb: {
+                            text: "Roles",
+                            link: "/roles"
+                        }
+                    },
+                },
+                {
+                    path: "/role-edit",
+                    component: RoleEdit,
+                    name: 'role-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Role Edit",
+                            link: "/role-edit"
+                        }
+                    },
+                },
+                {
                     path: "/cf-data-edit",
                     component: CFDataEdit,
                     name: 'cf-data-edit',
@@ -108,6 +148,17 @@ const opts = {
                         breadcrumb: {
                             text: "CF Data Details",
                             link: "/cf-data-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/user-edit",
+                    component: UserEdit,
+                    name: 'user-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "User Edit/Add",
+                            link: "/user-edit"
                         }
                     },
                 }

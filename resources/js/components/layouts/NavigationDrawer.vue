@@ -29,6 +29,8 @@ export default {
             items: [
                 {title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard'},
                 {title: 'Home', icon: 'mdi-home', route: '/home'},
+                {title: 'Users', icon: 'mdi-account-circle', route: '/users'},
+                {title: 'Roles', icon: 'mdi-key', route: '/roles'},
                 {title: 'CF Data', icon: 'mdi-border-all', route: '/cf-data'},
             ],
         }

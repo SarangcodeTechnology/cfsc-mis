@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\api\v1\DataController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +24,7 @@ Route::middleware('auth:api')->get('cf-data', [DataController::class,'CFData']);
 Route::middleware('auth:api')->post('save-cf-data',[DataController::class,'saveCfData']);
 Route::middleware('auth:api')->post('delete-cf-data',[DataController::class,'deleteCfData']);
 Route::middleware('auth:api')->get('load-resources',[DataController::class,'loadResources']);
+Route::middleware('auth:api')->get('users', [UserController::class,'index']);
+Route::middleware('auth:api')->get('roles', [RoleController::class,'index']);
+Route::middleware('auth:api')->post('save-user-data',[UserController::class,'saveUserData']);
+Route::middleware('auth:api')->post('save-role-data',[RoleController::class,'saveRoleData']);

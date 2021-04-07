@@ -296,7 +296,7 @@ export default {
     },
   },
   computed: {
-    ...mapState({
+    ...mapState({                 
       provinces: (state) => state.webservice.resources.provinces,
       cfData: (state) => state.webservice.editCfData,
       subDivisions: (state) => state.webservice.resources.subdivisions,
