@@ -75,7 +75,7 @@ class DataController extends Controller
             return response([
                 'status' => 200,
                 'type' => 'success',
-                'message' => 'Data loaded successfully.'
+                'message' => 'Data saved successfully.'
             ]);
         } catch (Exception $e) {
             return response([

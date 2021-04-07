@@ -48,7 +48,6 @@ const actions = {
     setCfEditData(state,payload){
 state.commit("SET_EDIT_CF_DATA",payload);
         router.push("/cf-data-edit");
-
     },
     loadResources(state, payload) {
         return new Promise((resolve, reject) => {
@@ -145,8 +144,6 @@ state.commit("SET_EDIT_CF_DATA",payload);
 
     getCfData(state, payload) {
         return new Promise((resolve, reject) => {
-
-
             axios
                 .get('/api/v1/cf-data', {
                     params: {
