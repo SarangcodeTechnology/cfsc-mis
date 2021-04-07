@@ -222,10 +222,9 @@ export default {
       const tempthis = this;
       this.loading = true;
       const { page, itemsPerPage } = tempthis.options;
-      let pageNumber = page - 1;
       this.$store
         .dispatch("getCfData", {
-          page: pageNumber,
+          page: page,
           totalItems: itemsPerPage,
           search: tempthis.search,
         })

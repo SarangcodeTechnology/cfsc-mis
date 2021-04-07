@@ -7,12 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Models\CfData;
 use App\Models\ForestCondition;
 use App\Models\ForestType;
+use App\Models\Permission;
 use App\Models\Physiography;
 use App\Models\Province;
+use App\Models\Role;
 use App\Models\SubDivision;
 use App\Models\VegetationType;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DataController extends Controller
 {
@@ -112,11 +115,13 @@ class DataController extends Controller
             $vegetation_types = VegetationType::orderBy('code')->get();
             $forest_types = ForestType::orderBy('name')->get();
             $forest_conditions = ForestCondition::orderBy('code')->get();
+            $roles = Role::all();
+            $permissions = Permission::all();
             return response([
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions')
+                'data' => compact('provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions')
             ]);
         } catch (Exception $e) {
             return response([
