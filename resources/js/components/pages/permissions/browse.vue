@@ -19,7 +19,7 @@
               <v-row>
                 <v-col cols="3">
                   <div class="d-flex align-content-center">
-                    <h5 class="mb-0 align-self-center">Roles</h5>
+                    <h5 class="mb-0 align-self-center">Permissions</h5>
                     <v-divider class="mx-4 mt-0" inset vertical></v-divider>
                     <v-btn
                       class="d-flex align-self-center"
@@ -73,6 +73,16 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+      deleteItem: "",
+      deleteDialog: false,
+      search: "",
+      page: 1,
+      totalCfData: 0,
+      numberOfPages: 0,
+      cfData: [],
+      loading: true,
+      options: {},
+      totalItems: 20,
       headers: [
         { text: "Actions", value: "actions" },
         { text: "Name", value: "name" },
@@ -94,7 +104,7 @@ export default {
     this.getDataFromApi();
   },
   computed: {
-    ...mapState({ roles: (state) => state.webservice.roles }),
+    ...mapState({ roles: (state) => state.webservice.permissions }),
   },
   methods: {
     getDataFromApi() {
@@ -102,17 +112,17 @@ export default {
       this.loading = true;
       const { page, itemsPerPage } = tempthis.options;
       let pageNumber = page - 1;
-      this.$store.dispatch("getRoles", {}).then(function (response) {
+      this.$store.dispatch("getPermissions", {}).then(function (response) {
         tempthis.loading = false;
       });
     },
     goToEditPage() {
-      this.$store.dispatch("setRoleEditData", {
+      this.$store.dispatch("setPermissionEditData", {
         name: ""
       });
     },
     editData(item){
-        this.$store.dispatch("setRoleEditData",item)
+        this.$store.dispatch("setPermissionEditData",item)
     }
   },
 };

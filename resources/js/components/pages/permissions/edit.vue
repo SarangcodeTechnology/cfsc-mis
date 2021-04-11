@@ -8,7 +8,7 @@
         <v-btn
           :disabled="!valid"
           class="ma-2"
-          @click="saveRoleData()"
+          @click="savePermissionData()"
           hint="E.g.: save"
           depressed
           color="green darken-1"
@@ -30,26 +30,14 @@
           <v-row>
             <v-col cols="4">
               <v-text-field
-                v-model="roleData.name"
-                label="प्रयोगकर्ता नाम"
-                placeholder="प्रयोगकर्ताको नाम राख्नुहोस्"
+                v-model="permissionData.name"
+                label="अनुमतिको नाम"
+                placeholder="अनुमतिको नाम राख्नुहोस्"
                 outlined
               >
               </v-text-field>
             </v-col>
           </v-row>
-          <v-divider></v-divider>
-          <v-layout mx-1 row wrap>
-                <v-checkbox
-                v-for="(item,index) in permissions"
-                :key="index"
-                v-model="roleData.permissions"
-                :label="item.name"
-                :value="item"
-                multiple
-                ></v-checkbox>
-          </v-layout>
-
         </v-container>
       </v-card-text>
     </v-card>
@@ -67,13 +55,12 @@ export default {
     },
     computed:{
         ...mapState({
-            roleData: (state) => state.webservice.editRoleData,
-            permissions: (state) => state.webservice.resources.permissions,
+            permissionData: (state) => state.webservice.editPermissionData,
         }),
     },
     methods:{
-        saveRoleData(){
-            this.$store.dispatch('saveRoleData',this.roleData)
+        savePermissionData(){
+            this.$store.dispatch('savePermissionData',this.permissionData)
         }
     }
 
@@ -81,9 +68,6 @@ export default {
 </script>
 
 <style scoped>
-    .permissions{
-        display: flex;
-        flex-wrap: wrap;
-    }
+
 
 </style>
