@@ -24,6 +24,9 @@ const Role = () => import("./components/pages/roles/browse");
 const RoleEdit = () => import("./components/pages/roles/edit");
 
 
+const Permission = () => import("./components/pages/permissions/browse");
+const PermissionEdit = () => import("./components/pages/permissions/edit");
+
 
 const opts = {
     mode: "history",
@@ -161,7 +164,30 @@ const opts = {
                             link: "/user-edit"
                         }
                     },
-                }
+                },
+                // permissions
+                {
+                    path: "/permissions",
+                    component: Permission,
+                    name: 'permissions',
+                    meta: {
+                        breadcrumb: {
+                            text: "Permissions",
+                            link: "/permissions"
+                        }
+                    },
+                },
+                {
+                    path: "/permission-edit",
+                    component: PermissionEdit,
+                    name: 'permission-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Permission Edit",
+                            link: "/permission-edit"
+                        }
+                    },
+                },
             ]
         },
         {
