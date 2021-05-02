@@ -8,81 +8,75 @@ const state = {
 
     },
     editCfData: {
-        fug_name: "",
-        fug_code: "",
-        cfid: "",
-        province_id: null,
-        district_id: null,
-        local_level_id: null,
-        physiography_id: null,
-        x: "",
-        y: "",
-        subdivision_id: null,
-        approval_date_bs: "",
-        approval_date_ad: "",
-        approval_fy: "",
-        area_ha: "",
-        hh: "",
-        vegetation_type_id: null,
-        forest_type_id: null,
-        forest_condition_id: null,
-        no_of_person_in_committee: "",
-        women_in_committee: "",
-        remarks: "",
-        approval_revision_date_bs: "",
-        approval_revision_date_ad: "",
+        fug_approval_dates:[
+            {
+                date:""
+            }
+        ],
+        fug_audit_reports:[],
+        fug_maps: [],
     },
+    isCfDataView: false,
     users: [],
     editUserData: {
-        name:"",
-        email:"",
-        roles:[]
+        name: "",
+        email: "",
+        roles: []
     },
     isUserEdit: false,
     roles: [],
     editRoleData: {
-        name:"",
-        email:"",
-        roles:[]
+        name: "",
+        email: "",
+        roles: []
     },
-    permissions:[],
-    editPermissionData:{
+    permissions: [],
+    editPermissionData: {
 
     },
+
 };
 
 const mutations = {
     SET_RESOURCES(state, payload) {
         state.resources = payload;
     },
+    SET_IS_CFDATA_VIEW(state,payload){
+        state.isCfDataView = payload;
+    },
     SET_EDIT_CF_DATA(state, payload) {
         state.editCfData = payload
     },
-    SET_USERS(state,payload){
-        state.users=payload
+    UPDATE_APPROVAL_DATE(state, payload){
+        state.editCfData.fug_approval_dates.push(payload.fugApprovalDate)
     },
-    SET_ROLES(state,payload){
-        state.roles=payload
+
+    SET_USERS(state, payload) {
+        state.users = payload
     },
-    SET_USER_EDIT_DATA(state, payload){
+    SET_ROLES(state, payload) {
+        state.roles = payload
+    },
+    SET_USER_EDIT_DATA(state, payload) {
         state.editUserData = payload;
     },
-    SET_IS_USER_EDIT(state, payload){
+    SET_IS_USER_EDIT(state, payload) {
         state.isUserEdit = payload;
     },
-    SET_ROLE_EDIT_DATA(state, payload){
+    SET_ROLE_EDIT_DATA(state, payload) {
         state.editRoleData = payload;
     },
 
-    SET_PERMISSIONS(state,payload){
-        state.permissions=payload
+    SET_PERMISSIONS(state, payload) {
+        state.permissions = payload
     },
-    SET_PERMISSION_EDIT_DATA(state, payload){
+    SET_PERMISSION_EDIT_DATA(state, payload) {
         state.editPermissionData = payload;
     },
-    SET_SELECTED_ADDITIONAL_PERMISSIONS(state, payload){
+    SET_SELECTED_ADDITIONAL_PERMISSIONS(state, payload) {
         state.editUserData.permissions = payload;
-    }
+    },
+
 };
 
 const actions = {
@@ -125,10 +119,11 @@ const actions = {
         });
     },
     saveCfData(state, payload) {
-        axios.post('/api/v1/save-cf-data', { data: payload }, {
+
+        axios.post('/api/v1/save-cf-data',payload, {
             headers: {
-                Accept: "application/json",
-                Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                'Content-Type': 'multipart/form-data',
+                Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN,
             }
         }).then(function (response) {
             if (response.data.status === 200) {
@@ -183,7 +178,6 @@ const actions = {
 
     },
 
-
     getCfData(state, payload) {
         return new Promise((resolve, reject) => {
 
@@ -193,7 +187,8 @@ const actions = {
                     params: {
                         page: payload.page,
                         totalItems: payload.totalItems,
-                        search: payload.search
+                        search: payload.search,
+                        filterData: payload.filterData
                     },
 
                     headers: {
@@ -453,7 +448,7 @@ const getters = {
         var data = state.editRoleData;
         return data;
 
-    }
+    },
 };
 
 export default {

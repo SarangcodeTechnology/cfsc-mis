@@ -2,7 +2,6 @@
     <v-container>
         Thhis is Home
     </v-container>
-
 </template>
 
 <script>

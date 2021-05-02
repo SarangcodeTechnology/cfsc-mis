@@ -9,4 +9,5 @@ class LocalLevel extends Model
 {
     protected $connection = 'cfsc_mis_data';
     public $timestamps = false;
+    protected $guarded = [];
 }

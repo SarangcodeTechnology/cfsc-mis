@@ -1,332 +1,625 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-toolbar color="#E0E0E0" dark flat> </v-toolbar>
-    <v-card class="mx-11 my-n11">
-      <v-toolbar flat>
-        <v-toolbar-title>
-          <strong>सामुदायिक वन विवरण फारम</strong>
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn
-          class="ma-2"
-          @click="saveCfData()"
-          hint="E.g. : Save"
-          depressed
-          dark
-          color="green darken-1"
-        >
-          <v-icon>mdi-floppy</v-icon>
-          <span>Save</span>
-        </v-btn>
-      </v-toolbar>
+    <v-form ref="form" v-model="valid" lazy-validation>
+        <v-toolbar color="#E0E0E0" dark flat></v-toolbar>
+        <v-card class="mx-11 my-n11">
+            <v-toolbar flat>
+                <v-toolbar-title>
+                    <strong>सामुदायिक वन विवरण फारम</strong>
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn
+                    class="ma-2"
+                    @click="saveCfData()"
+                    hint="E.g. : Save"
+                    depressed
+                    dark
+                    color="green darken-1"
+                >
+                    <v-icon>mdi-floppy</v-icon>
+                    <span>Save</span>
+                </v-btn>
+            </v-toolbar>
 
-      <v-divider class="ma-0 pa-0"></v-divider>
+            <v-divider class="ma-0 pa-0"></v-divider>
 
-      <v-card-text>
-        <v-container class="pa-0 ma-0">
+            <v-card-text>
+                <v-container class="pa-0 ma-0">
           <span
-            >सामुदायिक वन विवरण फारममा तपाइहरुलाइ स्वागत छ । कृपया तलकाे फारम
+          >सामुदायिक वन विवरण फारममा तपाइहरुलाइ स्वागत छ । कृपया तलकाे फारम
             मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
           >
-          <v-divider></v-divider>
-          <h5><strong>परिचय विवरण</strong></h5>
-          <v-divider></v-divider>
-          <v-row>
-            <v-col cols="4">
-              <v-text-field
-                v-model="cfData.fug_name"
-                label="सामुदायिक वनकाे नाम (FUG Name)"
-                hint="E.g. : Ukhubari"
-                placeholder="सामुदायिक वनकाे नाम राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.fug_code"
-                label="सामुदायिक वनकाे काेड (FUG Code)"
-                hint="E.g. : KAS/NI/06/20"
-                placeholder="सामुदायिक वनकाे काेड राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="2">
-              <v-text-field
-                v-model="cfData.cfid"
-                label="सामुदायिक वनकाे ID (CFID)"
-                hint="E.g. : 9327"
-                placeholder="सामुदायिक वनकाे ID राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.approval_date_bs"
-                label="स्विक्रित मिती बि‍ सं(Approval Date BS)"
-                hint="E.g. : 2076/3/18"
-                placeholder="सामुदायिक वनकाे स्विक्रित मिती बि‍ सं राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.approval_date_ad"
-                label="स्विक्रित मिती इ सं(Approval Date AD)"
-                hint="E.g. : 1996/3/17"
-                placeholder="सामुदायिक वनकाे स्विक्रित मिती इ सं राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.approval_fy"
-                label="स्विक्रित आर्थिक बर्ष (Fiscal Year)"
-                hint="E.g. : 056/057"
-                placeholder="सामुदायिक वनकाे स्विक्रित आर्थिक बर्ष राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-          </v-row>
-          <h5><strong>ठेगाना विवरण</strong></h5>
-          <v-divider></v-divider>
-          <v-row>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.province_id"
-                :items="provinces"
-                item-text="name"
-                item-value="id"
-                label="प्रदेश"
-                hint="E.g. : Province-4"
-                placeholder="प्रदेश छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.district_id"
-                :items="districts"
-                item-text="name"
-                item-value="id"
-                label="जिल्ला"
-                hint="E.g. : Kaski"
-                placeholder="जिल्ला छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.local_level_id"
-                :items="localLevels"
-                item-text="name"
-                item-value="id"
-                label="पालिका"
-                hint="E.g. : Pokhara Lekhnath"
-                placeholder="पालिका छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.subdivision_id"
-                :items="subDivisions"
-                item-text="name"
-                item-value="id"
-                label="डिभिजन"
-                hint="E.g. : Namule"
-                placeholder="डिभिजन छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.x"
-                label="X Coordinate"
-                hint="E.g. : 81.8227042124"
-                placeholder="सामुदायिक वनकाे X Coordinate राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.y"
-                label="Y Coordinate"
-                hint="E.g. : 28.9311883496"
-                placeholder="सामुदायिक वनकाे Y Coordinate राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-          </v-row>
-          <h5><strong>कमिटी विवरण</strong></h5>
-          <v-divider></v-divider>
+                    <v-divider></v-divider>
+                    <h5><strong>परिचय विवरण</strong></h5>
+                    <v-divider></v-divider>
+                    <v-row>
+                        <v-col cols="4">
+                            <v-text-field
+                                v-model="cfData.fug_name"
+                                label="सामुदायिक वनकाे नाम (FUG Name)"
+                                hint="E.g. : Ukhubari"
+                                placeholder="सामुदायिक वनकाे नाम राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.fug_code"
+                                label="सामुदायिक वनकाे काेड (FUG Code)"
+                                hint="E.g. : KAS/NI/06/20"
+                                placeholder="सामुदायिक वनकाे काेड राख्नुहाेस् ।"
+                                :disabled="isCfDataView"
+                                outlined
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-text-field
+                                v-if="approvalDates[0]"
+                                v-model="approvalDates[0].date"
+                                label="स्विक्रित मिती"
+                                hint="E.g. : 2070/06/12"
+                                @change="saveApprovalDates"
+                                placeholder="स्विक्रित मिती राख्नुहाेस् ।"
+                                :disabled="isCfDataView"
+                                outlined
+                            >
+                                <template v-slot:append-outer>
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn
+                                                color="primary"
+                                                dark
+                                                icon
+                                                v-bind="attrs"
+                                                v-on="on"
+                                                @click="approveDialog = true"
+                                            >
+                                                <v-icon>mdi-calendar-plus</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <div class="d-flex flex-column">
+                      <span
+                          v-for="(approvalDateItem, k) in approvalDates"
+                          :key="k"
+                      >{{ approvalDateItem.date }}</span
+                      >
+                                        </div>
+                                    </v-tooltip>
+                                </template>
+                            </v-text-field>
 
-          <v-row>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.no_of_person_in_committee"
-                label="कमिटीमा कुल ब्यक्तिकाे संख्या"
-                hint="E.g. : 8"
-                placeholder="सामुदायिक वनकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
+                            <v-dialog
+                                persistent
+                                scrollable
+                                id="approvalDates"
+                                v-model="approveDialog"
+                                width="500"
+                            >
+                                <v-card>
+                                    <v-card-title
+                                        class="headline green white--text d-flex justify-space-between position-relative"
+                                    >
+                                        <span>समुह डाटालाई स्विक्रित गर्नुहाेस्।</span>
+                                        <div>
+                                            <a class="close" @click="closeApprovalDates"
+                                            >
+                                                <v-icon>mdi-close</v-icon>
+                                            </a
+                                            >
+                                            <v-btn
+                                                class=""
+                                                @click="saveApprovalDates"
+                                                hint="E.g. : Save"
+                                                depressed
+                                                dark
+                                                color="green darken-4"
+                                            >
+                                                <v-icon>mdi-floppy</v-icon>
+                                                <span>Save</span>
+                                            </v-btn>
+                                        </div>
+                                    </v-card-title>
+
+                                    <v-card-text>
+                                        <div class="mt-3">
+                                            <strong
+                                            >सामुदायिक वन विवरण फारमका पुर्व स्विक्रित
+                                                मितीहरु</strong
+                                            >
+                                        </div>
+                                        <v-divider></v-divider>
+                                        <div
+                                            v-for="(item, approvalDateIndex) in approvalDates"
+                                            :key="approvalDateIndex"
+                                        >
+                                            <v-row class="mb-2" :id="`item-${approvalDateIndex}`">
+                                                <v-col cols="10">
+                                                    <v-text-field
+                                                        label="मिती"
+                                                        hint="MM/DD/YYYY format"
+                                                        prepend-icon="mdi-calendar"
+                                                        v-model="item.date"
+                                                    ></v-text-field>
+                                                </v-col>
+                                                <v-col cols="2" v-if="approvalDateIndex != 0">
+                                                    <v-btn
+                                                        @click="removeApprovalDate(approvalDateIndex)"
+                                                        class="error mt-2"
+                                                    >
+                                                        <v-icon>mdi-delete</v-icon>
+                                                    </v-btn
+                                                    >
+                                                </v-col>
+                                            </v-row>
+                                        </div>
+                                    </v-card-text>
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="primary" text @click="addApprovalDate">
+                                            Add
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.fug_pan_no"
+                                label="समूहको प्यान नं"
+                                hint="E.g. : 9327/232"
+                                placeholder="समूहको प्यान नं राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.hh"
+                                label="घरधुरी संख्या"
+                                hint="E.g. : 9327"
+                                placeholder="घरधुरी संख्या राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="2">
+                            <v-text-field
+                                v-model="cfData.population"
+                                label="कूल जनसंख्या"
+                                hint="E.g. : 932721"
+                                placeholder="कूल जनसंख्या राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="2">
+                            <v-text-field
+                                v-model="cfData.women_population"
+                                label="महिला जनसंख्या"
+                                hint="E.g. : 962721"
+                                placeholder="महिला जनसंख्या राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="2">
+                            <v-text-field
+                                v-model="cfData.men_population"
+                                label="पुरुष जनसंख्या"
+                                hint="E.g. : 932721"
+                                placeholder="पुरुष जनसंख्या राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.area_ha"
+                                label="वनको क्षेत्रफल हे."
+                                hint="E.g. : 23"
+                                placeholder="वनको क्षेत्रफल हे. राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.scientific_forest_approval_date"
+                                label="वैज्ञानिक वन ब्यवस्थापन भएको मिती"
+                                hint="E.g. : 2010/05/20"
+                                placeholder="वैज्ञानिक वन ब्यवस्थापन भएको मिती राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.scientific_forest_area_ha"
+                                label="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे."
+                                hint="E.g. : 230.32"
+                                placeholder="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे. राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.forest_based_industry_operations"
+                                label="वन उद्यम संचालन"
+                                hint="E.g. : 23"
+                                placeholder="वन उद्यम संचालन राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.forest_based_tourism_operations"
+                                label="पर्यापर्यटन गतिबिधी संचालन"
+                                hint="E.g. : पदमार्ग निर्माण"
+                                placeholder="पर्यापर्यटन गतिबिधी संचालन राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                    <h5><strong>ठेगाना विवरण</strong></h5>
+                    <v-divider></v-divider>
+                    <v-row>
+                        <v-col cols="3">
+                            <v-autocomplete
+                                clearable
+                                v-model="cfData.province_id"
+                                :items="provinces"
+                                item-text="name"
+                                item-value="id"
+                                label="प्रदेश"
+                                hint="E.g. : Province-4"
+                                placeholder="प्रदेश छनाैट गर्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-autocomplete>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-autocomplete
+                                clearable
+                                v-model="cfData.district_id"
+                                :items="districts"
+                                item-text="name"
+                                item-value="id"
+                                label="जिल्ला"
+                                hint="E.g. : Kaski"
+                                placeholder="जिल्ला छनाैट गर्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-autocomplete>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-autocomplete
+                                clearable
+                                v-model="cfData.local_level_id"
+                                :items="localLevels"
+                                item-text="name"
+                                item-value="id"
+                                label="पालिका"
+                                hint="E.g. : Pokhara Lekhnath"
+                                placeholder="पालिका छनाैट गर्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-autocomplete>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.ward"
+                                label="वार्ड नं"
+                                hint="E.g. : 11"
+                                placeholder="वार्ड नं लेख्नुहोस्"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                    <h5><strong>कमिटी विवरण</strong></h5>
+                    <v-divider></v-divider>
+
+                    <v-row>
+                        <v-col cols="4">
+                            <v-text-field
+                                v-model="cfData.no_of_person_in_committee"
+                                label="कमिटीमा कुल ब्यक्तिकाे संख्या"
+                                hint="E.g. : 8"
+                                placeholder="सामुदायिक वनकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-text-field
+                                v-model="cfData.women_in_committee"
+                                label="कमिटीमा कुल महिलाकाे संख्या"
+                                hint="E.g. : 4"
+                                placeholder="सामुदायिक वनकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-text-field
+                                v-model="cfData.men_in_committee"
+                                label="कमिटीमा कुल पुरुष संख्या"
+                                hint="E.g. : 4"
+                                placeholder="सामुदायिक वनकाे कमिटीमा कुल पुरुष संख्या राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-divider></v-divider>
+                    <v-row>
+                        <v-col cols="3">
+                            <v-text-field
+                                v-model="cfData.remarks"
+                                label="कैफियत"
+                                hint="E.g. : Remarks"
+                                placeholder="कैफियत राख्नुहाेस् ।"
+                                outlined
+                                :disabled="isCfDataView"
+                            >
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+
+                    <h5><strong>अडिट रिपोर्ट</strong></h5>
+                    <v-divider></v-divider>
+                    <span v-if="cfData.fug_audit_reports.length > 0">
+            <v-chip
+                v-for="(
+                auditReportItem, auditReportIndex
+              ) in cfData.fug_audit_reports"
+                :key="auditReportIndex"
+                target="_blank"
+                :to="`/storage/${cfData.id}/audit-reports/${auditReportItem.file}`"
+                @click:close="deleteAuditReport(auditReportIndex)"
+                class="ma-2"
+                :close = "!isCfDataView"
+                small
                 outlined
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.women_in_committee"
-                label="कमिटीमा कुल महिलाकाे संख्या"
-                hint="E.g. : 4"
-                placeholder="सामुदायिक वनकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
+                style="text-decoration: none"
+            >
+              {{ auditReportItem.name }}
+            </v-chip>
+          </span>
+                    <v-row>
+                        <v-col cols="12">
+                            <v-file-input
+                                v-model="auditReports"
+                                small-chips
+                                multiple
+                                label="यहा बाट फाईल अपलोड गर्नुहोस्"
+                                :disabled="isCfDataView"
+                            ></v-file-input>
+                        </v-col>
+                    </v-row>
+
+                    <h5><strong>नक्सा फाईलहरु</strong></h5>
+                    <v-divider></v-divider>
+                    <span v-if="cfData.fug_maps.length > 0">
+            <v-chip
+                v-for="(mapItem, mapIndex) in cfData.fug_maps"
+                :key="mapIndex"
+                target="_blank"
+                :to="`/storage/${cfData.id}/maps/${mapItem.file}`"
+                @click:close="deleteMap(mapIndex)"
+                class="ma-2"
+                :close = "!isCfDataView"
+                small
                 outlined
-              >
-              </v-text-field>
-            </v-col>
-          </v-row>
-          <h5><strong>बनस्पती विवरण</strong></h5>
-          <v-divider></v-divider>
-          <v-row>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.physiography_id"
-                :items="physiographies"
-                item-text="name"
-                item-value="id"
-                label="भुगाेल (Physiography)"
-                hint="E.g. : Middle Mountain"
-                placeholder="भुगाेल(Physiography) छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.vegetation_type_id"
-                :items="vegetationTypes"
-                item-text="code"
-                item-value="id"
-                label="बनस्पती (Vegetation)"
-                hint="E.g. : Forest"
-                placeholder="बनस्पती (Vegetation) छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.forest_type_id"
-                :items="forestTypes"
-                item-text="name"
-                item-value="id"
-                label="वन प्रकार"
-                hint="E.g. : Schima castanopsis"
-                placeholder="वन प्रकार छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-            <v-col cols="3">
-              <v-autocomplete
-                clearable
-                v-model="cfData.forest_condition_id"
-                :items="forestConditions"
-                item-text="code"
-                item-value="id"
-                label="वनकाे स्थिती"
-                hint="E.g. : Good"
-                placeholder="वनकाे स्थिती छनाैट गर्नुहाेस् ।"
-                outlined
-              >
-              </v-autocomplete>
-            </v-col>
-          </v-row>
-          <v-divider></v-divider>
-          <v-row>
-            <v-col cols="3">
-              <v-text-field
-                v-model="cfData.remarks"
-                label="कैफियत"
-                hint="E.g. : Remarks"
-                placeholder="कैफियत राख्नुहाेस् ।"
-                outlined
-              >
-              </v-text-field>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-    </v-card>
-  </v-form>
+                style="text-decoration: none"
+            >
+              {{ mapItem.name }}
+            </v-chip>
+          </span>
+                    <v-row>
+                        <v-col cols="12">
+                            <v-file-input
+                                v-model="maps"
+                                small-chips
+                                multiple
+                                label="यहा बाट फाईल अपलोड गर्नुहोस्"
+                                :disabled="isCfDataView"
+                            ></v-file-input>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-card-text>
+        </v-card>
+    </v-form>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import {mapState} from "vuex";
 
 export default {
-  data() {
-    return {
-      valid: false,
-    };
-  },
-  methods: {
-    saveCfData() {
-      this.$store.dispatch("saveCfData", this.cfData);
+    data() {
+        return {
+            valid: false,
+            approveDialog: false,
+            approvalDates: [
+                {
+                    date: "",
+                },
+            ],
+            deletedAuditReports: [],
+            auditReports: [],
+            maps: [],
+            deletedMaps: [],
+        };
     },
-  },
-  computed: {
-    ...mapState({                 
-      provinces: (state) => state.webservice.resources.provinces,
-      cfData: (state) => state.webservice.editCfData,
-      subDivisions: (state) => state.webservice.resources.subdivisions,
-      physiographies: (state) => state.webservice.resources.physiographies,
-      vegetationTypes: (state) => state.webservice.resources.vegetation_types,
-      forestTypes: (state) => state.webservice.resources.forest_types,
-      forestConditions: (state) => state.webservice.resources.forest_conditions,
-    }),
-    districts: function () {
-      const tempthis = this;
-      let data = [];
-      this.provinces.forEach(function (province) {
-        if (province.id === tempthis.cfData.province_id) {
-          data = province.districts;
+    methods: {
+        saveCfData() {
+            let formData = new FormData();
+            if (this.auditReports.length > 0) {
+                for (var i = 0; i < this.auditReports.length; i++) {
+                    let file = this.auditReports[i];
+                    formData.append(`fugAuditReports[${i}]`, file);
+                }
+            }
+            if (this.maps.length > 0) {
+                for (var i = 0; i < this.maps.length; i++) {
+                    let file = this.maps[i];
+                    formData.append(`maps[${i}]`, file);
+                }
+            }
+            formData.append(
+                "deletedAuditReports",
+                JSON.stringify(this.deletedAuditReports)
+            );
+            formData.append(
+                "deletedMaps",
+                JSON.stringify(this.deletedMaps)
+            );
+            formData.append("cfData", JSON.stringify(this.cfData));
+
+            this.$store.dispatch("saveCfData", formData);
+        },
+
+        // delete audit report
+        deleteAuditReport(auditReportIndex) {
+            if (
+                window.confirm(
+                    `के तपाईं निश्चित रूपमा ${this.cfData.fug_audit_reports[auditReportIndex].name} लाई मेटाउन चाहनुहुन्छ?`
+                )
+            ) {
+                // deleted audit reports array
+                this.deletedAuditReports.push(
+                    this.cfData.fug_audit_reports[auditReportIndex]
+                );
+                this.cfData.fug_audit_reports.splice(auditReportIndex, 1);
+            }
+        },
+        // delete map
+        deleteMap(mapIndex) {
+            if (
+                window.confirm(
+                    `के तपाईं निश्चित रूपमा ${this.cfData.fug_maps[mapIndex].name} लाई मेटाउन चाहनुहुन्छ?`
+                )
+            ) {
+                // deleted audit reports array
+                this.deletedMaps.push(this.cfData.fug_maps[mapIndex]);
+                this.cfData.fug_maps.splice(mapIndex, 1);
+            }
+        },
+
+        // approval dates dialog
+        closeApprovalDates() {
+            this.approveDialog = false;
+            if (this.cfData.fug_approval_dates.length > 0) {
+                this.approvalDates = JSON.parse(
+                    JSON.stringify(this.cfData.fug_approval_dates)
+                );
+            } else {
+                this.approvalDates = [
+                    {
+                        date: "",
+                    },
+                ];
+            }
+        },
+        saveApprovalDates() {
+            this.approveDialog = false;
+            this.cfData.fug_approval_dates = JSON.parse(
+                JSON.stringify(this.approvalDates)
+            );
+        },
+        addApprovalDate() {
+            var tempThis = this;
+            this.approvalDates.push({
+                date: "",
+            });
+            var approvalDateLatestIndex = this.approvalDates.length - 2;
+            const el = document.getElementById(`item-${approvalDateLatestIndex}`);
+            console.log(el);
+
+            if (el) {
+                el.scrollIntoView({behavior: "smooth", block: "center"});
+            }
+            document.getElementById("approvalDates").scrollTop -= 200;
+        },
+        removeApprovalDate(index) {
+            this.approvalDates.splice(index, 1);
+        },
+        // end of approval dates dialog
+    },
+    computed: {
+        ...mapState({
+            provinces: (state) => state.webservice.resources.provinces,
+            isCfDataView: (state) => state.webservice.isCfDataView,
+            cfData: (state) => state.webservice.editCfData,
+            subDivisions: (state) => state.webservice.resources.subdivisions,
+            physiographies: (state) => state.webservice.resources.physiographies,
+            vegetationTypes: (state) => state.webservice.resources.vegetation_types,
+            forestTypes: (state) => state.webservice.resources.forest_types,
+            forestConditions: (state) => state.webservice.resources.forest_conditions,
+        }),
+        districts: function () {
+            const tempthis = this;
+            let data = [];
+            this.provinces.forEach(function (province) {
+                if (province.id === tempthis.cfData.province_id) {
+                    data = province.districts;
+                }
+            });
+            return data;
+        },
+        localLevels: function () {
+            const tempthis = this;
+            let data = [];
+            this.districts.forEach(function (district) {
+                if (district.id === tempthis.cfData.district_id) {
+                    data = district.local_levels;
+                }
+            });
+            return data;
+        },
+    },
+    mounted() {
+        if (this.cfData.fug_approval_dates.length > 0) {
+            this.approvalDates = JSON.parse(
+                JSON.stringify(this.cfData.fug_approval_dates)
+            );
         }
-      });
-      return data;
     },
-    localLevels: function () {
-      const tempthis = this;
-      let data = [];
-      this.districts.forEach(function (district) {
-        if (district.id === tempthis.cfData.district_id) {
-          data = district.local_levels;
-        }
-      });
-      return data;
-    },
-  },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.close {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #fff;
+    border-radius: 4px;
+}
+</style>

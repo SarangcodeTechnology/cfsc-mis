@@ -10,9 +10,9 @@ var webpackConfig={
 
 mix.webpackConfig(webpackConfig);
 
-mix.browserSync({
-    proxy: 'cfscmis.gov.np'
-});
+// mix.browserSync({
+//     proxy: 'cfscmis.gov.np'
+// });
 
 
 mix.disableSuccessNotifications();

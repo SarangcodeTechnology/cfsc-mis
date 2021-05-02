@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\v1\DataController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +24,22 @@ Route::middleware('auth:api')->post('logout', [AuthController::class,'logout']);
 Route::middleware('auth:api')->get('cf-data', [DataController::class,'CFData']);
 Route::middleware('auth:api')->post('save-cf-data',[DataController::class,'saveCfData']);
 Route::middleware('auth:api')->post('delete-cf-data',[DataController::class,'deleteCfData']);
+Route::middleware('auth:api')->post('fug-approval-date',[DataController::class,'saveFugApprovalDate']);
+
+
+
+
 Route::middleware('auth:api')->get('load-resources',[DataController::class,'loadResources']);
 Route::middleware('auth:api')->get('users', [UserController::class,'index']);
-Route::middleware('auth:api')->get('roles', [RoleController::class,'index']);
+Route::middleware('auth:api')->post('permissions-data-for-user', [UserController::class,'permissionsDataForUser']);
 Route::middleware('auth:api')->post('save-user-data',[UserController::class,'saveUserData']);
+
+// roles
+Route::middleware('auth:api')->get('roles', [RoleController::class,'index']);
 Route::middleware('auth:api')->post('save-role-data',[RoleController::class,'saveRoleData']);
+
+
+// permissions
+Route::middleware('auth:api')->get('permissions', [PermissionController::class,'index']);
+Route::middleware('auth:api')->post('save-permission-data',[PermissionController::class,'savePermissionData']);
+
