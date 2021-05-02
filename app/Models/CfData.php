@@ -10,7 +10,7 @@ class CfData extends Model
     protected $connection = 'cfsc_mis_data';
     protected $table = 'cf_data';
 
-    protected $guarded = [];
+    protected $guarded = ['first_fug_approval_date'];
 
     public function district()
     {
@@ -47,4 +47,13 @@ class CfData extends Model
         return $this->belongsTo(ForestCondition::class,'forest_condition_id');
     }
 
+    public function fug_approval_dates(){
+        return $this->hasMany(FugApprovalDate::class, 'fug_id');
+    }
+    public function fug_audit_reports(){
+        return $this->hasMany(FugAuditReport::class,'fug_id');
+    }
+    public function fug_maps(){
+        return $this->hasMany(FugMap::class,'fug_id');
+    }
 }

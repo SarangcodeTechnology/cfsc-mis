@@ -18,6 +18,10 @@ class Permission extends Model
     public function users(){
         return $this->belongsToMany(User::class);
     }
+    public function getDateAttribute(){
+        return date("Y/m/d", strtotime($this->created_at));
+    }
 
+    protected $appends = ['date'];
 
 }

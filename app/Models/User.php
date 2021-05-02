@@ -50,6 +50,9 @@ class User extends Authenticatable
     public function getDateAttribute(){
         return date("Y/m/d", strtotime($this->created_at));
     }
+    public function fug_approval_dates(){
+        return $this->hasMany(FugApprovalDate::class, 'fug_id')->wit;
+    }
     protected $appends = ['date'];
 
 }
