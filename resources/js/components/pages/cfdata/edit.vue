@@ -577,13 +577,21 @@ export default {
         ...mapState({
             provinces: (state) => state.webservice.resources.provinces,
             isCfDataView: (state) => state.webservice.isCfDataView,
-            cfData: (state) => state.webservice.editCfData,
+            // cfData: (state) => state.webservice.editCfData,
             subDivisions: (state) => state.webservice.resources.subdivisions,
             physiographies: (state) => state.webservice.resources.physiographies,
             vegetationTypes: (state) => state.webservice.resources.vegetation_types,
             forestTypes: (state) => state.webservice.resources.forest_types,
             forestConditions: (state) => state.webservice.resources.forest_conditions,
         }),
+        cfData: {
+            get: function(){
+                return this.$store.state.webservice.editCfData;
+            },
+            set: function(value){
+                return this.$store.commit('SET_EDIT_CF_DATA',value)
+            }
+        },
         districts: function () {
             const tempthis = this;
             let data = [];

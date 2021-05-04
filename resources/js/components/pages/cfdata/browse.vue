@@ -308,6 +308,90 @@
                                 </v-text-field>
                             </v-col>
                         </v-row>
+                        <p class="text--darken-2 mb-1">कार्यसमिति कूल संख्या</p>
+                        <v-row>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.numberOfPersonInCommittee.from"
+                                    outlined
+                                    dense
+                                    chips
+                                    number
+                                    @keyup="getDataFromApi"
+                                    type="number"
+                                    small-chips
+                                    label="From">
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.numberOfPersonInCommittee.to"
+                                    outlined
+                                    dense
+                                    chips
+                                    @keyup="getDataFromApi"
+                                    small-chips
+                                    type="number"
+                                    label="To">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <p class="text--darken-2 mb-1">कार्यसमितिमा पुरुष संख्याा</p>
+                        <v-row>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.menInCommittee.from"
+                                    outlined
+                                    dense
+                                    @keyup="getDataFromApi"
+                                    chips
+                                    number
+                                    type="number"
+                                    small-chips
+                                    label="From">
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.menInCommittee.to"
+                                    outlined
+                                    dense
+                                    @keyup="getDataFromApi"
+                                    chips
+                                    small-chips
+                                    type="number"
+                                    label="To">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <p class="text--darken-2 mb-1">कार्यसमितिमा महिला संख्या</p>
+                        <v-row>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.womenInCommittee.from"
+                                    outlined
+                                    dense
+                                    chips
+                                    number
+                                    @keyup="getDataFromApi"
+                                    type="number"
+                                    small-chips
+                                    label="From">
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.womenInCommittee.to"
+                                    outlined
+                                    dense
+                                    chips
+                                    small-chips
+                                    @keyup="getDataFromApi"
+                                    type="number"
+                                    label="To">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
 
                     </v-col>
                 </v-row>
@@ -371,7 +455,7 @@ export default {
                 districts: [],
                 localLevels: [],
                 wards: [],
-                areaHa:{
+                areaHa: {
                     from: 0,
                     to: 0
                 },
@@ -388,6 +472,18 @@ export default {
                     to: 0
                 },
                 womenPopulation: {
+                    from: 0,
+                    to: 0
+                },
+                numberOfPersonInCommittee: {
+                    from: 0,
+                    to: 0
+                },
+                menInCommittee: {
+                    from: 0,
+                    to: 0
+                },
+                womenInCommittee: {
                     from: 0,
                     to: 0
                 },
@@ -426,18 +522,18 @@ export default {
                 this.districts.forEach(function (district) {
                     if (tempthis.filterData.districts.includes(district.id)) {
                         district.local_levels.forEach(function (localLevel) {
-                                data.push(localLevel)
+                            data.push(localLevel)
                         })
                     }
                 });
                 return data;
             },
-            wards: function() {
+            wards: function () {
                 const tempthis = this;
                 let data = [];
-                this.localLevelWithWard.forEach(function (item){
-                    if(tempthis.filterData.localLevels.includes(item.local_level_id)){
-                        if(item.ward){
+                this.localLevelWithWard.forEach(function (item) {
+                    if (tempthis.filterData.localLevels.includes(item.local_level_id)) {
+                        if (item.ward) {
                             data.push(item.ward)
                         }
                     }
@@ -445,11 +541,11 @@ export default {
                 //removing the commas and dots
                 var pattern = /[,]/g
 
-                data.sort(function (a,b){
-                    a = +a.replace(pattern,'');
-                    b = +b.replace(pattern,'');
+                data.sort(function (a, b) {
+                    a = +a.replace(pattern, '');
+                    b = +b.replace(pattern, '');
                     //use the numberic versions to sort the string versions
-                    return a-b;
+                    return a - b;
                 });
                 return [...new Set(data)];
             }
@@ -463,8 +559,8 @@ export default {
             this.deleteItem = item;
             this.deleteDialog = true;
         },
-        editData(item,type) {
-            if(type=='view'){
+        editData(item, type) {
+            if (type == 'view') {
                 this.$store.commit("SET_IS_CFDATA_VIEW", true);
             } else {
                 this.$store.commit("SET_IS_CFDATA_VIEW", false);

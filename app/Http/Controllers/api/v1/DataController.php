@@ -73,6 +73,18 @@ class DataController extends Controller
                     ->when($filterData->womenPopulation->from!=0 || $filterData->womenPopulation->to!=0, function($query) use ($filterData){
                         $query->where('women_population','>=',(int)$filterData->womenPopulation->from)->where('women_population','<=',(int)$filterData->womenPopulation->to);
                 } )
+                //Total Person in Committee
+                    ->when($filterData->numberOfPersonInCommittee->from!=0 || $filterData->numberOfPersonInCommittee->to!=0, function($query) use ($filterData){
+                        $query->where('no_of_person_in_committee','>=',(int)$filterData->numberOfPersonInCommittee->from)->where('no_of_person_in_committee','<=',(int)$filterData->numberOfPersonInCommittee->to);
+                } )
+                //Men in Committee
+                    ->when($filterData->menInCommittee->from!=0 || $filterData->menInCommittee->to!=0, function($query) use ($filterData){
+                        $query->where('men_in_committee','>=',(int)$filterData->menInCommittee->from)->where('men_in_committee','<=',(int)$filterData->menInCommittee->to);
+                } )
+                //Women in Committee
+                    ->when($filterData->womenInCommittee->from!=0 || $filterData->womenInCommittee->to!=0, function($query) use ($filterData){
+                        $query->where('women_in_committee','>=',(int)$filterData->womenInCommittee->from)->where('women_in_committee','<=',(int)$filterData->womenInCommittee->to);
+                } )
 
                     ->with(['district', 'province', 'localLevel','fug_approval_dates','fug_audit_reports','fug_maps'])->orderBy('created_at','desc')->paginate($request->totalItems);
             }
