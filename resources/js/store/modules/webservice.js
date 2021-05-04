@@ -47,6 +47,9 @@ const mutations = {
     SET_EDIT_CF_DATA(state, payload) {
         state.editCfData = payload
     },
+    SET_CUSTOM_PROVINCE(state, payload) {
+        state.editCfData.province_id = payload
+    },
     UPDATE_APPROVAL_DATE(state, payload){
         state.editCfData.fug_approval_dates.push(payload.fugApprovalDate)
     },

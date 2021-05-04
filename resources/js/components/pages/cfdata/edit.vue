@@ -285,7 +285,7 @@
                         <v-col cols="3">
                             <v-autocomplete
                                 clearable
-                                v-model="cfData.province_id"
+                                v-model="customProvince"
                                 :items="provinces"
                                 item-text="name"
                                 item-value="id"
@@ -584,6 +584,14 @@ export default {
             forestTypes: (state) => state.webservice.resources.forest_types,
             forestConditions: (state) => state.webservice.resources.forest_conditions,
         }),
+        customProvince:{
+            get: function(){
+                return this.$store.state.webservice.editCfData.province_id;
+            },
+            set: function(value){
+                return this.$store.commit('SET_CUSTOM_PROVINCE',value)
+            }
+        },
         cfData: {
             get: function(){
                 return this.$store.state.webservice.editCfData;
