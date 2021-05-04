@@ -94,6 +94,8 @@
           <v-divider></v-divider>
           <v-row>
             <v-col>
+                Role's Permissions
+                <v-divider></v-divider>
               <v-checkbox
                 v-for="(item, rolePermissionIndex) in rolePermissions"
                 :key="rolePermissionIndex"
@@ -102,9 +104,12 @@
                 :value="item"
                 v-model="rolePermissions"
               ></v-checkbox>
+
             </v-col>
               <v-col>
-                <v-checkbox
+                  Additional Permissions
+                  <v-divider></v-divider>
+                  <v-checkbox
                   v-for="(item, index) in additionalPermissions"
                   :key="index"
                   :label="item.name"
@@ -170,7 +175,7 @@ export default {
           permissions: this.userData.permissions,
         })
         .then(function (response) {
-          tempThis.rolePermissions = response.data.selectedRolePermissions;
+          tempThis.rolePermissions = response.data.selectedRolePermissions ? response.data.selectedRolePermissions : [];
           tempThis.additionalPermissions = response.data.additionalPermissions;
           tempThis.$store.commit(
             "SET_SELECTED_ADDITIONAL_PERMISSIONS",

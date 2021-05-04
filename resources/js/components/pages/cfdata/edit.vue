@@ -39,7 +39,7 @@
                                 hint="E.g. : Ukhubari"
                                 placeholder="सामुदायिक वनकाे नाम राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -49,7 +49,7 @@
                                 label="सामुदायिक वनकाे काेड (FUG Code)"
                                 hint="E.g. : KAS/NI/06/20"
                                 placeholder="सामुदायिक वनकाे काेड राख्नुहाेस् ।"
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                                 outlined
                             >
                             </v-text-field>
@@ -62,7 +62,7 @@
                                 hint="E.g. : 2070/06/12"
                                 @change="saveApprovalDates"
                                 placeholder="स्विक्रित मिती राख्नुहाेस् ।"
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                                 outlined
                             >
                                 <template v-slot:append-outer>
@@ -141,9 +141,10 @@
                                                         hint="MM/DD/YYYY format"
                                                         prepend-icon="mdi-calendar"
                                                         v-model="item.date"
+                                                        :readonly="isCfDataView"
                                                     ></v-text-field>
                                                 </v-col>
-                                                <v-col cols="2" v-if="approvalDateIndex != 0">
+                                                <v-col cols="2" v-if="approvalDateIndex != 0 && !isCfDataView">
                                                     <v-btn
                                                         @click="removeApprovalDate(approvalDateIndex)"
                                                         class="error mt-2"
@@ -160,7 +161,7 @@
 
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="primary" text @click="addApprovalDate">
+                                        <v-btn color="primary" text @click="addApprovalDate" v-if="!isCfDataView">
                                             Add
                                         </v-btn>
                                     </v-card-actions>
@@ -174,7 +175,7 @@
                                 hint="E.g. : 9327/232"
                                 placeholder="समूहको प्यान नं राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -185,7 +186,7 @@
                                 hint="E.g. : 9327"
                                 placeholder="घरधुरी संख्या राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -196,7 +197,7 @@
                                 hint="E.g. : 932721"
                                 placeholder="कूल जनसंख्या राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -207,7 +208,7 @@
                                 hint="E.g. : 962721"
                                 placeholder="महिला जनसंख्या राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -218,7 +219,7 @@
                                 hint="E.g. : 932721"
                                 placeholder="पुरुष जनसंख्या राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -229,7 +230,7 @@
                                 hint="E.g. : 23"
                                 placeholder="वनको क्षेत्रफल हे. राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -240,7 +241,7 @@
                                 hint="E.g. : 2010/05/20"
                                 placeholder="वैज्ञानिक वन ब्यवस्थापन भएको मिती राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -251,7 +252,7 @@
                                 hint="E.g. : 230.32"
                                 placeholder="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे. राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -262,7 +263,7 @@
                                 hint="E.g. : 23"
                                 placeholder="वन उद्यम संचालन राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -273,7 +274,7 @@
                                 hint="E.g. : पदमार्ग निर्माण"
                                 placeholder="पर्यापर्यटन गतिबिधी संचालन राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -292,7 +293,7 @@
                                 hint="E.g. : Province-4"
                                 placeholder="प्रदेश छनाैट गर्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
@@ -307,7 +308,7 @@
                                 hint="E.g. : Kaski"
                                 placeholder="जिल्ला छनाैट गर्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
@@ -322,7 +323,7 @@
                                 hint="E.g. : Pokhara Lekhnath"
                                 placeholder="पालिका छनाैट गर्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
@@ -333,7 +334,7 @@
                                 hint="E.g. : 11"
                                 placeholder="वार्ड नं लेख्नुहोस्"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -349,7 +350,7 @@
                                 hint="E.g. : 8"
                                 placeholder="सामुदायिक वनकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -360,7 +361,7 @@
                                 hint="E.g. : 4"
                                 placeholder="सामुदायिक वनकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -371,7 +372,7 @@
                                 hint="E.g. : 4"
                                 placeholder="सामुदायिक वनकाे कमिटीमा कुल पुरुष संख्या राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -385,7 +386,7 @@
                                 hint="E.g. : Remarks"
                                 placeholder="कैफियत राख्नुहाेस् ।"
                                 outlined
-                                :disabled="isCfDataView"
+                                :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
