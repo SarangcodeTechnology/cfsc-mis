@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 class TestController extends Controller
 {
     public function trial(){
+        return CfData::first();
         $cfData =  CfData::max('area_ha');
         return $cfData;
     }

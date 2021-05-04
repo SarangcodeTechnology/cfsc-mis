@@ -285,7 +285,7 @@
                         <v-col cols="3">
                             <v-autocomplete
                                 clearable
-                                v-model="customProvince"
+                                v-model="cfData.province_id"
                                 :items="provinces"
                                 item-text="name"
                                 item-value="id"
@@ -577,29 +577,13 @@ export default {
         ...mapState({
             provinces: (state) => state.webservice.resources.provinces,
             isCfDataView: (state) => state.webservice.isCfDataView,
-            // cfData: (state) => state.webservice.editCfData,
+            cfData: (state) => state.webservice.editCfData,
             subDivisions: (state) => state.webservice.resources.subdivisions,
             physiographies: (state) => state.webservice.resources.physiographies,
             vegetationTypes: (state) => state.webservice.resources.vegetation_types,
             forestTypes: (state) => state.webservice.resources.forest_types,
             forestConditions: (state) => state.webservice.resources.forest_conditions,
         }),
-        customProvince:{
-            get: function(){
-                return this.$store.state.webservice.editCfData.province_id;
-            },
-            set: function(value){
-                return this.$store.commit('SET_CUSTOM_PROVINCE',value)
-            }
-        },
-        cfData: {
-            get: function(){
-                return this.$store.state.webservice.editCfData;
-            },
-            set: function(value){
-                return this.$store.commit('SET_EDIT_CF_DATA',value)
-            }
-        },
         districts: function () {
             const tempthis = this;
             let data = [];
