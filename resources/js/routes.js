@@ -153,6 +153,40 @@ const opts = {
                             link: "/cf-data-edit"
                         }
                     },
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'cf-data') {
+                            store.commit("SET_EDIT_CF_DATA", {
+                                ward: "",
+                                fug_name: "",
+                                fug_code: "",
+                                fug_pan_no: "",
+                                hh: "",
+                                population: "",
+                                women_population: "",
+                                men_population: "",
+                                area_ha: "",
+                                no_of_person_in_committee: "",
+                                women_in_committee: "",
+                                men_in_committee: "",
+                                scientific_forest_approval_date: "",
+                                scientific_forest_area_ha: "",
+                                forest_based_industry_operations: "",
+                                forest_based_tourism_operations: "",
+                                remarks: "",
+                                fug_approval_dates: [
+                                    {
+                                        date: "",
+                                    },
+                                ],
+                                fug_audit_reports: [],
+                                fug_maps: [],
+                            });
+
+                        }
+                        next();
+
+                    },
                 },
                 {
                     path: "/user-edit",

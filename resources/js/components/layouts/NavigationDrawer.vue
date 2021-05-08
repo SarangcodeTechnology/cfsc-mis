@@ -29,6 +29,7 @@ export default {
         { title: "Users", icon: "mdi-account-circle", route: "/users" },
         { title: "Roles", icon: "mdi-key", route: "/roles" },
         { title: "Permissions", icon: "mdi-key", route: "/permissions" },
+        { title: "Add Data", icon: "mdi-plus", route: "/cf-data-edit" },
         { title: "CF Data", icon: "mdi-border-all", route: "/cf-data" },
       ],
     };
