@@ -157,16 +157,46 @@
                             label="स्थानिय तहको नाम"
                             multiple
                         ></v-autocomplete>
-                        <v-text-field
+                        <v-autocomplete
                             v-model="filterData.wards"
+                            :items="wards"
+                            @change="getDataFromApi"
                             outlined
                             dense
                             chips
                             small-chips
                             label="वार्ड"
                             multiple
-                        ></v-text-field>
+                        ></v-autocomplete>
                         <p class="text--darken-2 mb-1">वनकाे क्षेत्रफल</p>
+                        <v-row>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.areaHa.from"
+                                    outlined
+                                    dense
+                                    chips
+                                    number
+                                    type="number"
+                                    @keyup="getDataFromApi"
+                                    small-chips
+                                    label="From">
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.areaHa.to"
+                                    outlined
+                                    dense
+                                    chips
+                                    small-chips
+                                    @keyup="getDataFromApi"
+                                    type="number"
+                                    label="To">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <p class="text--darken-2 mb-1">घरधुरी संख्या</p>
                         <v-row>
                             <v-col>
                                 <v-text-field
@@ -176,6 +206,7 @@
                                     chips
                                     number
                                     type="number"
+                                    @keyup="getDataFromApi"
                                     small-chips
                                     label="From">
                                 </v-text-field>
@@ -187,6 +218,7 @@
                                     dense
                                     chips
                                     small-chips
+                                    @keyup="getDataFromApi"
                                     type="number"
                                     label="To">
                                 </v-text-field>
@@ -201,6 +233,7 @@
                                     dense
                                     chips
                                     number
+                                    @keyup="getDataFromApi"
                                     type="number"
                                     small-chips
                                     label="From">
@@ -212,6 +245,7 @@
                                     outlined
                                     dense
                                     chips
+                                    @keyup="getDataFromApi"
                                     small-chips
                                     type="number"
                                     label="To">
@@ -222,9 +256,10 @@
                         <v-row>
                             <v-col>
                                 <v-text-field
-                                    v-model="filterData.womenPopulation.from"
+                                    v-model="filterData.menPopulation.from"
                                     outlined
                                     dense
+                                    @keyup="getDataFromApi"
                                     chips
                                     number
                                     type="number"
@@ -234,9 +269,10 @@
                             </v-col>
                             <v-col>
                                 <v-text-field
-                                    v-model="filterData.womenPopulation.to"
+                                    v-model="filterData.menPopulation.to"
                                     outlined
                                     dense
+                                    @keyup="getDataFromApi"
                                     chips
                                     small-chips
                                     type="number"
@@ -253,6 +289,7 @@
                                     dense
                                     chips
                                     number
+                                    @keyup="getDataFromApi"
                                     type="number"
                                     small-chips
                                     label="From">
@@ -265,6 +302,91 @@
                                     dense
                                     chips
                                     small-chips
+                                    @keyup="getDataFromApi"
+                                    type="number"
+                                    label="To">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <p class="text--darken-2 mb-1">कार्यसमिति कूल संख्या</p>
+                        <v-row>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.numberOfPersonInCommittee.from"
+                                    outlined
+                                    dense
+                                    chips
+                                    number
+                                    @keyup="getDataFromApi"
+                                    type="number"
+                                    small-chips
+                                    label="From">
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.numberOfPersonInCommittee.to"
+                                    outlined
+                                    dense
+                                    chips
+                                    @keyup="getDataFromApi"
+                                    small-chips
+                                    type="number"
+                                    label="To">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <p class="text--darken-2 mb-1">कार्यसमितिमा पुरुष संख्याा</p>
+                        <v-row>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.menInCommittee.from"
+                                    outlined
+                                    dense
+                                    @keyup="getDataFromApi"
+                                    chips
+                                    number
+                                    type="number"
+                                    small-chips
+                                    label="From">
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.menInCommittee.to"
+                                    outlined
+                                    dense
+                                    @keyup="getDataFromApi"
+                                    chips
+                                    small-chips
+                                    type="number"
+                                    label="To">
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <p class="text--darken-2 mb-1">कार्यसमितिमा महिला संख्या</p>
+                        <v-row>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.womenInCommittee.from"
+                                    outlined
+                                    dense
+                                    chips
+                                    number
+                                    @keyup="getDataFromApi"
+                                    type="number"
+                                    small-chips
+                                    label="From">
+                                </v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field
+                                    v-model="filterData.womenInCommittee.to"
+                                    outlined
+                                    dense
+                                    chips
+                                    small-chips
+                                    @keyup="getDataFromApi"
                                     type="number"
                                     label="To">
                                 </v-text-field>
@@ -332,7 +454,11 @@ export default {
                 provinces: [],
                 districts: [],
                 localLevels: [],
-                wards: "",
+                wards: [],
+                areaHa: {
+                    from: 0,
+                    to: 0
+                },
                 hh: {
                     from: 0,
                     to: 0
@@ -348,7 +474,20 @@ export default {
                 womenPopulation: {
                     from: 0,
                     to: 0
-                }
+                },
+                numberOfPersonInCommittee: {
+                    from: 0,
+                    to: 0
+                },
+                menInCommittee: {
+                    from: 0,
+                    to: 0
+                },
+                womenInCommittee: {
+                    from: 0,
+                    to: 0
+                },
+
             }
         };
     },
@@ -364,6 +503,7 @@ export default {
     computed: {
         ...mapState({
             provinces: (state) => state.webservice.resources.provinces,
+            localLevelWithWard: (state) => state.webservice.resources.localLevelWithWard,
             districts: function () {
                 const tempthis = this;
                 let data = [];
@@ -388,19 +528,39 @@ export default {
                 });
                 return data;
             },
+            wards: function () {
+                const tempthis = this;
+                let data = [];
+                this.localLevelWithWard.forEach(function (item) {
+                    if (tempthis.filterData.localLevels.includes(item.local_level_id)) {
+                        if (item.ward) {
+                            data.push(item.ward)
+                        }
+                    }
+                })
+                //removing the commas and dots
+                var pattern = /[,]/g
+
+                data.sort(function (a, b) {
+                    a = +a.replace(pattern, '');
+                    b = +b.replace(pattern, '');
+                    //use the numberic versions to sort the string versions
+                    return a - b;
+                });
+                return [...new Set(data)];
+            }
         })
     },
     mounted() {
         this.getDataFromApi();
-
     },
     methods: {
         deletePopup(item) {
             this.deleteItem = item;
             this.deleteDialog = true;
         },
-        editData(item,type) {
-            if(type=='view'){
+        editData(item, type) {
+            if (type == 'view') {
                 this.$store.commit("SET_IS_CFDATA_VIEW", true);
             } else {
                 this.$store.commit("SET_IS_CFDATA_VIEW", false);
@@ -500,7 +660,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>F
+<style lang="scss" scoped>
 .theme--light.v-data-table .v-data-footer {
     border-top: none !important;
 }

@@ -49,6 +49,42 @@ class DataController extends Controller
                     ->when(!empty($filterData->localLevels),function($query) use ($filterData){
                         $query->whereIn('local_level_id',$filterData->localLevels);
                     })
+                //Ward
+                    ->when(!empty($filterData->wards),function ($query) use ($filterData){
+                        $query->whereIn('ward',$filterData->wards);
+                })
+                //Area HA
+                    ->when($filterData->areaHa->from!=0 || $filterData->areaHa->to!=0, function($query) use ($filterData){
+                        $query->where('area_ha','>=',(int)$filterData->areaHa->from)->where('area_ha','<=',(int)$filterData->areaHa->to);
+                } )
+                //HH
+                    ->when($filterData->hh->from!=0 || $filterData->hh->to!=0, function($query) use ($filterData){
+                        $query->where('hh','>=',(int)$filterData->hh->from)->where('hh','<=',(int)$filterData->hh->to);
+                } )
+                //Total Population
+                    ->when($filterData->totalPopulation->from!=0 || $filterData->totalPopulation->to!=0, function($query) use ($filterData){
+                        $query->where('population','>=',(int)$filterData->totalPopulation->from)->where('population','<=',(int)$filterData->totalPopulation->to);
+                } )
+                //Men Population
+                    ->when($filterData->menPopulation->from!=0 || $filterData->menPopulation->to!=0, function($query) use ($filterData){
+                        $query->where('men_population','>=',(int)$filterData->menPopulation->from)->where('men_population','<=',(int)$filterData->menPopulation->to);
+                } )
+                //Women Population
+                    ->when($filterData->womenPopulation->from!=0 || $filterData->womenPopulation->to!=0, function($query) use ($filterData){
+                        $query->where('women_population','>=',(int)$filterData->womenPopulation->from)->where('women_population','<=',(int)$filterData->womenPopulation->to);
+                } )
+                //Total Person in Committee
+                    ->when($filterData->numberOfPersonInCommittee->from!=0 || $filterData->numberOfPersonInCommittee->to!=0, function($query) use ($filterData){
+                        $query->where('no_of_person_in_committee','>=',(int)$filterData->numberOfPersonInCommittee->from)->where('no_of_person_in_committee','<=',(int)$filterData->numberOfPersonInCommittee->to);
+                } )
+                //Men in Committee
+                    ->when($filterData->menInCommittee->from!=0 || $filterData->menInCommittee->to!=0, function($query) use ($filterData){
+                        $query->where('men_in_committee','>=',(int)$filterData->menInCommittee->from)->where('men_in_committee','<=',(int)$filterData->menInCommittee->to);
+                } )
+                //Women in Committee
+                    ->when($filterData->womenInCommittee->from!=0 || $filterData->womenInCommittee->to!=0, function($query) use ($filterData){
+                        $query->where('women_in_committee','>=',(int)$filterData->womenInCommittee->from)->where('women_in_committee','<=',(int)$filterData->womenInCommittee->to);
+                } )
 
                     ->with(['district', 'province', 'localLevel','fug_approval_dates','fug_audit_reports','fug_maps'])->orderBy('created_at','desc')->paginate($request->totalItems);
             }
@@ -302,13 +338,14 @@ class DataController extends Controller
             $vegetation_types = VegetationType::orderBy('code')->get();
             $forest_types = ForestType::orderBy('name')->get();
             $forest_conditions = ForestCondition::orderBy('code')->get();
+            $localLevelWithWard = CfData::select('local_level_id','ward')->get();
             $roles = Role::all();
             $permissions = Permission::all();
             return response([
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions')
+                'data' => compact('provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard')
             ]);
         } catch (Exception $e) {
             return response([

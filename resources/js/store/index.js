@@ -14,6 +14,7 @@ const opts = {
     },
 
     state: {
+        previousRoute:"",
         notifications: [],
         miniVariant: false,
     },
@@ -33,6 +34,9 @@ const opts = {
             state.notifications = state.notifications.filter(notification => {
                 return notification.id != notificationToRemove.id;
             })
+        },
+        SET_PREVIOUS_ROUTE(state,payload){
+            state.previousRoute = payload;
         }
     },
 
