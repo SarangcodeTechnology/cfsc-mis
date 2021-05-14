@@ -11,6 +11,7 @@ use App\Models\FugApprovalDate;
 use App\Models\FugAuditReport;
 use App\Models\FugMap;
 use App\Models\Permission;
+use App\Models\User;
 use App\Models\Physiography;
 use App\Models\Province;
 use App\Models\Role;
@@ -341,11 +342,38 @@ class DataController extends Controller
             $localLevelWithWard = CfData::select('local_level_id','ward')->get();
             $roles = Role::all();
             $permissions = Permission::all();
+            $userPermissions = $this->permissions();
+            $dashboard_items = [
+                0 => [
+                    'title' => 'सामुदायिक वन विवरण',
+                    'subTitle' => 'कुल सामुदायिक वन विवरणकाे संख्या',
+                    'count' => $this->englishToNepali(number_format(CfData::all()->count())),
+                    'lastEntry' => CfData::orderBy('created_at','desc')->first() ? CfData::orderBy('created_at','desc')->first()->created_at->diffForHumans() : '' ,
+                ],
+                1 => [
+                    'title' => 'प्रयोगकर्ताहरू',
+                    'subTitle' => 'कुल प्रयोगकर्ताहरूकाे संख्या',
+                    'count' => $this->englishToNepali(number_format(User::all()->count())),
+                    'lastEntry' => User::orderBy('created_at','desc')->first() ? User::orderBy('created_at','desc')->first()->created_at->diffForHumans() : '' ,
+                ],
+                2 => [
+                    'title' => 'भूमिकाहरू',
+                    'subTitle' => 'कुल भूमिकाहरूकाे संख्या',
+                    'count' => $this->englishToNepali(number_format(Role::all()->count())),
+                    'lastEntry' => Role::orderBy('created_at','desc')->first() ? Role::orderBy('created_at','desc')->first()->created_at->diffForHumans() : '' ,
+                ],
+                3 => [
+                    'title' => 'अनुमतिहरू',
+                    'subTitle' => 'कुल अनुमतिहरूकाे संख्या',
+                    'count' => $this->englishToNepali(number_format(Permission::all()->count())),
+                    'lastEntry' => Permission::orderBy('created_at','desc')->first() ? Permission::orderBy('created_at','desc')->first()->created_at->diffForHumans() : '' ,
+                ],
+            ];
             return response([
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard')
+                'data' => compact('provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions')
             ]);
         } catch (Exception $e) {
             return response([
@@ -354,5 +382,34 @@ class DataController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+    }
+    private function englishToNepali($j){
+        $find = array("1","2","3","4","5","6","7","8","9","0");
+        $replace = array("१","२","३","४","५","६","७","८","९","०");
+
+        // number lai array ma lageko
+        $numarr = str_split($j,1);
+        
+        // numarr ko value lai nepali ma replace garna ko lagi, yesle array fyalxa
+        $num = str_replace($find,$replace,$numarr);
+       
+        // yesle array linxa ani string return garxa
+        return implode($num);
+    }
+    private function permissions(){
+        $user = Auth::user();
+        $permissions = [];
+        $additionalPermissions =  collect($user->permissions);
+        $roles = $user->roles;
+        foreach($additionalPermissions as $permission){
+            array_push($permissions, $permission->name);
+        }
+        foreach($roles as $role){
+            foreach($role->permissions as $rolePermission){
+                array_push($permissions, $rolePermission->name);
+            }
+        }
+
+        return $permissions;
     }
 }

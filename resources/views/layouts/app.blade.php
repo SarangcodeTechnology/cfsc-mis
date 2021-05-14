@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'CFSCMIS') }}</title>
+    <title>सामुदायिक वन व्यवस्थापन सूचना प्रणाली</title>
     @include('includes.styles')
 </head>
 
