@@ -30,12 +30,12 @@
                         </v-list-item-content>
                     </v-list-item>
                     <v-divider class="pa-0 ma-0"></v-divider>
-                    <v-list-item :to="'/change-password'" router @click="menu = !menu">
+                    <!-- <v-list-item :to="'/change-password'" router @click="menu = !menu">
                         <v-list-item-icon>
                             <v-icon>mdi-lock-reset</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>पासवर्ड परिवर्तन</v-list-item-title>
-                    </v-list-item>
+                    </v-list-item> -->
 
                     <v-list-item @click="logout(), menu = !menu">
                         <v-list-item-icon>

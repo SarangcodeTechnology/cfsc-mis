@@ -77,10 +77,10 @@
               <v-autocomplete
                 v-model="userData.roles"
                 :items="roles"
-                label="Roles"
+                label="भूमिकाहरू"
                 @input="getPermissionsDataForUser"
                 item-text="name"
-                placeholder="Please assign roles"
+                placeholder="कृपया भूमिका तोक्नुहोस्"
                 hint="E.g.: Administrator"
                 multiple
                 chips
@@ -94,7 +94,7 @@
           <v-divider></v-divider>
           <v-row>
             <v-col>
-                Role's Permissions
+                भूमिकाको अनुमतिहरू
                 <v-divider></v-divider>
               <v-checkbox
                 v-for="(item, rolePermissionIndex) in rolePermissions"
@@ -107,7 +107,7 @@
 
             </v-col>
               <v-col>
-                  Additional Permissions
+                  थप अनुमतिहरू
                   <v-divider></v-divider>
                   <v-checkbox
                   v-for="(item, index) in additionalPermissions"

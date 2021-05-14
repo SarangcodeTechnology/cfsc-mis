@@ -60,14 +60,18 @@ class UserController extends Controller
                 $user->email = $request->data['email'];
                 $user->password = Hash::make($request->data['password']);
                 $user->save();
-                if(count($request->data['roles'])>0){
-                    foreach($request->data['roles'] as $role){
-                        $user->roles()->attach($role['id']);
+                if(isset($request->data['roles'])){
+                    if(count($request->data['roles'])>0){
+                        foreach($request->data['roles'] as $role){
+                            $user->roles()->attach($role['id']);
+                        }
                     }
                 }
-                if(count($request->data['permissions'])>0){
-                    foreach($request->data['permissions'] as $permission){
-                        $user->permissions()->attach($permission['id']);
+                if(isset($request->data['permissions'])){
+                    if(count($request->data['permissions'])>0){
+                        foreach($request->data['permissions'] as $permission){
+                            $user->permissions()->attach($permission['id']);
+                        }
                     }
                 }
                 $saved = 1;

@@ -449,6 +449,12 @@ const getters = {
         return data;
 
     },
+    getCanBrowseUsers(state, payload){
+        if(state.resources.userPermissions.includes("can_browse_users")){
+            return true;
+        }
+        return false;
+    }
 };
 
 export default {

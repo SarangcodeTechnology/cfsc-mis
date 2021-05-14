@@ -18,11 +18,25 @@ use Illuminate\Support\Facades\DB;
 class TestController extends Controller
 {
     public function trial(){
+        $permissions = [];
+        $additionalPermissions =  collect(User::first()->permissions);
+        $roles = User::first()->roles;
+        foreach($additionalPermissions as $permission){
+            array_push($permissions, $permission->name);
+        }
+        foreach($roles as $role){
+            foreach($role->permissions as $rolePermission){
+                array_push($permissions, $rolePermission->name);
+            }
+        }
+
+        return $permissions;
         return CfData::first();
         $cfData =  CfData::max('area_ha');
         return $cfData;
     }
     public function index(){
+        return User::first()->permissions;
 //    saving final cfData
 //        $nepaliDistrict = TempGandakiModel::all();
 //        foreach($nepaliDistrict as $item){
