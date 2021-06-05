@@ -38,6 +38,20 @@
               </v-text-field>
             </v-col>
           </v-row>
+            <v-row>
+                <v-col>
+                    <v-combobox
+                        clearable
+                        dense
+                        filled
+                        outlined
+                        :items = "myItem"
+                        item-text="name"
+                        return-object
+                        v-model="comboTrial"
+                    ></v-combobox>
+                </v-col>
+            </v-row>
         </v-container>
       </v-card-text>
     </v-card>
@@ -51,6 +65,22 @@ export default {
     data(){
         return {
             valid:false,
+            comboTrial:'',
+            myItem:[
+                {
+                    name:'ram',
+                    id:1
+                },{
+                    name:'haru',
+                    id:2
+                },{
+                    name:'asd',
+                    id:3
+                },{
+                    name:'asd',
+                    id:4
+                },
+            ]
         }
     },
     computed:{
