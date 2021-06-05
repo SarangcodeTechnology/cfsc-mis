@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\v1\AarthikBarsaController;
-use App\Http\Controllers\api\v1\api\v1\DataController;
+use App\Http\Controllers\api\v1\DataController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;

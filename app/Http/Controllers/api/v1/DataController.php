@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\api\v1\api\v1;
+namespace App\Http\Controllers\api\v1;
 
 use App\Helpers\CollectionHelper;
-use App\Http\Controllers\api\v1\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\CfData;
 use App\Models\ForestCondition;
 use App\Models\ForestType;
