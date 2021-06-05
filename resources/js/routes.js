@@ -27,6 +27,20 @@ const RoleEdit = () => import("./components/pages/roles/edit");
 const Permission = () => import("./components/pages/permissions/browse");
 const PermissionEdit = () => import("./components/pages/permissions/edit");
 
+const KharchaTypes = () => import("./components/pages/kharcha-types/Browse");
+const KharchaTypesEdit = () => import("./components/pages/kharcha-types/Edit");
+
+const KharchaCategories = () => import("./components/pages/kharcha-categories/Browse");
+const KharchaCategoriesEdit = () => import("./components/pages/kharcha-categories/Edit");
+
+const AamdaniCategories = () => import("./components/pages/aamdani-categories/Browse");
+const AamdaniCategoriesEdit = () => import("./components/pages/aamdani-categories/Edit");
+
+const AamdaniTypes = () => import("./components/pages/aamdani-types/Browse");
+const AamdaniTypesEdit = () => import("./components/pages/aamdani-types/Edit");
+
+const AarthikBarsa = () => import("./components/pages/aarthik-barsha/browse");
+const AarthikBarsaEdit = () => import("./components/pages/aarthik-barsha/edit");
 
 const opts = {
     mode: "history",
@@ -219,6 +233,116 @@ const opts = {
                         breadcrumb: {
                             text: "Permission Edit",
                             link: "/permission-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/aarthik-barsa",
+                    component: AarthikBarsa,
+                    name: 'aarthik-barsa',
+                    meta: {
+                        breadcrumb: {
+                            text: "Fiscal Year",
+                            link: "/aarthik-barsa"
+                        }
+                    },
+                },
+                {
+                    path: "/aarthik-barsa-edit",
+                    component: AarthikBarsaEdit,
+                    name: 'aarthik-barsa-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Fiscal Year Edit",
+                            link: "/aarthik-barsa-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/aamdani-types",
+                    component: AamdaniTypes,
+                    name: 'aamdani-types',
+                    meta: {
+                        breadcrumb: {
+                            text: "Income Types",
+                            link: "/aamdani-types"
+                        }
+                    },
+                },
+                {
+                    path: "/aamdani-types-edit",
+                    component: AamdaniTypesEdit,
+                    name: 'aamdani-types-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Income Types Edit",
+                            link: "/aamdani-types-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/aamdani-categories",
+                    component: AamdaniCategories,
+                    name: 'aamdani-categories',
+                    meta: {
+                        breadcrumb: {
+                            text: "Income Types",
+                            link: "/aamdani-categories"
+                        }
+                    },
+                },
+                {
+                    path: "/aamdani-categories-edit",
+                    component: AamdaniCategoriesEdit,
+                    name: 'aamdani-categories-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Income Types Edit",
+                            link: "/aamdani-categories-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/kharcha-types",
+                    component: KharchaTypes,
+                    name: 'kharcha-types',
+                    meta: {
+                        breadcrumb: {
+                            text: "Expenditure Types",
+                            link: "/kharcha-types"
+                        }
+                    },
+                },
+                {
+                    path: "/kharcha-types-edit",
+                    component: KharchaTypesEdit,
+                    name: 'kharcha-types-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Expenditure Types Edit",
+                            link: "/kharcha-types-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/kharcha-categories",
+                    component: KharchaCategories,
+                    name: 'kharcha-categories',
+                    meta: {
+                        breadcrumb: {
+                            text: "Expenditure Categories",
+                            link: "/kharcha-categories"
+                        }
+                    },
+                },
+                {
+                    path: "/kharcha-categories-edit",
+                    component: KharchaCategoriesEdit,
+                    name: 'kharcha-categories-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Expenditure Categories Edit",
+                            link: "/kharcha-categories-edit"
                         }
                     },
                 },

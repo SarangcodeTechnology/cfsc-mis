@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\api\v1\TestController;
 use Illuminate\Support\Facades\Route;
-use App\Models\CfData;
 
 /*
 |--------------------------------------------------------------------------

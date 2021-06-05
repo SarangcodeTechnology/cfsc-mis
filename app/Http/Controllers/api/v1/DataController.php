@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\api\v1;
+namespace App\Http\Controllers\api\v1\api\v1;
 
 use App\Helpers\CollectionHelper;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\api\v1\Controller;
 use App\Models\CfData;
 use App\Models\ForestCondition;
 use App\Models\ForestType;
@@ -11,16 +11,16 @@ use App\Models\FugApprovalDate;
 use App\Models\FugAuditReport;
 use App\Models\FugMap;
 use App\Models\Permission;
-use App\Models\User;
 use App\Models\Physiography;
 use App\Models\Province;
 use App\Models\Role;
 use App\Models\SubDivision;
+use App\Models\User;
 use App\Models\VegetationType;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class DataController extends Controller
 {
@@ -389,10 +389,10 @@ class DataController extends Controller
 
         // number lai array ma lageko
         $numarr = str_split($j,1);
-        
+
         // numarr ko value lai nepali ma replace garna ko lagi, yesle array fyalxa
         $num = str_replace($find,$replace,$numarr);
-       
+
         // yesle array linxa ani string return garxa
         return implode($num);
     }

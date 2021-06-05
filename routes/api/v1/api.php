@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\api\v1\DataController;
+use App\Http\Controllers\api\v1\AarthikBarsaController;
+use App\Http\Controllers\api\v1\api\v1\DataController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -43,3 +44,6 @@ Route::middleware('auth:api')->post('save-role-data',[RoleController::class,'sav
 Route::middleware('auth:api')->get('permissions', [PermissionController::class,'index']);
 Route::middleware('auth:api')->post('save-permission-data',[PermissionController::class,'savePermissionData']);
 
+// aarthik-barsa
+Route::middleware('auth:api')->get('aarthik-barsa', [AarthikBarsaController::class,'index']);
+Route::middleware('auth:api')->post('save-aarthik-barsa',[AarthikBarsaController::class,'saveAarthikBarsa']);

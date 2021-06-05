@@ -15,8 +15,9 @@ class CreateAarthikBarsaTable extends Migration
     {
         Schema::connection('cfsc_mis_data')->create('aarthik_barsa', function (Blueprint $table) {
             $table->id();
+            $table->name();
             $table->timestamps();
-            $table->string('title');
+            $table->string('name')->nullable();
         });
     }
 

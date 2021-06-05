@@ -12,13 +12,11 @@ const opts = {
         auth,
         webservice,
     },
-
     state: {
         previousRoute:"",
         notifications: [],
         miniVariant: false,
     },
-
     mutations: {
         SET_MINIVARIANT(state, payload) {
             state.miniVariant = payload;
@@ -37,7 +35,7 @@ const opts = {
         },
         SET_PREVIOUS_ROUTE(state,payload){
             state.previousRoute = payload;
-        }
+        },
     },
 
     actions: {
@@ -51,7 +49,6 @@ const opts = {
             state.commit('REMOVE_NOTIFICATION', notification);
         }
     },
-
     getters: {
         GET_MINIVARIANT(state) {
             return state.miniVariant;

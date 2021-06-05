@@ -1,8 +1,11 @@
 <template>
-    <v-list dense nav>
+    <v-list
+        dense
+        nav
+    >
         <div v-for="(item, i) in items" :key="i">
             <v-list-item
-                v-if="!item.subItems && checkPermission(item.check)"
+                v-if="!item.subItems && checkPermission(item.can)"
                 :to="item.route"
                 color="white"
                 link
@@ -28,7 +31,7 @@
                 </template>
                 <v-list-item
                     v-for="(subItem, j) in item.subItems"
-                    v-if="checkPermission(subItem.check)"
+                    v-if="checkPermission(subItem.can)"
                     :key="j"
                     :to="subItem.route"
                     color="white"
@@ -45,7 +48,6 @@
                     </v-list-item-content>
                 </v-list-item>
             </v-list-group>
-            <v-divider class="ma-0 pa-0"></v-divider>
         </div>
     </v-list>
 </template>
@@ -58,22 +60,44 @@ export default {
         return {
             miniVariant: false,
             items: [
-                {title: "ड्यसबोर्ड", icon: "mdi-view-dashboard", route: "/dashboard", check: "can_browse_dashboard"},
-                {title: "गृहपृष्ठ", icon: "mdi-home", route: "/home", check: "can_browse_home"},
+                {title: "ड्यसबोर्ड", icon: "mdi-view-dashboard", route: "/dashboard", can: "can_browse_dashboard"},
+                {title: "गृहपृष्ठ", icon: "mdi-home", route: "/home", can: "can_browse_home"},
                 {
                     title: "खाताहरु", icon: "mdi-account-circle", route: "/users", subItems: [
                         {
                             title: "प्रयोगकर्ताहरू",
                             icon: "mdi-account-circle",
                             route: "/users",
-                            check: "can_browse_users"
+                            can: "can_browse_users"
                         },
-                        {title: "भूमिकाहरू", icon: "mdi-account-settings", route: "/roles", check: "can_browse_roles"},
-                        {title: "अनुमतिहरू", icon: "mdi-key", route: "/permissions", check: "can_browse_permissions"}
+                        {title: "भूमिकाहरू", icon: "mdi-account-settings", route: "/roles", can: "can_browse_roles"},
+                        {title: "अनुमतिहरू", icon: "mdi-key", route: "/permissions", can: "can_browse_permissions"}
                     ]
                 },
-                {title: "सामुदायिक वन थप", icon: "mdi-plus", route: "/cf-data-edit", check: "can_browse_cfdata"},
-                {title: "सामुदायिक वन विवरण", icon: "mdi-border-all", route: "/cf-data", check: "can_browse_cfdata"},
+                {
+                    title: "फारम", icon: "mdi-note", subItems: [
+                        {title: "सामुदायिक वन थप", icon: "mdi-plus", route: "/cf-data-edit", can: "can_browse_cfdata"},
+                    ]
+                },
+                {
+                    title: "प्रतिवेदन", icon: "mdi-file-document", subItems: [
+                        {
+                            title: "सामुदायिक वन विवरण",
+                            icon: "mdi-border-all",
+                            route: "/cf-data",
+                            can: "can_browse_cfdata"
+                        },
+                    ]
+                },
+                {
+                    title: "संसाधनहरु", icon: "mdi-folder", subItems: [
+                        {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa',can:"can_browse_dashboard"},
+                        {title: 'खर्च बर्गिकरणहरु', icon: 'mdi-cash-plus', route: '/kharcha-categories',can:"can_browse_dashboard"},
+                        {title: 'खर्च प्रकारहरु', icon: 'mdi-cash-plus', route: '/kharcha-types',can:"can_browse_dashboard"},
+                        {title: 'आम्दानी बर्गिकरणहरु', icon: 'mdi-cash-minus', route: '/aamdani-categories', can: "can_browse_dashboard"},
+                        {title: 'आम्दानी प्रकारहरु', icon: 'mdi-cash-minus', route: '/aamdani-types', can: "can_browse_dashboard"},
+                    ]
+                },
             ],
         };
     },
@@ -88,14 +112,14 @@ export default {
             this.miniVariant = !this.miniVariant;
             this.$store.dispatch("setMiniVariant", tempthis.miniVariant);
         },
-        checkPermission(check) {
-            return this.userPermissions.includes(check);
+        checkPermission(can) {
+            return this.userPermissions.includes(can);
         },
         checkPermissionForSubItems(subItems) {
             var count = 0;
             let tempthis = this;
             subItems.forEach(function (item) {
-                if (tempthis.checkPermission(item.check)) {
+                if (tempthis.checkPermission(item.can)) {
                     count++;
                 }
             });
