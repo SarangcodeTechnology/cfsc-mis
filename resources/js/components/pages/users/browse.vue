@@ -147,15 +147,6 @@ export default {
       ],
     };
   },
-  watch: {
-    //this one will populate new data set when user changes current page.
-    options: {
-      handler() {
-        this.getDataFromApi();
-      },
-      deep: true,
-    },
-  },
   mounted() {
     this.getDataFromApi();
     console.log(this.users);

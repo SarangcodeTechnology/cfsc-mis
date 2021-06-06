@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\AarthikBarsa;
+use App\Models\LivestockProduction;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -55,6 +56,24 @@ class AarthikBarsaController extends Controller
                 );
         }
         catch(Exception $e){
+            return response([
+                'status' => $e->getCode(),
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function deleteAarthikBarsa(Request $request)
+    {
+        try {
+            AarthikBarsa::destroy($request['data']['id']);
+            return response([
+                'status' => 200,
+                'type' => 'success',
+                'message' => 'Item Deleted Successfully ',
+            ]);
+        } catch (Exception $e) {
             return response([
                 'status' => $e->getCode(),
                 'type' => 'error',

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\v1\AarthikBarsaController;
 use App\Http\Controllers\api\v1\DataController;
+use App\Http\Controllers\api\v1\KharchaCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -47,3 +48,8 @@ Route::middleware('auth:api')->post('save-permission-data',[PermissionController
 // aarthik-barsa
 Route::middleware('auth:api')->get('aarthik-barsa', [AarthikBarsaController::class,'index']);
 Route::middleware('auth:api')->post('save-aarthik-barsa',[AarthikBarsaController::class,'saveAarthikBarsa']);
+Route::middleware('auth:api')->post('delete-aarthik-barsa',[AarthikBarsaController::class,'deleteAarthikBarsa']);
+
+// kharcha-category
+Route::middleware('auth:api')->get('kharcha-category', [KharchaCategoryController::class,'index']);
+Route::middleware('auth:api')->post('save-kharcha-category',[KharchaCategoryController::class,'saveKharchaCategory']);
