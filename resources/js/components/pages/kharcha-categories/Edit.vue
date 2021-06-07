@@ -3,12 +3,12 @@
         <v-toolbar color="#E0E0E0" dark flat></v-toolbar>
         <v-card class="mx-11 my-n11">
             <v-toolbar flat>
-                <strong>आर्थिक वर्ष सम्पादन गर्नुहोस्</strong>
+                <strong>खर्च बर्गिकरणहरु सम्पादन गर्नुहोस्</strong>
                 <v-spacer></v-spacer>
                 <v-btn
                     :disabled="!valid"
                     class="ma-2"
-                    @click="saveAarthikBarsa()"
+                    @click="saveKharchaCategories()"
                     hint="E.g.: save"
                     depressed
                     color="green darken-1"
@@ -30,9 +30,16 @@
                     <v-row>
                         <v-col cols="4">
                             <v-text-field
-                                v-model="aarthikBarsaData.name"
-                                label="आर्थिक वर्ष"
-                                placeholder="आर्थिक वर्ष राख्नुहोस्"
+                                v-model="kharchaCategoriesData.title"
+                                label="खर्च बर्गिकरणकाे नाम"
+                                placeholder="खर्च बर्गिकरणकाे नाम राख्नुहोस्"
+                                outlined
+                            >
+                            </v-text-field>
+                            <v-text-field
+                                v-model="kharchaCategoriesData.order"
+                                label="खर्च बर्गिकरणकाे अर्डर"
+                                placeholder="खर्च बर्गिकरणकाे अर्डर राख्नुहोस्"
                                 outlined
                             >
                             </v-text-field>
@@ -55,12 +62,12 @@ export default {
     },
     computed:{
         ...mapState({
-            aarthikBarsaData: (state) => state.webservice.editAarthikBarsaData,
+            kharchaCategoriesData: (state) => state.webservice.editKharchaCategoriesData,
         }),
     },
     methods:{
-        saveAarthikBarsa(){
-            this.$store.dispatch('saveAarthikBarsa',this.aarthikBarsaData)
+        saveKharchaCategories(){
+            this.$store.dispatch('saveKharchaCategories',this.kharchaCategoriesData)
         }
     }
 

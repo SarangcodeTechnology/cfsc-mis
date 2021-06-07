@@ -9,4 +9,5 @@ class KharchaType extends Model
 {
     use HasFactory;
     protected $connection = 'cfsc_mis_data';
+    protected $table = 'kharcha_type';
 }

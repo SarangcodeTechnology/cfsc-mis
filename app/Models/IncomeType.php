@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class IncomeType extends Model
 {
     use HasFactory;
+
     protected $connection = 'cfsc_mis_data';
+    protected $table = 'income_type';
 }

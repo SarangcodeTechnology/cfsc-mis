@@ -94,8 +94,8 @@ export default {
                         {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa',can:"can_browse_dashboard"},
                         {title: 'खर्च बर्गिकरणहरु', icon: 'mdi-cash-plus', route: '/kharcha-categories',can:"can_browse_dashboard"},
                         {title: 'खर्च प्रकारहरु', icon: 'mdi-cash-plus', route: '/kharcha-types',can:"can_browse_dashboard"},
-                        {title: 'आम्दानी बर्गिकरणहरु', icon: 'mdi-cash-minus', route: '/aamdani-categories', can: "can_browse_dashboard"},
-                        {title: 'आम्दानी प्रकारहरु', icon: 'mdi-cash-minus', route: '/aamdani-types', can: "can_browse_dashboard"},
+                        {title: 'आम्दानी बर्गिकरणहरु', icon: 'mdi-cash-minus', route: '/income-categories', can: "can_browse_dashboard"},
+                        {title: 'आम्दानी प्रकारहरु', icon: 'mdi-cash-minus', route: '/income-types', can: "can_browse_dashboard"},
                     ]
                 },
             ],
@@ -113,7 +113,8 @@ export default {
             this.$store.dispatch("setMiniVariant", tempthis.miniVariant);
         },
         checkPermission(can) {
-            return this.userPermissions.includes(can);
+            const tempthis=this;
+            return tempthis.userPermissions.includes(can);
         },
         checkPermissionForSubItems(subItems) {
             var count = 0;

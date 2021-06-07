@@ -5,7 +5,7 @@
                 <v-data-table
                     :headers="headers"
                     :hide-default-footer="true"
-                    :items="roles"
+                    :items="aarthikBarsa"
                     :items-per-page="20"
                     :loading="loading"
                     :options.sync="options"
@@ -104,7 +104,7 @@ export default {
         this.getDataFromApi();
     },
     computed: {
-        ...mapState({roles: (state) => state.webservice.aarthikBarsa}),
+        ...mapState({aarthikBarsa: (state) => state.webservice.aarthikBarsa}),
     },
     methods: {
         getDataFromApi() {

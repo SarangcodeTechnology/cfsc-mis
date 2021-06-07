@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\api\v1\AarthikBarsaController;
 use App\Http\Controllers\api\v1\DataController;
+use App\Http\Controllers\api\v1\IncomeCategoryController;
+use App\Http\Controllers\api\v1\IncomeController;
+use App\Http\Controllers\api\v1\IncomeTypeController;
 use App\Http\Controllers\api\v1\KharchaCategoryController;
+use App\Http\Controllers\api\v1\KharchaController;
+use App\Http\Controllers\api\v1\KharchaTypeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -51,5 +56,32 @@ Route::middleware('auth:api')->post('save-aarthik-barsa',[AarthikBarsaController
 Route::middleware('auth:api')->post('delete-aarthik-barsa',[AarthikBarsaController::class,'deleteAarthikBarsa']);
 
 // kharcha-category
-Route::middleware('auth:api')->get('kharcha-category', [KharchaCategoryController::class,'index']);
-Route::middleware('auth:api')->post('save-kharcha-category',[KharchaCategoryController::class,'saveKharchaCategory']);
+Route::middleware('auth:api')->get('kharcha-categories', [KharchaCategoryController::class,'index']);
+Route::middleware('auth:api')->post('save-kharcha-categories',[KharchaCategoryController::class,'saveKharchaCategory']);
+Route::middleware('auth:api')->post('delete-kharcha-categories',[KharchaCategoryController::class,'deleteKharchaCategory']);
+
+// kharcha-types
+Route::middleware('auth:api')->get('kharcha-types', [KharchaTypeController::class,'index']);
+Route::middleware('auth:api')->post('save-kharcha-types',[KharchaTypeController::class,'saveKharchaType']);
+Route::middleware('auth:api')->post('delete-kharcha-types',[KharchaTypeController::class,'deleteKharchaType']);
+
+// income-category
+Route::middleware('auth:api')->get('income-categories', [IncomeCategoryController::class,'index']);
+Route::middleware('auth:api')->post('save-income-categories',[IncomeCategoryController::class,'saveIncomeCategory']);
+Route::middleware('auth:api')->post('delete-income-categories',[IncomeCategoryController::class,'deleteIncomeCategory']);
+
+// income-types
+Route::middleware('auth:api')->get('income-types', [IncomeTypeController::class,'index']);
+Route::middleware('auth:api')->post('save-income-types',[IncomeTypeController::class,'saveIncomeType']);
+Route::middleware('auth:api')->post('delete-income-types',[IncomeTypeController::class,'deleteIncomeType']);
+
+// income
+Route::middleware('auth:api')->get('income', [IncomeController::class,'index']);
+Route::middleware('auth:api')->post('save-income',[IncomeController::class,'saveIncome']);
+Route::middleware('auth:api')->post('delete-income',[IncomeController::class,'deleteIncome']);
+
+// kharcha-types
+Route::middleware('auth:api')->get('kharcha', [KharchaController::class,'index']);
+Route::middleware('auth:api')->post('save-kharcha',[KharchaController::class,'saveKharcha']);
+Route::middleware('auth:api')->post('delete-kharcha',[KharchaController::class,'deleteKharcha']);
+

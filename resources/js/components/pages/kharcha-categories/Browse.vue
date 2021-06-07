@@ -5,7 +5,7 @@
                 <v-data-table
                     :headers="headers"
                     :hide-default-footer="true"
-                    :items="roles"
+                    :items="kharchaCategories"
                     :items-per-page="20"
                     :loading="loading"
                     :options.sync="options"
@@ -56,13 +56,12 @@
                                 <v-icon>mdi-pencil</v-icon>
                             </v-btn>
 
-                            <v-btn color="red" icon x-small @click="deletePopup(item)">
+                            <v-btn color="red" icon x-small @click="confirm(item)">
                                 <v-icon>mdi-delete</v-icon>
                             </v-btn>
                         </div>
                     </template>
-                    <template v-slot:item.name="{ item }">
-                        <router-link>{{ item.name }}</router-link>
+                    <template v-slot:item.title="{ item }">{{ item.title }}
                     </template>
                 </v-data-table>
             </v-col>
@@ -71,23 +70,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import {mapState} from "vuex";
+
 export default {
     data() {
         return {
-            deleteItem: "",
-            deleteDialog: false,
             search: "",
             page: 1,
-            totalCfData: 0,
             numberOfPages: 0,
-            cfData: [],
             options: {},
-            totalItems: 20,
             headers: [
-                { text: "कार्यहरु", value: "actions" },
-                { text: "नाम", value: "name" },
-                { text: "सिर्जना गरिएको मिति", value: "date" },
+                {text: "कार्यहरु", value: "actions"},
+                {text: "नाम", value: "title"},
+                {text: "अर्डर", value: "order"},
+                {text: "सिर्जना गरिएको मिति", value: "created_at"},
             ],
             loading: true,
         };
@@ -105,30 +101,46 @@ export default {
         this.getDataFromApi();
     },
     computed: {
-        ...mapState({ roles: (state) => state.webservice.aarthikBarsa }),
+        ...mapState({kharchaCategories: (state) => state.webservice.kharchaCategories}),
     },
     methods: {
-        deletePopup(item) {
-            this.deleteItem = item;
-            this.deleteDialog = true;
-        },
         getDataFromApi() {
             const tempthis = this;
             this.loading = true;
-            const { page, itemsPerPage } = tempthis.options;
+            const {page, itemsPerPage} = tempthis.options;
             let pageNumber = page - 1;
-            this.$store.dispatch("getAarthikBarsa", {}).then(function (response) {
+            this.$store.dispatch("getKharchaCategories", {}).then(function (response) {
                 tempthis.loading = false;
             });
         },
         goToEditPage() {
-            this.$store.dispatch("setAarthikBarsaEditData", {
-                name: ""
+            this.$store.dispatch("setKharchaCategoriesEditData", {
+                title: ""
             });
         },
-        editData(item){
-            this.$store.dispatch("setAarthikBarsaEditData",item)
-        }
+        editData(item) {
+            this.$store.dispatch("setKharchaCategoriesEditData", item)
+        },
+        confirm(item) {
+            const tempthis = this;
+            this.$root.confirm('मेट्ने पुष्टि गर्नुहोस्', 'के तपाईं ' + item.title + ' मेट्न निश्चित हुनुहुन्छ ?', {color: 'red'}).then((confirm) => {
+                tempthis.deleteData(item);
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
+        deleteData(item) {
+            let tempthis = this;
+            this.$store.dispatch("deleteKharchaCategories", item).then(function (response) {
+                if (response.data.status === 200) {
+                    tempthis.getDataFromApi();
+                }
+                tempthis.deleteLoading = false;
+            }).catch(function (error) {
+                tempthis.deleteLoading = false;
+            });
+
+        },
     },
 };
 </script>

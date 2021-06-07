@@ -6,6 +6,10 @@ import store from "./store";
 
 Vue.use(VueRouter)
 
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+
 const App = () => import("./components/App");
 const Login = () => import("./components/auth/Login");
 const Register = () => import("./components/auth/Register");
@@ -33,16 +37,23 @@ const KharchaTypesEdit = () => import("./components/pages/kharcha-types/Edit");
 const KharchaCategories = () => import("./components/pages/kharcha-categories/Browse");
 const KharchaCategoriesEdit = () => import("./components/pages/kharcha-categories/Edit");
 
-const AamdaniCategories = () => import("./components/pages/aamdani-categories/Browse");
-const AamdaniCategoriesEdit = () => import("./components/pages/aamdani-categories/Edit");
+const IncomeCategories = () => import("./components/pages/income-categories/Browse");
+const IncomeCategoriesEdit = () => import("./components/pages/income-categories/Edit");
 
-const AamdaniTypes = () => import("./components/pages/aamdani-types/Browse");
-const AamdaniTypesEdit = () => import("./components/pages/aamdani-types/Edit");
+const IncomeTypes = () => import("./components/pages/income-types/Browse");
+const IncomeTypesEdit = () => import("./components/pages/income-types/Edit");
 
 const AarthikBarsa = () => import("./components/pages/aarthik-barsha/browse");
 const AarthikBarsaEdit = () => import("./components/pages/aarthik-barsha/edit");
 
+const Kharcha = () => import("./components/pages/kharcha/Browse");
+const KharchaEdit = () => import("./components/pages/kharcha/Edit");
+
+const Income = () => import("./components/pages/income/Browse");
+const IncomeEdit = () => import("./components/pages/income/Edit");
+
 const opts = {
+
     mode: "history",
     routes: [
         {
@@ -259,46 +270,46 @@ const opts = {
                     },
                 },
                 {
-                    path: "/aamdani-types",
-                    component: AamdaniTypes,
-                    name: 'aamdani-types',
+                    path: "/income-types",
+                    component: IncomeTypes,
+                    name: 'income-types',
                     meta: {
                         breadcrumb: {
                             text: "Income Types",
-                            link: "/aamdani-types"
+                            link: "/income-types"
                         }
                     },
                 },
                 {
-                    path: "/aamdani-types-edit",
-                    component: AamdaniTypesEdit,
-                    name: 'aamdani-types-edit',
+                    path: "/income-types-edit",
+                    component: IncomeTypesEdit,
+                    name: 'income-types-edit',
                     meta: {
                         breadcrumb: {
                             text: "Income Types Edit",
-                            link: "/aamdani-types-edit"
+                            link: "/income-types-edit"
                         }
                     },
                 },
                 {
-                    path: "/aamdani-categories",
-                    component: AamdaniCategories,
-                    name: 'aamdani-categories',
+                    path: "/income-categories",
+                    component: IncomeCategories,
+                    name: 'income-categories',
                     meta: {
                         breadcrumb: {
                             text: "Income Types",
-                            link: "/aamdani-categories"
+                            link: "/income-categories"
                         }
                     },
                 },
                 {
-                    path: "/aamdani-categories-edit",
-                    component: AamdaniCategoriesEdit,
-                    name: 'aamdani-categories-edit',
+                    path: "/income-categories-edit",
+                    component: IncomeCategoriesEdit,
+                    name: 'income-categories-edit',
                     meta: {
                         breadcrumb: {
                             text: "Income Types Edit",
-                            link: "/aamdani-categories-edit"
+                            link: "/income-categories-edit"
                         }
                     },
                 },
@@ -343,6 +354,50 @@ const opts = {
                         breadcrumb: {
                             text: "Expenditure Categories Edit",
                             link: "/kharcha-categories-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/kharcha",
+                    component: Kharcha,
+                    name: 'kharcha',
+                    meta: {
+                        breadcrumb: {
+                            text: "Expenditure Data",
+                            link: "/kharcha"
+                        }
+                    },
+                },
+                {
+                    path: "/kharcha-edit",
+                    component: KharchaEdit,
+                    name: 'kharcha-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Expenditure Data Edit",
+                            link: "/kharcha-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/income",
+                    component: Income,
+                    name: 'income',
+                    meta: {
+                        breadcrumb: {
+                            text: "Income Data",
+                            link: "/income"
+                        }
+                    },
+                },
+                {
+                    path: "/income-edit",
+                    component: IncomeEdit,
+                    name: 'income-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Income Data Edit",
+                            link: "/income-edit"
                         }
                     },
                 },
