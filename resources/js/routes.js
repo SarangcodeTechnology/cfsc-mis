@@ -6,10 +6,6 @@ import store from "./store";
 
 Vue.use(VueRouter)
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-
 const App = () => import("./components/App");
 const Login = () => import("./components/auth/Login");
 const Register = () => import("./components/auth/Register");
@@ -52,8 +48,10 @@ const KharchaEdit = () => import("./components/pages/kharcha/Edit");
 const Income = () => import("./components/pages/income/Browse");
 const IncomeEdit = () => import("./components/pages/income/Edit");
 
-const opts = {
+const Kaaryalaya = () => import("./components/pages/kaaryalaya/browse");
+const KaaryalayaEdit = () => import("./components/pages/kaaryalaya/edit");
 
+const opts = {
     mode: "history",
     routes: [
         {
@@ -165,6 +163,29 @@ const opts = {
                         breadcrumb: {
                             text: "Role Edit",
                             link: "/role-edit"
+                        }
+                    },
+                },
+                //kaaryalaya
+                {
+                    path: "/kaaryalaya",
+                    component: Kaaryalaya,
+                    name: 'kaaryalaya',
+                    meta: {
+                        breadcrumb: {
+                            text: "कार्यलय",
+                            link: "/kaaryalaya"
+                        }
+                    },
+                },
+                {
+                    path: "/kaaryalaya-edit",
+                    component: KaaryalayaEdit,
+                    name: 'kaaryalaya-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "कार्यलय",
+                            link: "/kaaryalaya-edit"
                         }
                     },
                 },

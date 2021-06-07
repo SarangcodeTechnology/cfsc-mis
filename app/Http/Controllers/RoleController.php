@@ -18,7 +18,7 @@ class RoleController extends Controller
                     'message' => 'Roles loaded successfully',
                     'data' => compact('roles')
                 ]
-                );
+            );
         }
         catch(Exception $e){
 
@@ -53,9 +53,9 @@ class RoleController extends Controller
                 [
                     'status'=>200,
                     'type'=>'success',
-                    'message' => 'Users '.($saved ? 'created' : 'updated').' successfully',
+                    'message' => 'Roles '.($saved ? 'created' : 'updated').' successfully',
                 ]
-                );
+            );
         }
         catch(Exception $e){
 

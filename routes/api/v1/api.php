@@ -5,10 +5,12 @@ use App\Http\Controllers\api\v1\DataController;
 use App\Http\Controllers\api\v1\IncomeCategoryController;
 use App\Http\Controllers\api\v1\IncomeController;
 use App\Http\Controllers\api\v1\IncomeTypeController;
+use App\Http\Controllers\api\v1\DeleteController;
 use App\Http\Controllers\api\v1\KharchaCategoryController;
 use App\Http\Controllers\api\v1\KharchaController;
 use App\Http\Controllers\api\v1\KharchaTypeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KaaryalayaController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -85,3 +87,12 @@ Route::middleware('auth:api')->get('kharcha', [KharchaController::class,'index']
 Route::middleware('auth:api')->post('save-kharcha',[KharchaController::class,'saveKharcha']);
 Route::middleware('auth:api')->post('delete-kharcha',[KharchaController::class,'deleteKharcha']);
 
+
+
+//delete
+Route::middleware('auth:api')->post('delete',[DeleteController::class,'delete']);
+
+
+// kaaryalaya
+Route::middleware('auth:api')->get('kaaryalaya', [KaaryalayaController::class,'index']);
+Route::middleware('auth:api')->post('save-kaaryalaya-data',[KaaryalayaController::class,'saveKaaryalayaData']);

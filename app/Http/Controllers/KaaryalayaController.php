@@ -2,40 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
-use Exception;
+use App\Models\Kaaryalaya;
 use Illuminate\Http\Request;
 
-class PermissionController extends Controller
+class KaaryalayaController extends Controller
 {
     public function index(){
         try{
-            $permissions = Permission::orderBy('created_at','desc')->get();
+            $kaaryalaya = Kaaryalaya::orderBy('created_at','desc')->get();
             return response(
                 [
                     'status' => 200,
                     'type' => 'success',
-                    'message' => 'Permissions loaded successfully',
-                    'data' => compact('permissions')
+                    'message' => 'Kaaryalaya loaded successfully',
+                    'data' => compact('kaaryalaya')
                 ]
             );
         }
         catch(Exception $e){
-
+            return response([
+                'status' => $e->getCode(),
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
         }
     }
-    public function savePermissionData(Request $request){
+    public function saveKaaryalayaData(Request $request){
         try{
             // update
             if(isset($request->data['id'])){
-                $permission = Permission::find($request->data['id']);
+                $permission = Kaaryalaya::find($request->data['id']);
                 $permission->name = $request->data['name'];
                 $permission->update();
                 $saved=0;
             }
             // create
             else{
-                $permission = new Permission();
+                $permission = new Kaaryalaya();
                 $permission->name = $request->data['name'];
                 $permission->save();
                 $saved = 1;
@@ -45,12 +48,16 @@ class PermissionController extends Controller
                 [
                     'status'=>200,
                     'type'=>'success',
-                    'message' => 'Permissions '.($saved ? 'created' : 'updated').' successfully',
+                    'message' => 'Kaaryalaya '.($saved ? 'created' : 'updated').' successfully',
                 ]
             );
         }
         catch(Exception $e){
-
+            return response([
+                'status' => $e->getCode(),
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 }

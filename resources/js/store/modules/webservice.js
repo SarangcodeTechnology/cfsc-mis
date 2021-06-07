@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Promise} from 'es6-promise';
+import { Promise } from 'es6-promise';
 import router from '../../routes';
 
 
@@ -25,11 +25,15 @@ const state = {
     },
     isUserEdit: false,
     roles: [],
+
     editRoleData: {
         name: "",
         email: "",
         roles: []
     },
+    //kaaryalaya
+    kaaryalaya: [],
+    editKaarayalaData: {},
     permissions: [],
     editPermissionData: {},
     aarthikBarsa: [],
@@ -55,6 +59,7 @@ const state = {
 };
 
 const mutations = {
+
     // aarthikBarsa
     SET_AARTHIK_BARSA(state, payload) {
         state.aarthikBarsa = payload
@@ -137,6 +142,13 @@ const mutations = {
         state.editUserData.permissions = payload;
     },
 
+    SET_KAARYALAYA(state, payload) {
+        state.kaaryalaya = payload
+    },
+    SET_KAARYALAYA_EDIT_DATA(state, payload) {
+        state.editKaaryalayaData = payload;
+    },
+
 };
 
 const actions = {
@@ -144,11 +156,11 @@ const actions = {
     getAarthikBarsa(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/aarthik-barsa', {
-                    headers: {
-                        // Accept: "application/json",
-                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
-                    }
+                headers: {
+                    // Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
                 }
+            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -178,7 +190,7 @@ const actions = {
         router.push("/aarthik-barsa-edit");
     },
     saveAarthikBarsa(state, payload) {
-        axios.post('/api/v1/save-aarthik-barsa', {data: payload}, {
+        axios.post('/api/v1/save-aarthik-barsa', { data: payload }, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -799,12 +811,45 @@ const actions = {
             });
         });
     },
+
     deleteIncome(state, payload) {
         return new Promise((resolve, reject) => {
             axios
                 .post('/api/v1/delete-income', {
                     data: payload
                 }, {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    }
+                })
+                .then(function (response) {
+                    if (response.data.status === 200) {
+                        state.dispatch("addNotification", {
+                            type: response.data.type,
+                            message: response.data.message,
+                        });
+                    } else {
+                        state.dispatch("addNotification", {
+                            type: response.data.type,
+                            message: response.data.message,
+                        });
+                    }
+                    resolve(response);
+                })
+                .catch(function (error) {
+                    state.dispatch("addNotification", {
+                        type: "error",
+                        message: error,
+                    });
+                    reject(error);
+                });
+        });
+    },
+    deleteData(state, payload) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post('/api/v1/delete', payload, {
                     headers: {
                         Accept: "application/json",
                         Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -975,11 +1020,11 @@ const actions = {
     getUsers(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/users', {
-                    headers: {
-                        // Accept: "application/json",
-                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
-                    }
+                headers: {
+                    // Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
                 }
+            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -1009,7 +1054,7 @@ const actions = {
         router.push("/user-edit");
     },
     saveUserData(state, payload) {
-        axios.post('/api/v1/save-user-data', {data: payload}, {
+        axios.post('/api/v1/save-user-data', { data: payload }, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1067,11 +1112,11 @@ const actions = {
     getRoles(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/roles', {
-                    headers: {
-                        // Accept: "application/json",
-                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
-                    }
+                headers: {
+                    // Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
                 }
+            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -1101,7 +1146,7 @@ const actions = {
         router.push("/role-edit");
     },
     saveRoleData(state, payload) {
-        axios.post('/api/v1/save-role-data', {data: payload}, {
+        axios.post('/api/v1/save-role-data', { data: payload }, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1132,11 +1177,11 @@ const actions = {
     getPermissions(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/permissions', {
-                    headers: {
-                        // Accept: "application/json",
-                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
-                    }
+                headers: {
+                    // Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
                 }
+            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -1166,7 +1211,7 @@ const actions = {
         router.push("/permission-edit");
     },
     savePermissionData(state, payload) {
-        axios.post('/api/v1/save-permission-data', {data: payload}, {
+        axios.post('/api/v1/save-permission-data', { data: payload }, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1192,7 +1237,72 @@ const actions = {
                 message: error,
             });
         });
-    }
+    },
+    // kaaryalaya
+    getKaaryalaya(state, payload) {
+        return new Promise((resolve, reject) => {
+            axios.get('/api/v1/kaaryalaya', {
+                headers: {
+                    // Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                }
+            }
+            ).then(
+                function (response) {
+                    if (response.data.status == 200) {
+                        state.commit("SET_KAARYALAYA", response.data.data.kaaryalaya);
+                        resolve(response);
+
+                    } else {
+                        state.dispatch("addNotification", {
+                            type: response.data.type,
+                            message: response.data.message
+                        })
+                    }
+                }
+            ).catch(
+                function (error) {
+                    state.dispatch("addNotification", {
+                        type: "error",
+                        message: error,
+                    });
+                    reject(error);
+                }
+            )
+        });
+    },
+    setKaaryalayaEditData(state, payload) {
+        state.commit("SET_KAARYALAYA_EDIT_DATA", payload);
+        router.push("/kaaryalaya-edit");
+    },
+    saveKaaryalayaData(state, payload) {
+        axios.post('/api/v1/save-kaaryalaya-data', { data: payload }, {
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+            }
+        }).then(function (response) {
+
+            if (response.data.status === 200) {
+                +router.push("/kaaryalaya");
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            } else {
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            }
+
+        }).catch(function (error) {
+            state.dispatch("addNotification", {
+                type: "error",
+                message: error,
+            });
+        });
+    },
 
 
 };
