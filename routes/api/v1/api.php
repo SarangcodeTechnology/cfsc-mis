@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\api\v1\AarthikBarsaController;
 use App\Http\Controllers\api\v1\DataController;
+use App\Http\Controllers\api\v1\DeleteController;
 use App\Http\Controllers\api\v1\KharchaCategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KaaryalayaController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -53,3 +55,12 @@ Route::middleware('auth:api')->post('delete-aarthik-barsa',[AarthikBarsaControll
 // kharcha-category
 Route::middleware('auth:api')->get('kharcha-category', [KharchaCategoryController::class,'index']);
 Route::middleware('auth:api')->post('save-kharcha-category',[KharchaCategoryController::class,'saveKharchaCategory']);
+
+
+//delete
+Route::middleware('auth:api')->post('delete',[DeleteController::class,'delete']);
+
+
+// kaaryalaya
+Route::middleware('auth:api')->get('kaaryalaya', [KaaryalayaController::class,'index']);
+Route::middleware('auth:api')->post('save-kaaryalaya-data',[KaaryalayaController::class,'saveKaaryalayaData']);

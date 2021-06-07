@@ -42,6 +42,9 @@ const AamdaniTypesEdit = () => import("./components/pages/aamdani-types/Edit");
 const AarthikBarsa = () => import("./components/pages/aarthik-barsha/browse");
 const AarthikBarsaEdit = () => import("./components/pages/aarthik-barsha/edit");
 
+const Kaaryalaya = () => import("./components/pages/kaaryalaya/browse");
+const KaaryalayaEdit = () => import("./components/pages/kaaryalaya/edit");
+
 const opts = {
     mode: "history",
     routes: [
@@ -154,6 +157,29 @@ const opts = {
                         breadcrumb: {
                             text: "Role Edit",
                             link: "/role-edit"
+                        }
+                    },
+                },
+                //kaaryalaya
+                {
+                    path: "/kaaryalaya",
+                    component: Kaaryalaya,
+                    name: 'kaaryalaya',
+                    meta: {
+                        breadcrumb: {
+                            text: "कार्यलय",
+                            link: "/kaaryalaya"
+                        }
+                    },
+                },
+                {
+                    path: "/kaaryalaya-edit",
+                    component: KaaryalayaEdit,
+                    name: 'kaaryalaya-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "कार्यलय",
+                            link: "/kaaryalaya-edit"
                         }
                     },
                 },

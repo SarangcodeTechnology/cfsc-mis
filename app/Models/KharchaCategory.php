@@ -9,4 +9,8 @@ class KharchaCategory extends Model
 {
     use HasFactory;
     protected $connection = 'cfsc_mis_data';
+    protected $table  = 'kharcha_categories';
+    public function kharcha_types(){
+        return $this->hasMany(KharchaType::class,'kharcha_category_id');
+    }
 }

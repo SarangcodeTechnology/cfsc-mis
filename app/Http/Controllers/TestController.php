@@ -7,6 +7,7 @@ use App\Models\CfData;
 use App\Models\Province;
 use App\Models\LocalLevel;
 use App\Models\District;
+use App\Models\KharchaCategory;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\TempGandakiModel;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 class TestController extends Controller
 {
     public function trial(){
+        return 'he;o';
         $permissions = [];
         $additionalPermissions =  collect(User::first()->permissions);
         $roles = User::first()->roles;
@@ -36,6 +38,14 @@ class TestController extends Controller
         return $cfData;
     }
     public function index(){
+        $aarthik_barsa_id = 1;
+        $fug_id = 3907;
+        return KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
+            $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
+                $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
+            });
+        }])->get();
+
         return User::first()->permissions;
 //    saving final cfData
 //        $nepaliDistrict = TempGandakiModel::all();

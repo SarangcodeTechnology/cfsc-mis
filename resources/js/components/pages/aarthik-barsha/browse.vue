@@ -134,7 +134,7 @@ export default {
         },
         deleteData(item) {
             let tempthis = this;
-            this.$store.dispatch("deleteAarthikBarsaItem", item).then(function (response) {
+            this.$store.dispatch("deleteData", {id:item.id,model:'AarthikBarsa'}).then(function (response) {
                 if (response.data.status === 200) {
                     tempthis.getDataFromApi();
                 }

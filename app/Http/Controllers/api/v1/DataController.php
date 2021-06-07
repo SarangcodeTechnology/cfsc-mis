@@ -343,6 +343,7 @@ class DataController extends Controller
             $roles = Role::all();
             $permissions = Permission::all();
             $userPermissions = $this->permissions();
+            $formattedPermissions = $this->formattedPermissions();
             $dashboard_items = [
                 0 => [
                     'title' => 'सामुदायिक वन विवरण',
@@ -373,7 +374,7 @@ class DataController extends Controller
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions')
+                'data' => compact('formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions')
             ]);
         } catch (Exception $e) {
             return response([
@@ -395,6 +396,16 @@ class DataController extends Controller
 
         // yesle array linxa ani string return garxa
         return implode($num);
+    }
+
+    private function formattedPermissions(){
+        $permissions = Permission::orderBy('name')->get();
+        $formattedPermissions = [];
+        foreach ($permissions as $item){
+            $key = explode('-',$item->name)[0];
+            $formattedPermissions[$key][] = $item;
+        }
+        return $formattedPermissions;
     }
     private function permissions(){
         $user = Auth::user();

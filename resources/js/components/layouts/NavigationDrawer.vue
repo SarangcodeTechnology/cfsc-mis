@@ -60,18 +60,18 @@ export default {
         return {
             miniVariant: false,
             items: [
-                {title: "ड्यसबोर्ड", icon: "mdi-view-dashboard", route: "/dashboard", can: "can_browse_dashboard"},
-                {title: "गृहपृष्ठ", icon: "mdi-home", route: "/home", can: "can_browse_home"},
+                {title: "ड्यसबोर्ड", icon: "mdi-view-dashboard", route: "/dashboard", can: "dashboard-browse"},
+                {title: "गृहपृष्ठ", icon: "mdi-home", route: "/home", can: "home-browse"},
                 {
                     title: "खाताहरु", icon: "mdi-account-circle", route: "/users", subItems: [
                         {
                             title: "प्रयोगकर्ताहरू",
                             icon: "mdi-account-circle",
                             route: "/users",
-                            can: "can_browse_users"
+                            can: "users-browse"
                         },
-                        {title: "भूमिकाहरू", icon: "mdi-account-settings", route: "/roles", can: "can_browse_roles"},
-                        {title: "अनुमतिहरू", icon: "mdi-key", route: "/permissions", can: "can_browse_permissions"}
+                        {title: "भूमिकाहरू", icon: "mdi-account-settings", route: "/roles", can: "roles-browse"},
+                        {title: "अनुमतिहरू", icon: "mdi-key", route: "/permissions", can: "permissions-browse"}
                     ]
                 },
                 {
@@ -85,17 +85,17 @@ export default {
                             title: "सामुदायिक वन विवरण",
                             icon: "mdi-border-all",
                             route: "/cf-data",
-                            can: "can_browse_cfdata"
+                            can: "cfdata-browse"
                         },
                     ]
                 },
                 {
                     title: "संसाधनहरु", icon: "mdi-folder", subItems: [
-                        {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa',can:"can_browse_dashboard"},
-                        {title: 'खर्च बर्गिकरणहरु', icon: 'mdi-cash-plus', route: '/kharcha-categories',can:"can_browse_dashboard"},
-                        {title: 'खर्च प्रकारहरु', icon: 'mdi-cash-plus', route: '/kharcha-types',can:"can_browse_dashboard"},
-                        {title: 'आम्दानी बर्गिकरणहरु', icon: 'mdi-cash-minus', route: '/aamdani-categories', can: "can_browse_dashboard"},
-                        {title: 'आम्दानी प्रकारहरु', icon: 'mdi-cash-minus', route: '/aamdani-types', can: "can_browse_dashboard"},
+                        {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa',can:"dashboard-browse"},
+                        {title: 'खर्च बर्गिकरणहरु', icon: 'mdi-cash-plus', route: '/kharcha-categories',can:"dashboard-browse"},
+                        {title: 'खर्च प्रकारहरु', icon: 'mdi-cash-plus', route: '/kharcha-types',can:"dashboard-browse"},
+                        {title: 'आम्दानी बर्गिकरणहरु', icon: 'mdi-cash-minus', route: '/aamdani-categories', can: "dashboard-browse"},
+                        {title: 'आम्दानी प्रकारहरु', icon: 'mdi-cash-minus', route: '/aamdani-types', can: "dashboard-browse"},
                     ]
                 },
             ],

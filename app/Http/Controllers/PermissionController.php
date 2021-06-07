@@ -18,7 +18,7 @@ class PermissionController extends Controller
                     'message' => 'Permissions loaded successfully',
                     'data' => compact('permissions')
                 ]
-                );
+            );
         }
         catch(Exception $e){
 
@@ -47,7 +47,7 @@ class PermissionController extends Controller
                     'type'=>'success',
                     'message' => 'Permissions '.($saved ? 'created' : 'updated').' successfully',
                 ]
-                );
+            );
         }
         catch(Exception $e){
 

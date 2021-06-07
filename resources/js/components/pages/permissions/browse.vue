@@ -19,7 +19,7 @@
               <v-row>
                 <v-col cols="3">
                   <div class="d-flex align-content-center">
-                    <h5 class="mb-0 align-self-center">अनुमतिहरू</h5>
+                    <h5 class="mb-0 align-self-center">अनुमतिहरु</h5>
                     <v-divider class="mx-4 mt-0" inset vertical></v-divider>
                     <v-btn
                       class="d-flex align-self-center"
@@ -27,7 +27,7 @@
                       @click="goToEditPage"
                     >
                       <v-icon left>mdi-plus-circle-outline</v-icon>
-                      <span>नया थप्नुहोस्</span></v-btn
+                      <span>नयाँ</span></v-btn
                     >
                   </div>
                 </v-col>
@@ -56,7 +56,7 @@
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
 
-              <v-btn color="red" icon x-small @click="deletePopup(item)">
+              <v-btn color="red" icon x-small @click="confirm(item)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </div>
@@ -80,14 +80,14 @@ export default {
       totalCfData: 0,
       numberOfPages: 0,
       cfData: [],
+      loading: true,
       options: {},
       totalItems: 20,
       headers: [
-        { text: "कार्यहरू", value: "actions" },
+        { text: "कार्यहरु", value: "actions" },
         { text: "नाम", value: "name" },
         { text: "सिर्जना गरिएको मिति", value: "date" },
       ],
-      loading: true,
     };
   },
   watch: {
@@ -122,7 +122,27 @@ export default {
     },
     editData(item){
         this.$store.dispatch("setPermissionEditData",item)
-    }
+    },
+      confirm(item) {
+          const tempthis = this;
+          this.$root.confirm('मेट्ने पुष्टि गर्नुहोस्', 'के तपाईं ' + item.name + ' मेट्न निश्चित हुनुहुन्छ ?', {color: 'red'}).then((confirm) => {
+              tempthis.deleteData(item);
+          }).catch((error) => {
+              console.log(error);
+          });
+      },
+      deleteData(item) {
+          let tempthis = this;
+          this.$store.dispatch("deleteData", {id: item.id, model: 'Permission'}).then(function (response) {
+              if (response.data.status === 200) {
+                  tempthis.getDataFromApi();
+              }
+              tempthis.deleteLoading = false;
+          }).catch(function (error) {
+              tempthis.deleteLoading = false;
+          });
+
+      },
   },
 };
 </script>

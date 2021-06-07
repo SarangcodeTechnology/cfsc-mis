@@ -21,7 +21,7 @@ class UserController extends Controller
                     'message' => 'Users loaded successfully',
                     'data' => compact('user')
                 ]
-                );
+            );
         }
         catch(Exception $e){
 
@@ -35,6 +35,7 @@ class UserController extends Controller
                 $user = User::find($request->data['id']);
                 $user->name = $request->data['name'];
                 $user->email = $request->data['email'];
+                $user->kaaryalaya_id = $request->data['kaaryalaya_id'];
                 if(isset($request->data['password'])){
                     $user->password = Hash::make($request->data['password']);
                 }
@@ -58,20 +59,17 @@ class UserController extends Controller
                 $user = new User();
                 $user->name = $request->data['name'];
                 $user->email = $request->data['email'];
+                $user->kaaryalaya_id = $request->data['kaaryalaya_id'];
                 $user->password = Hash::make($request->data['password']);
                 $user->save();
-                if(isset($request->data['roles'])){
-                    if(count($request->data['roles'])>0){
-                        foreach($request->data['roles'] as $role){
-                            $user->roles()->attach($role['id']);
-                        }
+                if(count($request->data['roles'])>0){
+                    foreach($request->data['roles'] as $role){
+                        $user->roles()->attach($role['id']);
                     }
                 }
-                if(isset($request->data['permissions'])){
-                    if(count($request->data['permissions'])>0){
-                        foreach($request->data['permissions'] as $permission){
-                            $user->permissions()->attach($permission['id']);
-                        }
+                if(count($request->data['permissions'])>0){
+                    foreach($request->data['permissions'] as $permission){
+                        $user->permissions()->attach($permission['id']);
                     }
                 }
                 $saved = 1;
@@ -83,7 +81,7 @@ class UserController extends Controller
                     'type' => 'success',
                     'message' => 'Users '.($saved ? 'created' : 'updated').' successfully',
                 ]
-                );
+            );
         }
         catch(Exception $e){
             return response([
@@ -112,11 +110,25 @@ class UserController extends Controller
                 // getting unique permissions
                 $selectedRolePermissionsIDs = array_unique($selectedRolePermissionsIDs);
                 $selectedRolePermissions = Permission::whereIn('id',$selectedRolePermissionsIDs)->get();
+                $formattedSelectedRolePermissions = [];
+                foreach ($selectedRolePermissions as $item){
+                    $key = explode('-',$item->name)[0];
+                    $formattedSelectedRolePermissions[$key][] = $item;
+                }
+
+
 
 
                 // getting additional permissions using whereNotIn
                 $additionalPermissions = Permission::whereNotIn('id',$selectedRolePermissionsIDs)->get();
+                $formattedPermissions = [];
+                foreach ($additionalPermissions as $item){
+                    $key = explode('-',$item->name)[0];
+                    $formattedPermissions[$key][] = $item;
+                }
 
+                // assigning additionalPermissions as formatted Permissions as it is already passed to front end
+                $additionalPermissions = $formattedPermissions;
                 // selected additional permissions from frontend
                 $selectedPermissions = $request->permissions ?? [];
                 $selectedPermissionsIDs = array_column($selectedPermissions, 'id');
@@ -132,21 +144,29 @@ class UserController extends Controller
                         'status' => 200,
                         'type' => 'success',
                         'message' => 'Users loaded successfully',
-                        'data' => compact('selectedRolePermissions','additionalPermissions','finalSelectedPermissions')
+                        'data' => compact('formattedSelectedRolePermissions','selectedRolePermissions','additionalPermissions','finalSelectedPermissions')
                     ]
                 );
             }
             else{
                 $additionalPermissions = Permission::all();
+                $formattedPermissions = [];
+                foreach ($additionalPermissions as $item){
+                    $key = explode('-',$item->name)[0];
+                    $formattedPermissions[$key][] = $item;
+                }
+
+                // assigning additionalPermissions as formatted Permissions as it is already passed to front end
+                $additionalPermissions = $formattedPermissions;
                 $finalSelectedPermissions = $request->permissions;
                 return response(
 
                     [
-                    'status' => 200,
-                    'type' => 'success',
-                    'message' => 'it is okay',
-                    'data' => compact('additionalPermissions','finalSelectedPermissions')
-                     ]
+                        'status' => 200,
+                        'type' => 'success',
+                        'message' => 'it is okay',
+                        'data' => compact('additionalPermissions','finalSelectedPermissions')
+                    ]
                 );
             }
 
