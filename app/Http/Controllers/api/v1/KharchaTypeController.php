@@ -11,7 +11,7 @@ class KharchaTypeController extends Controller
 {
     public function index(){
         try{
-            $kharchaTypes = KharchaType::orderBy('created_at','desc')->get();
+            $kharchaTypes = KharchaType::with('kharchaCategory')->orderBy('created_at','desc')->get();
             return response(
                 [
                     'status' => 200,
@@ -35,6 +35,7 @@ class KharchaTypeController extends Controller
             if(isset($request->data['id'])){
                 $kharchaType = KharchaType::find($request->data['id']);
                 $kharchaType->title = $request->data['title'];
+                $kharchaType->kharcha_category_id = $request->data['kharcha_category_id'];
                 $kharchaType->order = $request->data['order'];
                 $kharchaType->update();
                 $saved=0;
@@ -43,6 +44,7 @@ class KharchaTypeController extends Controller
             else{
                 $kharchaType = new KharchaType();
                 $kharchaType->title = $request->data['title'];
+                $kharchaType->kharcha_category_id = $request->data['kharcha_category_id'];
                 $kharchaType->order = $request->data['order'];
                 $kharchaType->save();
                 $saved = 1;

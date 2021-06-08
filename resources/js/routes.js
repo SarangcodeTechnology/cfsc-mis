@@ -305,6 +305,20 @@ const opts = {
                     path: "/income-types-edit",
                     component: IncomeTypesEdit,
                     name: 'income-types-edit',
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'income-types') {
+                            store.commit("SET_INCOME_TYPES_EDIT_DATA", {
+                                id: null,
+                                created_at: "",
+                                updated_at: "",
+                                title: "",
+                                order: null,
+                                income_category_id: null,
+                            });
+                        }
+                        next();
+                    },
                     meta: {
                         breadcrumb: {
                             text: "Income Types Edit",
@@ -327,6 +341,19 @@ const opts = {
                     path: "/income-categories-edit",
                     component: IncomeCategoriesEdit,
                     name: 'income-categories-edit',
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'income-categories') {
+                            store.commit("SET_INCOME_CATEGORIES_EDIT_DATA", {
+                                id: null,
+                                created_at:"" ,
+                                updated_at:"" ,
+                                title:"" ,
+                                order: null,
+                            });
+                        }
+                        next();
+                    },
                     meta: {
                         breadcrumb: {
                             text: "Income Types Edit",
@@ -348,6 +375,20 @@ const opts = {
                 {
                     path: "/kharcha-types-edit",
                     component: KharchaTypesEdit,
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'kharcha-types') {
+                            store.commit("SET_KHARCHA_TYPES_EDIT_DATA", {
+                                id: null,
+                                created_at: "",
+                                updated_at: "",
+                                title: "",
+                                order: null,
+                                income_category_id: null,
+                            });
+                        }
+                        next();
+                    },
                     name: 'kharcha-types-edit',
                     meta: {
                         breadcrumb: {
@@ -371,6 +412,19 @@ const opts = {
                     path: "/kharcha-categories-edit",
                     component: KharchaCategoriesEdit,
                     name: 'kharcha-categories-edit',
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'kharcha-categories') {
+                            store.commit("SET_KHARCHA_CATEGORIES_EDIT_DATA", {
+                                id: null,
+                                created_at: "",
+                                updated_at: "",
+                                title: "",
+                                order: null,
+                            });
+                        }
+                        next();
+                    },
                     meta: {
                         breadcrumb: {
                             text: "Expenditure Categories Edit",
@@ -382,6 +436,7 @@ const opts = {
                     path: "/kharcha",
                     component: Kharcha,
                     name: 'kharcha',
+
                     meta: {
                         breadcrumb: {
                             text: "Expenditure Data",
@@ -393,6 +448,20 @@ const opts = {
                     path: "/kharcha-edit",
                     component: KharchaEdit,
                     name: 'kharcha-edit',
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'kharcha') {
+                            store.commit("SET_KHARCHA_EDIT_DATA", {
+                                fug_id:null,
+                                aarthik_barsa_id:null,
+                                kharcha_type_id:null,
+                                kharcha:null,
+                                kaifiyat:"",
+
+                            });
+                        }
+                        next();
+                    },
                     meta: {
                         breadcrumb: {
                             text: "Expenditure Data Edit",
@@ -414,6 +483,19 @@ const opts = {
                 {
                     path: "/income-edit",
                     component: IncomeEdit,
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'income') {
+                            store.commit("SET_INCOME_EDIT_DATA", {
+                                fug_id:null,
+                                aarthik_barsa_id:null,
+                                income_type_id:null,
+                                income:null,
+                                kaifiyat:"",
+                            });
+                        }
+                        next();
+                    },
                     name: 'income-edit',
                     meta: {
                         breadcrumb: {

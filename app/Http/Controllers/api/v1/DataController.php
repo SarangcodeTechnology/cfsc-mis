@@ -4,12 +4,17 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Helpers\CollectionHelper;
 use App\Http\Controllers\Controller;
+use App\Models\AarthikBarsa;
 use App\Models\CfData;
 use App\Models\ForestCondition;
 use App\Models\ForestType;
 use App\Models\FugApprovalDate;
 use App\Models\FugAuditReport;
 use App\Models\FugMap;
+use App\Models\IncomeCategory;
+use App\Models\IncomeType;
+use App\Models\KharchaCategory;
+use App\Models\KharchaType;
 use App\Models\Permission;
 use App\Models\Physiography;
 use App\Models\Province;
@@ -340,6 +345,10 @@ class DataController extends Controller
             $forest_types = ForestType::orderBy('name')->get();
             $forest_conditions = ForestCondition::orderBy('code')->get();
             $localLevelWithWard = CfData::select('local_level_id','ward')->get();
+            $kharchaCategories = KharchaCategory::with('kharcha_types')->select('id','title','order')->get();
+            $aarthikBarsas = AarthikBarsa::select('id','name')->get();
+            $cfugs =CfData ::select('id','fug_name')->get();
+            $incomeCategories = IncomeCategory::with('income_types')->select('id','title','order')->get();
             $roles = Role::all();
             $permissions = Permission::all();
             $userPermissions = $this->permissions();
@@ -374,7 +383,7 @@ class DataController extends Controller
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions')
+                'data' => compact('formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions','incomeCategories','kharchaCategories','cfugs','aarthikBarsas')
             ]);
         } catch (Exception $e) {
             return response([

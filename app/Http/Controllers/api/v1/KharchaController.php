@@ -12,6 +12,67 @@ class KharchaController extends Controller
     {
         try {
             $kharcha = Kharcha::orderBy('created_at', 'desc')->get();
+            $test='[
+  {
+      "id": 1,
+    "created_at": "2021-06-05T00:00:00.000000Z",
+    "updated_at": "2021-06-05T00:00:00.000000Z",
+    "title": "Category 1",
+    "order": 1,
+    "kharcha_types": [
+      {
+          "id": 1,
+        "created_at": "2021-06-05T16:18:20.000000Z",
+        "updated_at": "2021-06-05T16:18:20.000000Z",
+        "title": "Type 1 - Cat 1",
+        "kharcha_category_id": 1,
+        "order": 1,
+        "kharcha": 200,
+        "kaifiyat": "test remarks 1"
+      },
+      {
+          "id": 2,
+        "created_at": "2021-06-05T16:19:00.000000Z",
+        "updated_at": "2021-06-05T16:19:00.000000Z",
+        "title": "Type 2 - Cat 1",
+        "kharcha_category_id": 1,
+        "order": 2,
+        "kharcha": 200,
+        "kaifiyat": "test remarks 2"
+      }
+    ]
+  },
+  {
+      "id": 2,
+    "created_at": "2021-06-05T00:00:00.000000Z",
+    "updated_at": "2021-06-05T00:00:00.000000Z",
+    "title": "Category 2",
+    "order": 1,
+    "kharcha_types": [
+      {
+          "id": 1,
+        "created_at": "2021-06-05T16:18:20.000000Z",
+        "updated_at": "2021-06-05T16:18:20.000000Z",
+        "title": "Type 1 - Cat 2",
+        "kharcha_category_id": 1,
+        "order": 1,
+        "kharcha": 200,
+        "kaifiyat": "test remarks 3"
+      },
+      {
+          "id": 2,
+        "created_at": "2021-06-05T16:19:00.000000Z",
+        "updated_at": "2021-06-05T16:19:00.000000Z",
+        "title": "Type 2 - Cat 2",
+        "kharcha_category_id": 1,
+        "order": 2,
+        "kharcha": 200,
+        "kaifiyat": "test remarks 4"
+      }
+    ]
+  }
+]';
+            $kharcha=json_decode($test);
             return response(
                 [
                     'status' => 200,

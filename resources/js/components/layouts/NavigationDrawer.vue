@@ -76,7 +76,9 @@ export default {
                 },
                 {
                     title: "फारम", icon: "mdi-note", subItems: [
-                        {title: "सामुदायिक वन थप", icon: "mdi-plus", route: "/cf-data-edit", can: "can_browse_cfdata"},
+                        {title: "सामुदायिक वन थप", icon: "mdi-plus", route: "/cf-data-edit", can: "dashboard-browse"},
+                        {title: "खर्च विवरण थप", icon: "mdi-cash-plus", route: "/kharcha-edit", can: "dashboard-browse"},
+                        {title: "आम्दानी विवरण थप", icon: "mdi-cash-minus", route: "/income-edit", can: "dashboard-browse"},
                     ]
                 },
                 {
@@ -85,8 +87,10 @@ export default {
                             title: "सामुदायिक वन विवरण",
                             icon: "mdi-border-all",
                             route: "/cf-data",
-                            can: "cfdata-browse"
+                            can: "dashboard-browse"
                         },
+                        {title: "खर्च विवरण", icon: "mdi-cash-plus", route: "/kharcha", can: "dashboard-browse"},
+                        {title: "आम्दानी विवरण", icon: "mdi-cash-minus", route: "/income", can: "dashboard-browse"},
                     ]
                 },
                 {

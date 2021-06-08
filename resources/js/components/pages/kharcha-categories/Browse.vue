@@ -115,7 +115,11 @@ export default {
         },
         goToEditPage() {
             this.$store.dispatch("setKharchaCategoriesEditData", {
-                title: ""
+                id: null,
+                created_at: "",
+                updated_at: "",
+                title: "",
+                order: null,
             });
         },
         editData(item) {

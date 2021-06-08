@@ -29,6 +29,19 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
+                            <v-autocomplete
+                                v-model="kharchaTypesData.kharcha_category_id"
+                                :items="kharchaCategories"
+                                :rules="[(v) => !!v || 'खर्च बर्गिकरण छनाेट गर्न अनिवार्य छ']"
+                                clearable
+                                hint="E.g. : प्रशासनिक"
+                                item-text="title"
+                                item-value="id"
+                                label="खर्च बर्गिकरण"
+                                outlined
+                                placeholder="खर्च बर्गिकरण छनाेट गर्नुहाेस् ।"
+                            >
+                            </v-autocomplete>
                             <v-text-field
                                 v-model="kharchaTypesData.title"
                                 label="खर्च बर्गिकरण प्रकारकाे नाम"
@@ -63,6 +76,7 @@ export default {
     computed:{
         ...mapState({
             kharchaTypesData: (state) => state.webservice.editKharchaTypesData,
+            kharchaCategories: (state) => state.webservice.resources.kharchaCategories,
         }),
     },
     methods:{

@@ -82,6 +82,7 @@ export default {
             headers: [
                 {text: "कार्यहरु", value: "actions"},
                 {text: "नाम", value: "title"},
+                {text: "खर्च बर्गिकरण", value: "kharcha_category.title"},
                 {text: "अर्डर", value: "order"},
                 {text: "सिर्जना गरिएको मिति", value: "created_at"},
             ],
@@ -101,7 +102,10 @@ export default {
         this.getDataFromApi();
     },
     computed: {
-        ...mapState({kharchaTypes: (state) => state.webservice.kharchaTypes}),
+        ...mapState({
+            kharchaTypes: (state) => state.webservice.kharchaTypes,
+        }),
+
     },
     methods: {
         getDataFromApi() {
@@ -115,7 +119,12 @@ export default {
         },
         goToEditPage() {
             this.$store.dispatch("setKharchaTypesEditData", {
-                title: ""
+                id: null,
+                created_at: "",
+                updated_at: "",
+                title: "",
+                order: null,
+                income_category_id: null,
             });
         },
         editData(item) {

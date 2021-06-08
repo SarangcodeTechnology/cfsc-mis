@@ -14,4 +14,8 @@ class KharchaType extends Model
     public function kharcha(){
         return $this->hasMany(Kharcha::class,'kharcha_type_id');
     }
+
+    public function kharchaCategory(){
+        return $this->belongsTo(KharchaCategory::class,'kharcha_category_id');
+    }
 }

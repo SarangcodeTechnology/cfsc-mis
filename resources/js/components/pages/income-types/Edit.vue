@@ -24,11 +24,24 @@
                 <v-container class="pa-0 ma-0">
           <span
           >कृपया तलकाे फारम
-            मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
+            मार्फत आफ्नाे विवरण सkharchaCategoriesूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
           >
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
+                            <v-autocomplete
+                                v-model="incomeTypesData.income_category_id"
+                                :items="incomeCategories"
+                                :rules="[(v) => !!v || 'आम्दानी बर्गिकरण छनाेट गर्न अनिवार्य छ']"
+                                clearable
+                                hint="E.g. : प्रशासनिक"
+                                item-text="title"
+                                item-value="id"
+                                label="आम्दानी बर्गिकरण"
+                                outlined
+                                placeholder="आम्दानी बर्गिकरण छनाेट गर्नुहाेस् ।"
+                            >
+                            </v-autocomplete>
                             <v-text-field
                                 v-model="incomeTypesData.title"
                                 label="आम्दानी बर्गिकरण प्रकारकाे नाम"
@@ -63,6 +76,7 @@ export default {
     computed:{
         ...mapState({
             incomeTypesData: (state) => state.webservice.editIncomeTypesData,
+            incomeCategories: (state) => state.webservice.resources.incomeCategories,
         }),
     },
     methods:{

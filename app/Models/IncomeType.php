@@ -11,4 +11,12 @@ class IncomeType extends Model
 
     protected $connection = 'cfsc_mis_data';
     protected $table = 'income_type';
+
+    public function income(){
+        return $this->hasMany(Income::class,'income_type_id');
+    }
+
+    public function incomeCategory(){
+        return $this->belongsTo(IncomeCategory::class,'income_category_id');
+    }
 }

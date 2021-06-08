@@ -11,7 +11,7 @@ class IncomeTypeController extends Controller
 {
     public function index(){
         try{
-            $incomeTypes = IncomeType::orderBy('created_at','desc')->get();
+            $incomeTypes = IncomeType::with('incomeCategory')->orderBy('created_at','desc')->get();
             return response(
                 [
                     'status' => 200,
@@ -35,6 +35,7 @@ class IncomeTypeController extends Controller
             if(isset($request->data['id'])){
                 $incomeType = IncomeType::find($request->data['id']);
                 $incomeType->title = $request->data['title'];
+                $incomeType->income_category_id = $request->data['income_category_id'];
                 $incomeType->order = $request->data['order'];
                 $incomeType->update();
                 $saved=0;
@@ -43,6 +44,7 @@ class IncomeTypeController extends Controller
             else{
                 $incomeType = new IncomeType();
                 $incomeType->title = $request->data['title'];
+                $incomeType->income_category_id = $request->data['income_category_id'];
                 $incomeType->order = $request->data['order'];
                 $incomeType->save();
                 $saved = 1;

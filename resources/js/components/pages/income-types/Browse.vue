@@ -27,8 +27,8 @@
                                             @click="goToEditPage"
                                         >
                                             <v-icon left>mdi-plus-circle-outline</v-icon>
-                                            <span>नयाँ</span></v-btn
-                                        >
+                                            <span>नयाँ</span>
+                                        </v-btn>
                                     </div>
                                 </v-col>
                                 <v-col cols="5">
@@ -55,7 +55,6 @@
                             <v-btn icon x-small @click="editData(item)">
                                 <v-icon>mdi-pencil</v-icon>
                             </v-btn>
-
                             <v-btn color="red" icon x-small @click="confirm(item)">
                                 <v-icon>mdi-delete</v-icon>
                             </v-btn>
@@ -82,6 +81,7 @@ export default {
             headers: [
                 {text: "कार्यहरु", value: "actions"},
                 {text: "नाम", value: "title"},
+                {text: "खर्च बर्गिकरण", value: "income_category.title"},
                 {text: "अर्डर", value: "order"},
                 {text: "सिर्जना गरिएको मिति", value: "created_at"},
             ],
@@ -101,7 +101,9 @@ export default {
         this.getDataFromApi();
     },
     computed: {
-        ...mapState({incomeTypes: (state) => state.webservice.incomeTypes}),
+        ...mapState({
+            incomeTypes: (state) => state.webservice.incomeTypes,
+        }),
     },
     methods: {
         getDataFromApi() {
@@ -115,7 +117,12 @@ export default {
         },
         goToEditPage() {
             this.$store.dispatch("setIncomeTypesEditData", {
-                title: ""
+                id: null,
+                created_at: "",
+                updated_at: "",
+                title: "",
+                order: null,
+                income_category_id: null,
             });
         },
         editData(item) {
