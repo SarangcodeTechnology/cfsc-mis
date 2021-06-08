@@ -96,6 +96,7 @@ export default {
                 {
                     title: "संसाधनहरु", icon: "mdi-folder", subItems: [
                         {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa',can:"dashboard-browse"},
+                        {title: 'कार्यलय', icon: 'mdi-folder', route: '/kaaryalaya', can: "kaaryalaya-browse"},
                         {title: 'खर्च बर्गिकरणहरु', icon: 'mdi-cash-plus', route: '/kharcha-categories',can:"dashboard-browse"},
                         {title: 'खर्च प्रकारहरु', icon: 'mdi-cash-plus', route: '/kharcha-types',can:"dashboard-browse"},
                         {title: 'आम्दानी बर्गिकरणहरु', icon: 'mdi-cash-minus', route: '/income-categories', can: "dashboard-browse"},

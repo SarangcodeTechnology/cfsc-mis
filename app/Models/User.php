@@ -48,6 +48,9 @@ class User extends Authenticatable
     public function permissions(){
         return $this->belongsToMany(Permission::class);
     }
+    public function kaaryalaya(){
+        return $this->belongsTo(Kaaryalaya::class,'kaaryalaya_id','id');
+    }
     public function getDateAttribute(){
         return date("Y/m/d", strtotime($this->created_at));
     }

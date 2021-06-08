@@ -15,6 +15,7 @@ use App\Models\IncomeCategory;
 use App\Models\IncomeType;
 use App\Models\KharchaCategory;
 use App\Models\KharchaType;
+use App\Models\Kaaryalaya;
 use App\Models\Permission;
 use App\Models\Physiography;
 use App\Models\Province;
@@ -351,6 +352,7 @@ class DataController extends Controller
             $incomeCategories = IncomeCategory::with('income_types')->select('id','title','order')->get();
             $roles = Role::all();
             $permissions = Permission::all();
+            $kaaryalaya = Kaaryalaya::all();
             $userPermissions = $this->permissions();
             $formattedPermissions = $this->formattedPermissions();
             $dashboard_items = [
@@ -383,7 +385,7 @@ class DataController extends Controller
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions','incomeCategories','kharchaCategories','cfugs','aarthikBarsas')
+                'data' => compact('kaaryalaya','formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions','incomeCategories','kharchaCategories','cfugs','aarthikBarsas')
             ]);
         } catch (Exception $e) {
             return response([
