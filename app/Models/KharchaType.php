@@ -12,6 +12,6 @@ class KharchaType extends Model
     protected $table  = 'kharcha_type';
 
     public function kharcha(){
-        return $this->hasMany(Kharcha::class,'kharcha_type_id');
+        return $this->hasOne(Kharcha::class,'kharcha_type_id');
     }
 }

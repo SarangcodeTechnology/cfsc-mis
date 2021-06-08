@@ -10,6 +10,7 @@ use App\Models\ForestType;
 use App\Models\FugApprovalDate;
 use App\Models\FugAuditReport;
 use App\Models\FugMap;
+use App\Models\Kaaryalaya;
 use App\Models\Permission;
 use App\Models\Physiography;
 use App\Models\Province;
@@ -342,6 +343,7 @@ class DataController extends Controller
             $localLevelWithWard = CfData::select('local_level_id','ward')->get();
             $roles = Role::all();
             $permissions = Permission::all();
+            $kaaryalaya = Kaaryalaya::all();
             $userPermissions = $this->permissions();
             $formattedPermissions = $this->formattedPermissions();
             $dashboard_items = [
@@ -374,7 +376,7 @@ class DataController extends Controller
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions')
+                'data' => compact('kaaryalaya','formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions')
             ]);
         } catch (Exception $e) {
             return response([
