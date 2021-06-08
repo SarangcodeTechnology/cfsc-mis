@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kharcha;
+use App\Models\KharchaCategory;
+use Exception;
 use Illuminate\Http\Request;
 
 class KharchaController extends Controller
@@ -134,6 +136,33 @@ class KharchaController extends Controller
                 'type' => 'success',
                 'message' => 'Item Deleted Successfully ',
             ]);
+        } catch (Exception $e) {
+            return response([
+                'status' => $e->getCode(),
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function getKharchaData(Request $request){
+        try {
+            $aarthik_barsa_id = $request->aarhikBarsa;
+            $fug_id = $request->cfug;
+
+            $kharchaData = KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
+                $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
+                    $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
+                });
+            }])->get();
+            return response(
+                [
+                    'status' => 200,
+                    'type' => 'success',
+                    'message' => 'Kharcha Data loaded successfully',
+                    'data' => compact('kharchaData')
+                ]
+            );
         } catch (Exception $e) {
             return response([
                 'status' => $e->getCode(),

@@ -96,3 +96,7 @@ Route::middleware('auth:api')->post('delete',[DeleteController::class,'delete'])
 // kaaryalaya
 Route::middleware('auth:api')->get('kaaryalaya', [KaaryalayaController::class,'index']);
 Route::middleware('auth:api')->post('save-kaaryalaya-data',[KaaryalayaController::class,'saveKaaryalayaData']);
+
+Route::middleware('auth:api')->post('kharcha-data',[KharchaController::class,'getKharchaData']);
+
+

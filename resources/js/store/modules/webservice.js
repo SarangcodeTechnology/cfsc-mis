@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { Promise } from 'es6-promise';
+import {Promise} from 'es6-promise';
 import router from '../../routes';
 
 
 const state = {
     resources: {
-        userPermissions:""
+        userPermissions: ""
     },
     editCfData: {
         fug_approval_dates: [
@@ -51,11 +51,11 @@ const state = {
     incomeTypes: [],
     editIncomeTypesData: {},
 
-    kharcha:[],
-    editKharchaData:{},
+    kharcha: [],
+    editKharchaData: {},
 
-    income:[],
-    editIncomeData:{},
+    income: [],
+    editIncomeData: {},
 };
 
 const mutations = {
@@ -156,11 +156,11 @@ const actions = {
     getAarthikBarsa(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/aarthik-barsa', {
-                headers: {
-                    // Accept: "application/json",
-                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    headers: {
+                        // Accept: "application/json",
+                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    }
                 }
-            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -190,7 +190,7 @@ const actions = {
         router.push("/aarthik-barsa-edit");
     },
     saveAarthikBarsa(state, payload) {
-        axios.post('/api/v1/save-aarthik-barsa', { data: payload }, {
+        axios.post('/api/v1/save-aarthik-barsa', {data: payload}, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1020,11 +1020,11 @@ const actions = {
     getUsers(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/users', {
-                headers: {
-                    // Accept: "application/json",
-                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    headers: {
+                        // Accept: "application/json",
+                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    }
                 }
-            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -1054,7 +1054,7 @@ const actions = {
         router.push("/user-edit");
     },
     saveUserData(state, payload) {
-        axios.post('/api/v1/save-user-data', { data: payload }, {
+        axios.post('/api/v1/save-user-data', {data: payload}, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1112,11 +1112,11 @@ const actions = {
     getRoles(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/roles', {
-                headers: {
-                    // Accept: "application/json",
-                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    headers: {
+                        // Accept: "application/json",
+                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    }
                 }
-            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -1146,7 +1146,7 @@ const actions = {
         router.push("/role-edit");
     },
     saveRoleData(state, payload) {
-        axios.post('/api/v1/save-role-data', { data: payload }, {
+        axios.post('/api/v1/save-role-data', {data: payload}, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1177,11 +1177,11 @@ const actions = {
     getPermissions(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/permissions', {
-                headers: {
-                    // Accept: "application/json",
-                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    headers: {
+                        // Accept: "application/json",
+                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    }
                 }
-            }
             ).then(
                 function (response) {
                     if (response.data.status === 200) {
@@ -1211,7 +1211,7 @@ const actions = {
         router.push("/permission-edit");
     },
     savePermissionData(state, payload) {
-        axios.post('/api/v1/save-permission-data', { data: payload }, {
+        axios.post('/api/v1/save-permission-data', {data: payload}, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1242,11 +1242,11 @@ const actions = {
     getKaaryalaya(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/kaaryalaya', {
-                headers: {
-                    // Accept: "application/json",
-                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    headers: {
+                        // Accept: "application/json",
+                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    }
                 }
-            }
             ).then(
                 function (response) {
                     if (response.data.status == 200) {
@@ -1276,7 +1276,7 @@ const actions = {
         router.push("/kaaryalaya-edit");
     },
     saveKaaryalayaData(state, payload) {
-        axios.post('/api/v1/save-kaaryalaya-data', { data: payload }, {
+        axios.post('/api/v1/save-kaaryalaya-data', {data: payload}, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
@@ -1304,7 +1304,55 @@ const actions = {
         });
     },
 
+    makePostRequest(state, payload) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/v1/' + payload.route, payload.data, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                }
+            }).then(function (response) {
+                if (response.data.status === 200) {
+                    resolve(response);
+                } else {
+                    state.dispatch("addNotification", {
+                        type: response.data.type,
+                        message: response.data.message,
+                    });
+                }
+            }).catch(function (error) {
+                state.dispatch("addNotification", {
+                    type: "error",
+                    message: error,
+                });
+            });
+        });
+    },
 
+    makeGetRequest(state, payload) {
+        return new Promise((resolve, reject) => {
+            axios.get('/api/v1/' + payload.route, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                }
+            }).then(function (response) {
+                if (response.data.status === 200) {
+                    resolve(response);
+                } else {
+                    state.dispatch("addNotification", {
+                        type: response.data.type,
+                        message: response.data.message,
+                    });
+                }
+            }).catch(function (error) {
+                state.dispatch("addNotification", {
+                    type: "error",
+                    message: error,
+                });
+            });
+        });
+    }
 };
 
 const getters = {

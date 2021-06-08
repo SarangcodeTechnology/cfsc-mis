@@ -23,68 +23,44 @@
             <v-card-text>
                 <v-container class="pa-0 ma-0">
                     <v-row>
-                        <v-autocomplete
-                            v-model="incomeTypesData.income_category_id"
-                            :items="incomeCategories"
-                            :rules="[(v) => !!v || 'आम्दानी बर्गिकरण छनाेट गर्न अनिवार्य छ']"
-                            clearable
-                            hint="E.g. : प्रशासनिक"
-                            item-text="title"
-                            item-value="id"
-                            label="आम्दानी बर्गिकरण"
-                            outlined
-                            placeholder="आम्दानी बर्गिकरण छनाेट गर्नुहाेस् ।"
-                        >
-                        </v-autocomplete>
-                        <v-autocomplete
-                            v-model="incomeTypesData.income_category_id"
-                            :items="incomeCategories"
-                            :rules="[(v) => !!v || 'आम्दानी बर्गिकरण छनाेट गर्न अनिवार्य छ']"
-                            clearable
-                            hint="E.g. : प्रशासनिक"
-                            item-text="title"
-                            item-value="id"
-                            label="आम्दानी बर्गिकरण"
-                            outlined
-                            placeholder="आम्दानी बर्गिकरण छनाेट गर्नुहाेस् ।"
-                        >
-                        </v-autocomplete>
+                        <v-col cols="4">
+                            <v-autocomplete
+                                v-model="filterData.aarthikBarsa"
+                                :items="aarthikBarsas"
+                                :rules="[(v) => !!v || 'आर्थिक वर्ष छनाैट गर्न अनिवार्य छ']"
+                                clearable
+                                hint="E.g. : 2078/079"
+                                item-text="name"
+                                item-value="id"
+                                label="आर्थिक वर्ष"
+                                outlined
+                                placeholder="आर्थिक वर्ष छनाैट गर्नुहाेस् ।"
+                                @input="getDataFromApi()"
+                            >
+                            </v-autocomplete>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-autocomplete
+                                v-model="filterData.cfug"
+                                :items="cfugs"
+                                :rules="[(v) => !!v || 'वन उपभाेक्ता समूह छनाैट गर्न अनिवार्य छ']"
+                                clearable
+                                hint="E.g. : फलानाे वन उपभाेक्ता समूह"
+                                item-text="fug_name"
+                                item-value="id"
+                                label="वन उपभाेक्ता समूह"
+                                outlined
+                                placeholder="वन उपभाेक्ता समूह छनाैट गर्नुहाेस् ।"
+                                @input="getDataFromApi()"
+                            >
+                            </v-autocomplete>
+                        </v-col>
                     </v-row>
-
-          <span
-          >कृपया तलकाे फारम
+                    <span
+                    >कृपया तलकाे फारम
             मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
-          >
+                    >
                     <v-divider></v-divider>
-
-                    <div v-for="(item,i) in kharchaData" :key="i">
-                        <div v-for="(subItem,j) in item" v-if="subItem.kharcha != null" :key="j">
-                            <v-row>
-                                <h3>{{ item.title }}</h3>
-                            </v-row>
-                            <v-row>
-                                <v-col cols="4">
-                                    <h4>{{ subItem.title }}</h4>
-                                    <v-text-field
-                                        v-model="subItem.kharcha"
-                                        label="खर्च रकम"
-                                        placeholder="खर्च रकम राख्नुहोस्"
-                                        outlined
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                                <v-col cols="4">
-                                    <v-text-field
-                                        v-model="subItem.kaifiyat"
-                                        label="कैफियत"
-                                        placeholder="कैफियत राख्नुहोस्"
-                                        outlined
-                                    >
-                                    </v-text-field>
-                                </v-col>
-                            </v-row>
-                        </div>
-                    </div>
                 </v-container>
             </v-card-text>
         </v-card>
@@ -98,6 +74,10 @@ export default {
     data() {
         return {
             valid: false,
+            filterData: {
+                aarthikBarsa: "",
+                cfug: ""
+            }
         }
     },
     computed: {
@@ -108,6 +88,15 @@ export default {
         }),
     },
     methods: {
+        getDataFromApi() {
+            var tempthis = this;
+            if (this.valid) {
+                this.$store.dispatch("makePostRequest", {
+                    data: tempthis.filterData,
+                    route: 'kharcha-data'
+                })
+            }
+        },
         saveKharcha() {
             this.$store.dispatch('saveKharcha', this.kharchaData)
         }
