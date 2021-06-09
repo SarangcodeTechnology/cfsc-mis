@@ -35,7 +35,7 @@
                                 label="आर्थिक वर्ष"
                                 outlined
                                 placeholder="आर्थिक वर्ष छनाैट गर्नुहाेस् ।"
-                                @input="getDataFromApi()"
+                                @input="getDataFromApi"
                             >
                             </v-autocomplete>
                         </v-col>
@@ -51,7 +51,7 @@
                                 label="वन उपभाेक्ता समूह"
                                 outlined
                                 placeholder="वन उपभाेक्ता समूह छनाैट गर्नुहाेस् ।"
-                                @input="getDataFromApi()"
+                                @input="getDataFromApi"
                             >
                             </v-autocomplete>
                         </v-col>
@@ -138,7 +138,8 @@ export default {
         },
         getDataFromApi() {
             var tempthis = this;
-            if (this.$refs.form.validate()) {
+            // if (this.$refs.form.validate()) {
+            if (this.filterData.aarthikBarsa && this.filterData.cfug ) {
                 this.$store.dispatch("makePostRequest", {
                     data: tempthis.filterData,
                     route: 'kharcha-data'
@@ -163,8 +164,8 @@ export default {
                     });
                     tempthis.kharchaData = tempKharchaData;
                 })
-            } else {
-                tempthis.kharchaData = [];
+            }else{
+                this.kharchaData = [];
             }
         },
         saveKharcha() {

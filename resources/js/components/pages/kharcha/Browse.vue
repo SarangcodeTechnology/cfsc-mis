@@ -128,7 +128,6 @@ export default {
                 tempthis.loading = false;
                 tempthis.headers = response.data.data.headers;
                 tempthis.categoryHeader = response.data.data.categoryHeader;
-                tempthis.generateHeadersBasedOnData();
             });
         },
         goToEditPage() {
