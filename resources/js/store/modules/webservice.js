@@ -1338,6 +1338,7 @@ const actions = {
     makeGetRequest(state, payload) {
         return new Promise((resolve, reject) => {
             axios.get('/api/v1/' + payload.route, {
+                params: payload.data,
                 headers: {
                     Accept: "application/json",
                     Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN

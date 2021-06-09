@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class KharchaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
             $i = 0;
@@ -28,6 +28,17 @@ class KharchaController extends Controller
                 }])->get();
                 $i++;
             }
+            $filterData = json_decode($request->filterData);
+            $aarthik_barsa_ids = $filterData->aarthikBarsaIds;
+            $fug_ids = $filterData->cfugIds;
+            $kharchaCollection  = collect($kharcha);
+            $kharcha = $kharchaCollection->when(!empty($aarthik_barsa_ids),function($query) use ($aarthik_barsa_ids){
+                return $query->whereIn('aarthik_barsa.id',$aarthik_barsa_ids);
+            })->when(!empty($fug_ids),function($query) use ($fug_ids){
+                return $query->whereIn('fug.id',$fug_ids);
+            })->values();
+
+
             $headers = [
                 ['text' => "कार्यहरु", 'value'=> "actions"],
                 ['text' => "वन उपभाेक्ता समूह", 'value'=> "fug.fug_name"],
