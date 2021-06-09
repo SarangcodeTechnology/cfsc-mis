@@ -116,6 +116,13 @@ export default {
             editedKharchaData: []
         }
     },
+    mounted(){
+        if(this.$route.query.aarthik_barsa && this.$route.query.cfug){
+            this.filterData.aarthikBarsa = parseInt(this.$route.query.aarthik_barsa)
+            this.filterData.cfug = parseInt(this.$route.query.cfug);
+            this.getDataFromApi();
+        }
+    },
     computed: {
         ...mapState({
             // kharchaData: (state) => state.webservice.editKharchaData,

@@ -28,12 +28,30 @@ class KharchaController extends Controller
                 }])->get();
                 $i++;
             }
+            $headers = [
+                ['text' => "कार्यहरु", 'value'=> "actions"],
+                ['text' => "वन उपभाेक्ता समूह", 'value'=> "fug.fug_name"],
+                ['text' => "आर्थिक वर्ष", 'value'=> "aarthik_barsa.name"],
+            ];
+            $categoryHeader = [];
+            foreach(KharchaCategory::all() as $itemKey=>$item){
+                $colspan = 0;
+                foreach($item->kharcha_types as $subItemKey=>$subItem){
+                    $data['text'] = $subItem->title;
+                    $data['value'] = "items[{$itemKey}].kharcha_types[{$subItemKey}].kharcha.jamma";
+                    array_push($headers,$data);
+                    $colspan++;
+                }
+                $categoryData['title'] = $item->title;
+                $categoryData['colspan'] = $colspan;
+                if($colspan) array_push($categoryHeader,$categoryData);
+            }
             return response(
                 [
                     'status' => 200,
                     'type' => 'success',
                     'message' => 'Kharcha loaded successfully',
-                    'data' => compact('kharcha')
+                    'data' => compact('kharcha','headers','categoryHeader')
                 ]
             );
         } catch (Exception $e) {

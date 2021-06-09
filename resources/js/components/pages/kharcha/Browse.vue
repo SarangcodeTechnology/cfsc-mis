@@ -17,8 +17,10 @@
                     <template v-slot:header>
                         <thead>
                         <tr>
-                            <th colspan="2">Category 1</th>
-                            <th colspan="3">Category 2</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th v-for="categoryItem in categoryHeader" :colspan="categoryItem.colspan"><strong>({{categoryItem.title}})</strong></th>
                         </tr>
                         </thead>
                     </template>
@@ -79,6 +81,7 @@
 
 <script>
 import {mapState} from "vuex";
+import router from '../../../routes';
 
 export default {
     data() {
@@ -88,14 +91,9 @@ export default {
             numberOfPages: 0,
             options: {},
             headers: [
-                {text: "कार्यहरु", value: "actions"},
-                {text: "वन उपभाेक्ता समूह", value: "fug.fug_name"},
-                {text: "आर्थिक वर्ष", value: "aarthik_barsa.name"},
-                {text: "खर्च प्रकार", value: "kharcha_type.title"},
-                {text: "रकम (रु)", value: "kharcha"},
-                {text: "कैफियत", value: "kaifiyat"},
-                {text: "सिर्जना गरिएको मिति", value: "created_at"},
+
             ],
+            categoryHeader:[],
             loading: true,
         };
     },
@@ -120,14 +118,7 @@ export default {
         ),
     },
     methods: {
-        generateHeadersBasedOnData(){
-            var newHeader1 = [];
-            this.kharcha.forEach(function (item, i) {
-                item.forEach(function (subItem, j) {
-                    newHeader1.push({text: subItem.title, value: subitem+"",category:item});
-                });
-            });
-        },
+
         getDataFromApi() {
             const tempthis = this;
             this.loading = true;
@@ -135,6 +126,8 @@ export default {
             let pageNumber = page - 1;
             this.$store.dispatch("getKharcha", {}).then(function (response) {
                 tempthis.loading = false;
+                tempthis.headers = response.data.data.headers;
+                tempthis.categoryHeader = response.data.data.categoryHeader;
                 tempthis.generateHeadersBasedOnData();
             });
         },
@@ -148,7 +141,8 @@ export default {
             });
         },
         editData(item) {
-            this.$store.dispatch("setKharchaEditData", item)
+            router.push(`/kharcha-edit?aarthik_barsa=${item.aarthik_barsa.id}&cfug=${item.fug.id}`);
+            // this.$store.dispatch("setKharchaEditData", item)
         },
         confirm(item) {
             const tempthis = this;

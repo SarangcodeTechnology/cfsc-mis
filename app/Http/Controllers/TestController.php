@@ -40,6 +40,21 @@ class TestController extends Controller
         return $cfData;
     }
     public function index(){
+        $header = [
+            ['text' => "कार्यहरु", 'value'=> "actions"],
+            ['text' => "वन उपभाेक्ता समूह", 'value'=> "fug.fug_name"],
+            ['text' => "आर्थिक वर्ष", 'value'=> "aarthik_barsa.name"],
+        ];
+        foreach(KharchaCategory::all() as $itemKey=>$item){
+            foreach($item->kharcha_types as $subItemKey=>$subItem){
+                $data['text'] = $subItem->title;
+                $data['value'] = "items[{$itemKey}].kharcha_types[{$subItemKey}].kharcha.jamma";
+                array_push($header,$data);
+            }
+
+        }
+
+        return $header;
         $i = 0;
         foreach(Kharcha::select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
             $aarthik_barsa_id = $item->aarthik_barsa_id;
