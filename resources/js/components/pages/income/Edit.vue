@@ -1,5 +1,5 @@
 <template>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" v-model="valid">
         <v-toolbar color="#E0E0E0" dark flat></v-toolbar>
         <v-card class="mx-11 my-n11">
             <v-toolbar flat>
@@ -10,7 +10,7 @@
                     class="ma-2"
                     @click="saveIncome()"
                     hint="E.g.: save"
-                    depressedE
+                    depressed
                     color="green darken-1"
                 >
                     <v-icon>mdi-floppy</v-icon>
@@ -22,33 +22,79 @@
 
             <v-card-text>
                 <v-container class="pa-0 ma-0">
-          <span
-          >कृपया तलकाे फारम
-            मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
-          >
-                    <v-divider></v-divider>
-                    <v-row v-for="(item,i) in incomeData" :key="i">
-                        <v-col cols="12">
-                            <h3>{{ item.title }}</h3>
+                    <v-row>
+                        <v-col cols="4">
+                            <v-autocomplete
+                                v-model="filterData.aarthikBarsa"
+                                :items="aarthikBarsas"
+                                :rules="[(v) => !!v || 'आर्थिक वर्ष छनाैट गर्न अनिवार्य छ']"
+                                clearable
+                                hint="E.g. : 2078/079"
+                                item-text="name"
+                                item-value="id"
+                                label="आर्थिक वर्ष"
+                                outlined
+                                placeholder="आर्थिक वर्ष छनाैट गर्नुहाेस् ।"
+                                @input="getDataFromApi()"
+                            >
+                            </v-autocomplete>
                         </v-col>
-                        <v-col v-for="(subItem,j) in item" cols="auto" :key="j">
-                            <h4>{{ subItem.title }}</h4>
-                            <v-text-field
-                                v-model="subItem.income"
-                                label="आम्दानी रकम"
-                                placeholder="आम्दानी रकम राख्नुहोस्"
+                        <v-col cols="4">
+                            <v-autocomplete
+                                v-model="filterData.cfug"
+                                :items="cfugs"
+                                :rules="[(v) => !!v || 'वन उपभाेक्ता समूह छनाैट गर्न अनिवार्य छ']"
+                                clearable
+                                hint="E.g. : फलानाे वन उपभाेक्ता समूह"
+                                item-text="fug_name"
+                                item-value="id"
+                                label="वन उपभाेक्ता समूह"
                                 outlined
+                                placeholder="वन उपभाेक्ता समूह छनाैट गर्नुहाेस् ।"
+                                @input="getDataFromApi()"
                             >
-                            </v-text-field>
-                            <v-text-field
-                                v-model="subItem.kaifiyat"
-                                label="कैफियत"
-                                placeholder="कैफियत राख्नुहोस्"
-                                outlined
-                            >
-                            </v-text-field>
+                            </v-autocomplete>
                         </v-col>
                     </v-row>
+                    <span v-if="incomeData.length>0"
+                    >कृपया तलकाे फारम
+            मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
+                    >
+                    <v-divider v-if="incomeData.length>0"></v-divider>
+                    <div class="item">
+                        <div class="sub-item" v-for="(incomeCategory,incomeCategoryIndex) in incomeData"
+                             :key="incomeCategoryIndex">
+                            <v-card
+                                outlined
+                            >
+                                <v-card-text>
+                                    <h4><strong>{{ incomeCategory.title }}</strong></h4>
+                                    <v-divider></v-divider>
+                                    <div v-for="(incomeType,incomeTypeIndex) in incomeCategory.income_types"
+                                         :key="incomeTypeIndex">
+                                        <h5>{{ incomeType.title }}</h5>
+                                        <v-row>
+                                            <v-col cols="6">
+                                                <v-text-field outlined type="number"
+                                                              v-model="incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income.jamma"
+                                                              @input="addIncomeInEditedIncomeData(incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income)"
+                                                              placeholder="रकम (रु) राख्नुहाेस्"
+                                                              label="जम्मा"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="6">
+                                                <v-text-field outlined
+                                                              v-model="incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income.kaifiyat"
+                                                              @input="addIncomeInEditedIncomeData(incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income)"
+                                                              placeholder="कैफियत राख्नुहाेस्"
+                                                              label="कैफियत"></v-text-field>
+                                            </v-col>
+                                        </v-row>
+
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </div>
                 </v-container>
             </v-card-text>
         </v-card>
@@ -62,16 +108,63 @@ export default {
     data() {
         return {
             valid: false,
+            filterData: {
+                aarthikBarsa: "",
+                cfug: ""
+            },
+            incomeData: [],
+            editedIncomeData: []
         }
     },
     computed: {
         ...mapState({
-            incomeData: (state) => state.webservice.editIncomeData,
+            // incomeData: (state) => state.webservice.editIncomeData,
+            aarthikBarsas: (state) => state.webservice.resources.aarthikBarsas,
+            cfugs: (state) => state.webservice.resources.cfugs,
         }),
     },
     methods: {
+        addIncomeInEditedIncomeData(item) {
+            if (!this.editedIncomeData.includes(item)) {
+                this.editedIncomeData.push(item);
+            }
+        },
+        getDataFromApi() {
+            var tempthis = this;
+            if (this.$refs.form.validate()) {
+                this.$store.dispatch("makePostRequest", {
+                    data: tempthis.filterData,
+                    route: 'income-data'
+                }).then((response) => {
+                    var tempIncomeData = [];
+                    response.incomeData.forEach((incomeCategory, index) => {
+                        var tempIncomeType = [];
+                        incomeCategory.income_types.forEach((incomeType) => {
+                            if (incomeType.income == null) {
+                                incomeType.income = {
+                                    fug_id: tempthis.filterData.cfug,
+                                    aarthik_barsa_id: tempthis.filterData.aarthikBarsa,
+                                    income_type_id: incomeType.id,
+                                    jamma: null,
+                                    kaifiyat: null
+                                };
+                            }
+                            tempIncomeType.push(incomeType);
+                        })
+                        incomeCategory.income_types = tempIncomeType;
+                        tempIncomeData.push(incomeCategory);
+                    });
+                    tempthis.incomeData = tempIncomeData;
+                })
+            } else {
+                tempthis.incomeData = [];
+            }
+        },
         saveIncome() {
-            this.$store.dispatch('saveIncome', this.incomeData)
+            this.$store.dispatch('makePostRequest', {
+                data: {items: this.editedIncomeData},
+                route: 'save-income-data'
+            });
         }
     }
 
@@ -79,6 +172,17 @@ export default {
 </script>
 
 <style scoped>
+.item {
+    width: 100%;
+    columns: 2;
+    column-gap: 2px;
+}
 
-
+.sub-item {
+    width: 100%;
+    margin: 0 0 5px;
+    padding: 5px;
+    overflow: hidden;
+    break-inside: avoid;
+}
 </style>

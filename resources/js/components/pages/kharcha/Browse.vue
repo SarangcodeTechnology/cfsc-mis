@@ -14,6 +14,14 @@
                     fixed-header
                     loading-text="Loading Data... Please wait"
                 >
+                    <template v-slot:header>
+                        <thead>
+                        <tr>
+                            <th colspan="2">Category 1</th>
+                            <th colspan="3">Category 2</th>
+                        </tr>
+                        </thead>
+                    </template>
                     <template v-slot:top="{ pagination, options, updateOptions }">
                         <v-container fluid>
                             <v-row>
@@ -82,7 +90,7 @@ export default {
             headers: [
                 {text: "कार्यहरु", value: "actions"},
                 {text: "वन उपभाेक्ता समूह", value: "fug.fug_name"},
-                {text: "आर्थिक वर्ष", value:"aarthik_barsa.name"},
+                {text: "आर्थिक वर्ष", value: "aarthik_barsa.name"},
                 {text: "खर्च प्रकार", value: "kharcha_type.title"},
                 {text: "रकम (रु)", value: "kharcha"},
                 {text: "कैफियत", value: "kaifiyat"},
@@ -102,11 +110,24 @@ export default {
     },
     mounted() {
         this.getDataFromApi();
+
     },
+
     computed: {
-        ...mapState({kharcha: (state) => state.webservice.kharcha}),
+        ...mapState(
+            {kharcha: (state) => state.webservice.kharcha},
+            {kharchaCategories: (state) => state.webservice.resources.kharchaCategories},
+        ),
     },
     methods: {
+        generateHeadersBasedOnData(){
+            var newHeader1 = [];
+            this.kharcha.forEach(function (item, i) {
+                item.forEach(function (subItem, j) {
+                    newHeader1.push({text: subItem.title, value: subitem+"",category:item});
+                });
+            });
+        },
         getDataFromApi() {
             const tempthis = this;
             this.loading = true;
@@ -114,15 +135,16 @@ export default {
             let pageNumber = page - 1;
             this.$store.dispatch("getKharcha", {}).then(function (response) {
                 tempthis.loading = false;
+                tempthis.generateHeadersBasedOnData();
             });
         },
         goToEditPage() {
             this.$store.dispatch("setKharchaEditData", {
-                fug_id:null,
-                aarthik_barsa_id:null,
-                kharcha_type_id:null,
-                kharcha:null,
-                kaifiyat:"",
+                fug_id: null,
+                aarthik_barsa_id: null,
+                kharcha_type_id: null,
+                kharcha: null,
+                kaifiyat: "",
             });
         },
         editData(item) {

@@ -45,7 +45,9 @@ import {mapState} from "vuex";
 
 export default {
     data() {
-        return {}
+        return {
+
+        }
     }, computed: {
         ...mapState({
             dashboardResources: (state) => {

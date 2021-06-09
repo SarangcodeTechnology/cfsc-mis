@@ -73,6 +73,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
+
       deleteItem: "",
       deleteDialog: false,
       search: "",

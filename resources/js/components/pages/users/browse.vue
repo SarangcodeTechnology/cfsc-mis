@@ -132,6 +132,10 @@ import {mapState} from "vuex";
 export default {
     data() {
         return {
+            search: "",
+            page: 1,
+            numberOfPages: 0,
+            options: {},
             deleteItem: "",
             deleteDialog: false,
             loading: true,
@@ -144,15 +148,6 @@ export default {
                 {text: "सिर्जना गरिएको मिति", value: "date"},
             ],
         };
-    },
-    watch: {
-        //this one will populate new data set when user changes current page.
-        options: {
-            handler() {
-                this.getDataFromApi();
-            },
-            deep: true,
-        },
     },
     mounted() {
         this.getDataFromApi();

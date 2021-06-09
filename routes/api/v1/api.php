@@ -103,7 +103,7 @@ Route::middleware('auth:api')->post('kharcha-data',[KharchaController::class,'ge
 Route::middleware('auth:api')->post('save-kharcha-data',[KharchaController::class,'saveKharchaData']);
 
 
-Route::middleware('auth:api')->post('income-data',[IncomeController::class,'getKharchaData']);
+Route::middleware('auth:api')->post('income-data',[IncomeController::class,'getIncomeData']);
 Route::middleware('auth:api')->post('save-income-data',[IncomeController::class,'saveIncomeData']);
 
 
