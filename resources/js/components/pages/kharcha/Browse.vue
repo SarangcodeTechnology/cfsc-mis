@@ -1,7 +1,12 @@
 <template>
     <v-container fluid>
+
         <v-row>
             <v-col>
+                <v-row v-if="filter">
+                    <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.aarthikBarsaIds" :items="aarthikBarsas" item-text="name" multiple item-value="id" label="आर्थिक वर्ष"></v-autocomplete></v-col>
+                    <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.cfugIds" :items="cfugs" item-text="fug_name" multiple item-value="id" label="वन उपभोक्ता समूह"></v-autocomplete></v-col>
+                </v-row>
                 <v-data-table
                     :headers="headers"
                     :hide-default-footer="true"
@@ -27,7 +32,7 @@
                     <template v-slot:top="{ pagination, options, updateOptions }">
                         <v-container fluid>
                             <v-row>
-                                <v-col cols="3">
+                                <v-col cols="4">
                                     <div class="d-flex align-content-center">
                                         <h5 class="mb-0 align-self-center">खर्च विवरणहरु</h5>
                                         <v-divider class="mx-4 mt-0" inset vertical></v-divider>
@@ -41,22 +46,15 @@
                                         >
                                     </div>
                                 </v-col>
-                                <v-col cols="5">
-                                    <v-text-field
-                                        v-model="search"
-                                        dense
-                                        label="खोजी गर्नुहोस्"
-                                        outlined
-                                        @change="getDataFromApi"
-                                    ></v-text-field>
-                                </v-col>
-                                <v-col cols="4">
+                                <v-col cols="6">
                                     <v-data-footer
                                         :options="options"
                                         :pagination="pagination"
                                         items-per-page-text="$vuetify.dataTable.itemsPerPageText"
                                     />
                                 </v-col>
+                                <v-col cols="1"><v-btn @click="filter=!filter" color="secondary">Filter</v-btn></v-col>
+                                <v-col cols="1"><v-btn @click="csvExport(myData)" color="secondary">Export</v-btn></v-col>
                             </v-row>
                         </v-container>
                     </template>
@@ -95,6 +93,15 @@ export default {
             ],
             categoryHeader:[],
             loading: true,
+            filterData:{
+                aarthikBarsaIds:[],
+                cfugIds:[]
+            },
+            printData:[
+
+            ],
+            kharcha:[],
+            filter:false
         };
     },
     watch: {
@@ -113,21 +120,46 @@ export default {
 
     computed: {
         ...mapState(
-            {kharcha: (state) => state.webservice.kharcha},
-            {kharchaCategories: (state) => state.webservice.resources.kharchaCategories},
+            {
+                aarthikBarsas: (state) => state.webservice.resources.aarthikBarsas,
+                cfugs: (state) => state.webservice.resources.cfugs,
+            },
+
         ),
     },
     methods: {
+        csvExport(arrData) {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += [
+                Object.keys(arrData[0]).join(";"),
+                ...arrData.map(item => Object.values(item).join(";"))
+            ]
+                .join("\n")
+                .replace(/(^\[)|(\]$)/gm, "");
 
+            const data = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", data);
+            link.setAttribute("download", "export.csv");
+            link.click();
+        },
         getDataFromApi() {
             const tempthis = this;
             this.loading = true;
             const {page, itemsPerPage} = tempthis.options;
             let pageNumber = page - 1;
-            this.$store.dispatch("getKharcha", {}).then(function (response) {
+            this.$store.dispatch("makeGetRequest", {route:'kharcha',data:{filterData:this.filterData}}).then(function (response) {
                 tempthis.loading = false;
                 tempthis.headers = response.data.data.headers;
+                tempthis.kharcha = response.data.data.kharcha;
                 tempthis.categoryHeader = response.data.data.categoryHeader;
+                var myCsvData = [];
+                tempthis.kharcha.forEach(function(item){
+                    tempthis.categoryHeader.forEach(function(headerItem){
+                        myCsvData[headerItem.text] = item[headerItem.value]
+                    })
+                })
+                console.log(myCsvData)
             });
         },
         goToEditPage() {

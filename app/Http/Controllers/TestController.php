@@ -40,35 +40,28 @@ class TestController extends Controller
         return $cfData;
     }
     public function index(){
-        $header = [
-            ['text' => "कार्यहरु", 'value'=> "actions"],
-            ['text' => "वन उपभाेक्ता समूह", 'value'=> "fug.fug_name"],
-            ['text' => "आर्थिक वर्ष", 'value'=> "aarthik_barsa.name"],
-        ];
-        foreach(KharchaCategory::all() as $itemKey=>$item){
-            foreach($item->kharcha_types as $subItemKey=>$subItem){
-                $data['text'] = $subItem->title;
-                $data['value'] = "items[{$itemKey}].kharcha_types[{$subItemKey}].kharcha.jamma";
-                array_push($header,$data);
-            }
-
-        }
-
-        return $header;
         $i = 0;
         foreach(Kharcha::select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
             $aarthik_barsa_id = $item->aarthik_barsa_id;
             $fug_id = $item->fug_id;
-            $data[$i]['aarthik_barsa'] = AarthikBarsa::find($aarthik_barsa_id);
-            $data[$i]['fug'] = CfData::find($fug_id);
-            $data[$i]['items'] = KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
-                 $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
-                     $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
-                 });
-             }])->get();
+            $kharcha[$i]['aarthik_barsa'] = AarthikBarsa::find($aarthik_barsa_id);
+            $kharcha[$i]['fug'] = CfData::find($fug_id);
+            $kharcha[$i]['items'] = KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
+                $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
+                    $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
+                });
+            }])->get();
             $i++;
         }
-        return $data;
+        $aarthik_barsa_ids = [1];
+        $fug_ids = [];
+        $kharchaCollection  = collect($kharcha);
+        return $kharchaCollection->when(!empty($aarthik_barsa_ids),function($query) use ($aarthik_barsa_ids){
+           return $query->whereIn('aarthik_barsa.id',$aarthik_barsa_ids);
+        })->when(!empty($fug_ids),function($query) use ($fug_ids){
+            return $query->whereIn('fug.id',$fug_ids);
+        })->values();
+
 
 
         return User::first()->permissions;
