@@ -85,6 +85,7 @@
 
                         </div>
                     </div>
+                    </div>
                 </v-container>
             </v-card-text>
         </v-card>
@@ -162,6 +163,17 @@ export default {
 </script>
 
 <style scoped>
+.item {
+    width: 100%;
+    columns: 4;
+    column-gap: 2px;
+}
 
-
+.sub-item {
+    width: 100%;
+    margin: 0 0 5px;
+    padding: 5px;
+    overflow: hidden;
+    break-inside: avoid;
+}
 </style>
