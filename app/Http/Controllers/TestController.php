@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CollectionHelper;
+use App\Models\AarthikBarsa;
 use App\Models\CfData;
+use App\Models\Kharcha;
 use App\Models\Province;
 use App\Models\LocalLevel;
 use App\Models\District;
@@ -38,13 +40,21 @@ class TestController extends Controller
         return $cfData;
     }
     public function index(){
-        $aarthik_barsa_id = 1;
-        $fug_id = 1;
-        return KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
-            $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
-                $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
-            });
-        }])->get();
+        $i = 0;
+        foreach(Kharcha::select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
+            $aarthik_barsa_id = $item->aarthik_barsa_id;
+            $fug_id = $item->fug_id;
+            $data[$i]['aarthik_barsa'] = AarthikBarsa::find($aarthik_barsa_id);
+            $data[$i]['fug'] = CfData::find($fug_id);
+            $data[$i]['items'] = KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
+                 $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
+                     $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
+                 });
+             }])->get();
+            $i++;
+        }
+        return $data;
+
 
         return User::first()->permissions;
 //    saving final cfData
