@@ -37,8 +37,7 @@ class KharchaController extends Controller
             })->when(!empty($fug_ids),function($query) use ($fug_ids){
                 return $query->whereIn('fug.id',$fug_ids);
             })->values();
-
-
+            $csvData = $this->makeCsvData($kharcha);
             $headers = [
                 ['text' => "कार्यहरु", 'value'=> "actions"],
                 ['text' => "वन उपभाेक्ता समूह", 'value'=> "fug.fug_name"],
@@ -62,7 +61,7 @@ class KharchaController extends Controller
                     'status' => 200,
                     'type' => 'success',
                     'message' => 'Kharcha loaded successfully',
-                    'data' => compact('kharcha','headers','categoryHeader')
+                    'data' => compact('kharcha','csvData','headers','categoryHeader')
                 ]
             );
         } catch (Exception $e) {
@@ -72,6 +71,20 @@ class KharchaController extends Controller
                 'message' => $e->getMessage(),
             ]);
         }
+    }
+
+    public function makeCsvData($kharcha){
+        $csvData = [];
+        foreach($kharcha as $kharchaKey=>$kharchaItem){
+            $csvData[$kharchaKey]['वन उपभाेक्ता समूह'] = $kharchaItem['fug']['fug_name'];
+            $csvData[$kharchaKey]['आर्थिक वर्ष'] = $kharchaItem['aarthik_barsa']['name'];
+            foreach(KharchaCategory::all() as $categoryKey=>$categoryItem){
+                foreach($categoryItem->kharcha_types as $typeKey=>$typeItem){
+                    $csvData[$kharchaKey][$typeItem->title] = $kharchaItem['items'][$categoryKey]['kharcha_types'][$typeKey]['kharcha'] ? $kharchaItem['items'][$categoryKey]['kharcha_types'][$typeKey]['kharcha']['jamma'] : '';
+                }
+            }
+        }
+        return $csvData;
     }
 
     public function saveKharchaData(Request $request)

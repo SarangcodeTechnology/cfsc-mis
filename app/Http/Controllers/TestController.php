@@ -53,14 +53,44 @@ class TestController extends Controller
             }])->get();
             $i++;
         }
-        $aarthik_barsa_ids = [1];
+        $aarthik_barsa_ids = [];
         $fug_ids = [];
         $kharchaCollection  = collect($kharcha);
-        return $kharchaCollection->when(!empty($aarthik_barsa_ids),function($query) use ($aarthik_barsa_ids){
+         $kharcha = $kharchaCollection->when(!empty($aarthik_barsa_ids),function($query) use ($aarthik_barsa_ids){
            return $query->whereIn('aarthik_barsa.id',$aarthik_barsa_ids);
         })->when(!empty($fug_ids),function($query) use ($fug_ids){
             return $query->whereIn('fug.id',$fug_ids);
         })->values();
+        $headers = [
+            ['text' => "कार्यहरु", 'value'=> "actions"],
+            ['text' => "वन उपभाेक्ता समूह", 'value'=> "fug.fug_name"],
+            ['text' => "आर्थिक वर्ष", 'value'=> "aarthik_barsa.name"],
+        ];
+        $categoryHeader = [];
+        foreach(KharchaCategory::all() as $itemKey=>$item){
+            $colspan = 0;
+            foreach($item->kharcha_types as $subItemKey=>$subItem){
+                $data['text'] = $subItem->title;
+                $data['value'] = "items[{$itemKey}].kharcha_types[{$subItemKey}].kharcha.jamma";
+                array_push($headers,$data);
+                $colspan++;
+            }
+            $categoryData['title'] = $item->title;
+            $categoryData['colspan'] = $colspan;
+            if($colspan) array_push($categoryHeader,$categoryData);
+        }
+        $csvData = [];
+            foreach($kharcha as $kharchaKey=>$kharchaItem){
+                $csvData[$kharchaKey]['वन उपभाेक्ता समूह'] = $kharchaItem['fug']['fug_name'];
+                $csvData[$kharchaKey]['आर्थिक वर्ष'] = $kharchaItem['aarthik_barsa']['name'];
+                foreach(KharchaCategory::all() as $categoryKey=>$categoryItem){
+                    foreach($categoryItem->kharcha_types as $typeKey=>$typeItem){
+                        $csvData[$kharchaKey][$typeItem->title] = $kharchaItem['items'][$categoryKey]['kharcha_types'][$typeKey]['kharcha'] ? $kharchaItem['items'][$categoryKey]['kharcha_types'][$typeKey]['kharcha']['jamma'] : '';
+                    }
+                }
+            }
+            return $csvData;
+
 
 
 

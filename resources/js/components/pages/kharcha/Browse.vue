@@ -54,7 +54,7 @@
                                     />
                                 </v-col>
                                 <v-col cols="1"><v-btn @click="filter=!filter" color="secondary">Filter</v-btn></v-col>
-                                <v-col cols="1"><v-btn @click="csvExport(myData)" color="secondary">Export</v-btn></v-col>
+                                <v-col cols="1"><v-btn @click="csvExport(csvData)" color="secondary">Export</v-btn></v-col>
                             </v-row>
                         </v-container>
                     </template>
@@ -101,7 +101,8 @@ export default {
 
             ],
             kharcha:[],
-            filter:false
+            filter:false,
+            csvData:[]
         };
     },
     watch: {
@@ -153,13 +154,7 @@ export default {
                 tempthis.headers = response.data.data.headers;
                 tempthis.kharcha = response.data.data.kharcha;
                 tempthis.categoryHeader = response.data.data.categoryHeader;
-                var myCsvData = [];
-                tempthis.kharcha.forEach(function(item){
-                    tempthis.categoryHeader.forEach(function(headerItem){
-                        myCsvData[headerItem.text] = 'helo'
-                    })
-                })
-                console.log(myCsvData)
+                tempthis.csvData = response.data.data.csvData;
             });
         },
         goToEditPage() {
