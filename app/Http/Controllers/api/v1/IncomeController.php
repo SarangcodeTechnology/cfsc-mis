@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Income;
+use App\Models\IncomeCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -29,34 +30,30 @@ class IncomeController extends Controller
             ]);
         }
     }
-    public function saveIncome(Request $request){
-        try{
-            // update
-            if(isset($request->data['id'])){
-                $income = Income::find($request->data['id']);
-                $income->title = $request->data['title'];
-                $income->order = $request->data['order'];
-                $income->update();
-                $saved=0;
+    public function saveIncomeData(Request $request)
+    {
+        try {
+            $items = $request->items;
+            foreach($items as $item){
+                // update
+                if (isset($item['id'])) {
+                    Income::find($item['id'])->update($item);
+
+                } // create
+                else {
+                    Income::create($item);
+                }
             }
-            // create
-            else{
-                $income = new Income();
-                $income->title = $request->data['title'];
-                $income->order = $request->data['order'];
-                $income->save();
-                $saved = 1;
-            }
+
 
             return response(
                 [
-                    'status'=>200,
-                    'type'=>'success',
-                    'message' => 'Income  '.($saved ? 'created' : 'updated').' successfully',
+                    'status' => 200,
+                    'type' => 'success',
+                    'message' => 'Income Updated successfully',
                 ]
             );
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             return response([
                 'status' => $e->getCode(),
                 'type' => 'error',
@@ -74,6 +71,32 @@ class IncomeController extends Controller
                 'type' => 'success',
                 'message' => 'Item Deleted Successfully ',
             ]);
+        } catch (Exception $e) {
+            return response([
+                'status' => $e->getCode(),
+                'type' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function getIncomeData(Request $request){
+        try {
+            $aarthik_barsa_id = $request->aarthikBarsa;
+            $fug_id = $request->cfug;
+
+            $incomeData = IncomeCategory::with(['income_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
+                $query->with('income',function($incomeQuery) use ($aarthik_barsa_id,$fug_id){
+                    $incomeQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
+                });
+            }])->whereHas('income_types')->get();
+            return response(
+                [
+                    'status' => 200,
+                    'type' => 'success',
+                    'data' => compact('incomeData')
+                ]
+            );
         } catch (Exception $e) {
             return response([
                 'status' => $e->getCode(),

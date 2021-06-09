@@ -1313,7 +1313,13 @@ const actions = {
                 }
             }).then(function (response) {
                 if (response.data.status === 200) {
-                    resolve(response);
+                    resolve(response.data.data);
+                    if(response.data.message){
+                        state.dispatch("addNotification", {
+                            type: response.data.type,
+                            message: response.data.message,
+                        });
+                    }
                 } else {
                     state.dispatch("addNotification", {
                         type: response.data.type,

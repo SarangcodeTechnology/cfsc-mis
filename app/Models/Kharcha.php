@@ -10,5 +10,6 @@ class Kharcha extends Model
     use HasFactory;
     protected $connection = 'cfsc_mis_data';
     protected $table  = 'kharcha';
+    protected $guarded = [];
 
 }

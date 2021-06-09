@@ -99,4 +99,12 @@ Route::middleware('auth:api')->post('save-kaaryalaya-data',[KaaryalayaController
 
 Route::middleware('auth:api')->post('kharcha-data',[KharchaController::class,'getKharchaData']);
 
+// save kharcha data
+Route::middleware('auth:api')->post('save-kharcha-data',[KharchaController::class,'saveKharchaData']);
+
+
+Route::middleware('auth:api')->post('income-data',[IncomeController::class,'getKharchaData']);
+Route::middleware('auth:api')->post('save-income-data',[IncomeController::class,'saveIncomeData']);
+
+
 

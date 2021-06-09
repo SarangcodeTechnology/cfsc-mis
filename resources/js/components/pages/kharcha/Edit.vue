@@ -61,6 +61,17 @@
             मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
                     >
                     <v-divider></v-divider>
+                    <div v-for="(kharchaCategory,kharchaCategoryIndex) in kharchaData" :key="kharchaCategoryIndex">
+                        <h5>{{kharchaCategory.title}}</h5>
+                        <div v-for="(kharchaType,kharchaTypeIndex) in kharchaCategory.kharcha_types" :key="kharchaTypeIndex">
+                            <h6>{{kharchaType.title}}</h6>
+                            <v-row>
+                                <v-col cols="3"><v-text-field type="number" v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.jamma" @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)" placeholder="जम्मा"></v-text-field></v-col>
+                                <v-col cols="3"><v-text-field v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.kaifiyat" @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)" placeholder="कैफियत"></v-text-field></v-col>
+                            </v-row>
+
+                        </div>
+                    </div>
                 </v-container>
             </v-card-text>
         </v-card>
@@ -77,28 +88,55 @@ export default {
             filterData: {
                 aarthikBarsa: "",
                 cfug: ""
-            }
+            },
+            kharchaData:[],
+            editedKharchaData:[]
         }
     },
     computed: {
         ...mapState({
-            kharchaData: (state) => state.webservice.editKharchaData,
+            // kharchaData: (state) => state.webservice.editKharchaData,
             aarthikBarsas: (state) => state.webservice.resources.aarthikBarsas,
             cfugs: (state) => state.webservice.resources.cfugs,
         }),
     },
     methods: {
+        addKharchaInEditedKharchaData(item){
+            if(!this.editedKharchaData.includes(item)){
+                this.editedKharchaData.push(item);
+            }
+        },
         getDataFromApi() {
             var tempthis = this;
             if (this.valid) {
                 this.$store.dispatch("makePostRequest", {
                     data: tempthis.filterData,
                     route: 'kharcha-data'
+                }).then((response) => {
+                    var tempKharchaData = [];
+                    response.kharchaData.forEach((kharchaCategory,index) => {
+                        var tempKharchaType = [];
+                        kharchaCategory.kharcha_types.forEach((kharchaType) => {
+                            if(kharchaType.kharcha==null){
+                                kharchaType.kharcha = {
+                                    fug_id: tempthis.filterData.cfug,
+                                    aarthik_barsa_id: tempthis.filterData.aarthikBarsa,
+                                    kharcha_type_id: kharchaType.id,
+                                    jamma: null,
+                                    kaifiyat: null
+                                };
+                            }
+                            tempKharchaType.push(kharchaType);
+                        })
+                        kharchaCategory.kharcha_types = tempKharchaType;
+                        tempKharchaData.push(kharchaCategory);
+                    });
+                    tempthis.kharchaData = tempKharchaData;
                 })
             }
         },
         saveKharcha() {
-            this.$store.dispatch('saveKharcha', this.kharchaData)
+            this.$store.dispatch('makePostRequest', {data:{items:this.editedKharchaData},route:'save-kharcha-data'});
         }
     }
 

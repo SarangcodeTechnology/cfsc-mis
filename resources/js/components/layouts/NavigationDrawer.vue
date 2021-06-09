@@ -21,7 +21,7 @@
                 </v-list-item-content>
             </v-list-item>
             <v-list-group v-if="item.subItems && checkPermissionForSubItems(item.subItems)" :prepend-icon="item.icon"
-                          color="grey darken-4">
+                          color="grey lighten-3">
                 <template v-slot:activator>
                     <v-list-item-content>
                         <v-list-item-title class="pt-1"
@@ -138,8 +138,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .v-list-item {
     text-decoration: none;
+}
+
+.v-list-group {
+    &--active{
+        background: #0e360c;
+        border-radius: 5px;
+    }
+
 }
 </style>

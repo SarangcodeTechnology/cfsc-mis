@@ -92,30 +92,27 @@ class KharchaController extends Controller
         }
     }
 
-    public function saveKharcha(Request $request)
+    public function saveKharchaData(Request $request)
     {
         try {
-            // update
-            if (isset($request->data['id'])) {
-                $kharcha = Kharcha::find($request->data['id']);
-                $kharcha->title = $request->data['title'];
-                $kharcha->order = $request->data['order'];
-                $kharcha->update();
-                $saved = 0;
-            } // create
-            else {
-                $kharcha = new Kharcha();
-                $kharcha->title = $request->data['title'];
-                $kharcha->order = $request->data['order'];
-                $kharcha->save();
-                $saved = 1;
+            $items = $request->items;
+            foreach($items as $item){
+                // update
+                if (isset($item['id'])) {
+                    $kharcha = Kharcha::find($item['id'])->update($item);
+
+                } // create
+                else {
+                    Kharcha::create($item);
+                }
             }
+
 
             return response(
                 [
                     'status' => 200,
                     'type' => 'success',
-                    'message' => 'Kharcha  ' . ($saved ? 'created' : 'updated') . ' successfully',
+                    'message' => 'Kharcha Updated successfully',
                 ]
             );
         } catch (Exception $e) {
@@ -147,19 +144,18 @@ class KharchaController extends Controller
 
     public function getKharchaData(Request $request){
         try {
-            $aarthik_barsa_id = $request->aarhikBarsa;
+            $aarthik_barsa_id = $request->aarthikBarsa;
             $fug_id = $request->cfug;
 
             $kharchaData = KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
                 $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
                     $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
                 });
-            }])->get();
+            }])->whereHas('kharcha_types')->get();
             return response(
                 [
                     'status' => 200,
                     'type' => 'success',
-                    'message' => 'Kharcha Data loaded successfully',
                     'data' => compact('kharchaData')
                 ]
             );

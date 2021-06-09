@@ -39,7 +39,7 @@ class TestController extends Controller
     }
     public function index(){
         $aarthik_barsa_id = 1;
-        $fug_id = 3907;
+        $fug_id = 1;
         return KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
             $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
                 $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
