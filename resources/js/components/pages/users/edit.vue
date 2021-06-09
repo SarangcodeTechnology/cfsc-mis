@@ -29,20 +29,20 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="userData.name"
                                 label="प्रयोगकर्ता नाम"
                                 placeholder="प्रयोगकर्ताको नाम राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="userData.email"
                                 label="प्रयोगकर्ता ई-मेल"
                                 placeholder="प्रयोगकर्ताको ई-मेल राख्नुहोस्"
-                                outlined
+
                                 :rules="emailRules"
                             >
                             </v-text-field>
@@ -55,30 +55,30 @@
                                 item-value="id"
                                 label="कार्यलय"
                                 placeholder="कार्यलय राख्नुहोस्"
-                                outlined
+
                             >
                             </v-select>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="userData.password"
                                 label="पासवर्ड"
                                 placeholder="पासवर्ड राख्नुहोस्"
                                 :hint="isUserEdit ? 'पुरानो पासवर्ड राख्न खाली छोड्नुहोस्' : ''"
                                 persistent-hint
-                                outlined
+
                                 type="password"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="confirmPassword"
                                 label="पासवर्ड सुनिश्चित"
                                 placeholder="पासवर्ड सुनिश्चित गर्नुहोस"
                                 :rules="[confirmPasswordRule]"
-                                outlined
+
                                 type="password"
                             ></v-text-field>
                         </v-col>
@@ -86,7 +86,7 @@
 
                     <v-row>
                         <v-col cols="8">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 v-model="userData.roles"
                                 :items="roles"
                                 label="भूमिकाहरु"
@@ -98,7 +98,7 @@
                                 chips
                                 return-object
                                 deletable-chips
-                                outlined
+
                             >
                             </v-autocomplete>
                         </v-col>
@@ -112,7 +112,7 @@
                                 <div class="sub-item" cols="6" v-for="(titleValue,titleKey,titleIndex) in formattedRolePermissions" :key="titleIndex">
                                     <v-card
                                         max-width="400"
-                                        outlined
+
                                     >
                                         <v-card-text>
                                             <p class="permissionTitle">{{ titleKey.split('_').join(' ') }}</p>
@@ -145,7 +145,7 @@
                                        :key="titleIndex">
                                     <v-card
                                         max-width="400"
-                                        outlined
+
                                     >
                                         <v-card-text>
                                             <p class="permissionTitle">{{ titleKey.split('_').join(' ') }}</p>

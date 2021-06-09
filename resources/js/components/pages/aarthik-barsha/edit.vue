@@ -29,11 +29,11 @@
           <v-divider></v-divider>
           <v-row>
             <v-col cols="4">
-              <v-text-field
+              <v-text-field outlined
                 v-model="aarthikBarsaData.name"
                 label="आर्थिक वर्ष"
                 placeholder="आर्थिक वर्ष राख्नुहोस्"
-                outlined
+
               >
               </v-text-field>
             </v-col>

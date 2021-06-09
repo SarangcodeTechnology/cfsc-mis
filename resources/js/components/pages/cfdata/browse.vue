@@ -41,12 +41,13 @@
           <template v-slot:top="{ pagination, options, updateOptions }">
             <v-container fluid>
               <v-row>
-                <v-col cols="6">
-                  <v-text-field
-                    v-model="search"
+                <v-col cols="3">
+                  <v-text-field outlined
+                      outlined
+                    v-model="search" outlined
                     dense
                     label="खोजी गर्नुहोस्"
-                    outlined
+append-icon="mdi-magnify"
                     @change="getDataFromApi"
                   ></v-text-field>
                 </v-col>
@@ -122,50 +123,50 @@
           <v-col>
             <h4>Filter Data</h4>
             <v-divider></v-divider>
-            <v-autocomplete
+            <v-autocomplete outlined
               v-model="filterData.provinces"
               :items="provinces"
               item-text="name"
               @change="getDataFromApi"
               item-value="id"
-              outlined
+
               dense
               chips
               small-chips
               label="प्रदेश"
               multiple
             ></v-autocomplete>
-            <v-autocomplete
+            <v-autocomplete outlined
               v-model="filterData.districts"
               :items="districts"
               @change="getDataFromApi"
               item-text="name"
               item-value="id"
-              outlined
+
               dense
               chips
               small-chips
               label="जिल्ला"
               multiple
             ></v-autocomplete>
-            <v-autocomplete
+            <v-autocomplete outlined
               v-model="filterData.localLevels"
               :items="localLevels"
               item-text="name"
               item-value="id"
               @change="getDataFromApi"
-              outlined
+
               dense
               chips
               small-chips
               label="स्थानिय तहको नाम"
               multiple
             ></v-autocomplete>
-            <v-autocomplete
+            <v-autocomplete outlined
               v-model="filterData.wards"
               :items="wards"
               @change="getDataFromApi"
-              outlined
+
               dense
               chips
               small-chips
@@ -175,9 +176,9 @@
             <p class="text--darken-2 mb-1">वनकाे क्षेत्रफल</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.areaHa.from"
-                  outlined
+
                   dense
                   chips
                   number
@@ -189,9 +190,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.areaHa.to"
-                  outlined
+
                   dense
                   chips
                   small-chips
@@ -205,9 +206,9 @@
             <p class="text--darken-2 mb-1">घरधुरी संख्या</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.hh.from"
-                  outlined
+
                   dense
                   chips
                   number
@@ -219,9 +220,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.hh.to"
-                  outlined
+
                   dense
                   chips
                   small-chips
@@ -235,9 +236,9 @@
             <p class="text--darken-2 mb-1">कूल जनसंख्या</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.totalPopulation.from"
-                  outlined
+
                   dense
                   chips
                   number
@@ -249,9 +250,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.totalPopulation.to"
-                  outlined
+
                   dense
                   chips
                   @keyup="getDataFromApi"
@@ -265,9 +266,9 @@
             <p class="text--darken-2 mb-1">पुरुष जनसंख्या</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.menPopulation.from"
-                  outlined
+
                   dense
                   @keyup="getDataFromApi"
                   chips
@@ -279,9 +280,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.menPopulation.to"
-                  outlined
+
                   dense
                   @keyup="getDataFromApi"
                   chips
@@ -295,9 +296,9 @@
             <p class="text--darken-2 mb-1">महिला जनसंख्या</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.womenPopulation.from"
-                  outlined
+
                   dense
                   chips
                   number
@@ -309,9 +310,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.womenPopulation.to"
-                  outlined
+
                   dense
                   chips
                   small-chips
@@ -325,9 +326,9 @@
             <p class="text--darken-2 mb-1">कार्यसमिति कूल संख्या</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.numberOfPersonInCommittee.from"
-                  outlined
+
                   dense
                   chips
                   number
@@ -339,9 +340,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.numberOfPersonInCommittee.to"
-                  outlined
+
                   dense
                   chips
                   @keyup="getDataFromApi"
@@ -355,9 +356,9 @@
             <p class="text--darken-2 mb-1">कार्यसमितिमा पुरुष संख्याा</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.menInCommittee.from"
-                  outlined
+
                   dense
                   @keyup="getDataFromApi"
                   chips
@@ -369,9 +370,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.menInCommittee.to"
-                  outlined
+
                   dense
                   @keyup="getDataFromApi"
                   chips
@@ -385,9 +386,9 @@
             <p class="text--darken-2 mb-1">कार्यसमितिमा महिला संख्या</p>
             <v-row>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.womenInCommittee.from"
-                  outlined
+
                   dense
                   chips
                   number
@@ -399,9 +400,9 @@
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-text-field
+                <v-text-field outlined
                   v-model="filterData.womenInCommittee.to"
-                  outlined
+
                   dense
                   chips
                   small-chips

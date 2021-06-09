@@ -29,11 +29,11 @@
           <v-divider></v-divider>
           <v-row>
             <v-col cols="4">
-              <v-text-field
+              <v-text-field outlined
                 v-model="kaaryalayaData.name"
                 label="कार्यलयको नाम"
                 placeholder="कार्यलयको नाम राख्नुहोस्"
-                outlined
+
               >
               </v-text-field>
             </v-col>

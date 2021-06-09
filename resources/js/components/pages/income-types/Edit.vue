@@ -29,7 +29,7 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 v-model="incomeTypesData.income_category_id"
                                 :items="incomeCategories"
                                 :rules="[(v) => !!v || 'आम्दानी बर्गिकरण छनाेट गर्न अनिवार्य छ']"
@@ -38,22 +38,22 @@
                                 item-text="title"
                                 item-value="id"
                                 label="आम्दानी बर्गिकरण"
-                                outlined
+
                                 placeholder="आम्दानी बर्गिकरण छनाेट गर्नुहाेस् ।"
                             >
                             </v-autocomplete>
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="incomeTypesData.title"
                                 label="आम्दानी बर्गिकरण प्रकारकाे नाम"
                                 placeholder="आम्दानी बर्गिकरण प्रकारकाे नाम राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="incomeTypesData.order"
                                 label="आम्दानी बर्गिकरण प्रकारकाे अर्डर"
                                 placeholder="आम्दानी बर्गिकरण प्रकारकाे अर्डर राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
                         </v-col>

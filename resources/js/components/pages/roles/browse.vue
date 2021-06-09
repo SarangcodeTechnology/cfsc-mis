@@ -32,11 +32,11 @@
                   </div>
                 </v-col>
                 <v-col cols="5">
-                  <v-text-field
-                    v-model="search"
+                  <v-text-field outlined
+                    v-model="search" outlined
                     dense
                     label="खोजी गर्नुहोस्"
-                    outlined
+
                     @change="getDataFromApi"
                   ></v-text-field>
                 </v-col>

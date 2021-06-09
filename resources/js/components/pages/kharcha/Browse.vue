@@ -1,7 +1,7 @@
 <template>
-        <v-container>
+        <v-container fluid>
             <v-row>
-                <v-col cols="9">
+                <v-col cols="auto">
                     <div class="d-flex align-content-center">
                         <h5 class="mb-0 align-self-center">खर्च विवरणहरु</h5>
                         <v-divider class="mx-4 mt-0" inset vertical></v-divider>
@@ -15,28 +15,26 @@
                         >
                     </div>
                 </v-col>
-                <v-col cols="3">
-                    <v-btn @click="filter=!filter" color="secondary">Filter</v-btn>
-                    <v-btn @click="csvExport(csvData)" color="secondary">Export</v-btn>
+                <v-spacer></v-spacer>
+                <v-col cols="auto">
+                    <v-btn depressed  @click="filter=!filter" color="primary"> <v-icon>mdi-filter</v-icon><span>Filter</span></v-btn>
+                    <v-btn depressed @click="csvExport(csvData)" color="secondary"> <v-icon>mdi-file-excel</v-icon><span>Export CSV</span></v-btn>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
-                <v-sheet  v-if="filter" color="#E8F5E9" class="pa-2 custom-sheet">
-                    <v-row>
+                    <v-row v-if="filter">
                         <v-col cols="auto">
-                            <v-autocomplete background-color="white" chips outlined @input="getDataFromApi" v-model="filterData.aarthikBarsaIds"
+                            <v-autocomplete outlined append-icon="mdi-filter-variant" background-color="white" chips  @input="getDataFromApi" v-model="filterData.aarthikBarsaIds"
                                             :items="aarthikBarsas" item-text="name" multiple item-value="id"
                                             label="आर्थिक वर्ष"></v-autocomplete>
                         </v-col>
                         <v-col cols="auto">
-                            <v-autocomplete background-color="white" chips outlined @input="getDataFromApi" v-model="filterData.cfugIds"
+                            <v-autocomplete outlined append-icon="mdi-filter-variant" background-color="white" chips  @input="getDataFromApi" v-model="filterData.cfugIds"
                                             :items="cfugs"
                                             item-text="fug_name" multiple item-value="id"
                                             label="वन उपभोक्ता समूह"></v-autocomplete>
                         </v-col>
                     </v-row>
-
-                </v-sheet>
             <v-row>
                 <v-col>
                     <v-data-table
@@ -58,22 +56,24 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th v-for="categoryItem in categoryHeader" :colspan="categoryItem.colspan">
-                                    <strong>({{ categoryItem.title }})</strong></th>
+                                <th class="d-flex-inline align-content-center justify-content-center" v-for="categoryItem in categoryHeader" :colspan="categoryItem.colspan">
+                                    <h6><strong>{{ categoryItem.title }}</strong></h6></th>
                             </tr>
                             </thead>
                         </template>
                         <template v-slot:top="{ pagination, options, updateOptions }">
                             <v-row>
-                                <v-col cols="4">
-                                    <v-text-field
-                                        v-model="search"
+                                <v-col cols="3">
+                                    <v-text-field outlined
+                                        outlined
+                                        v-model="search" outlined
                                         append-icon="mdi-magnify"
                                         label="Search"
-                                        outlined
+
                                     ></v-text-field>
                                 </v-col>
-                                <v-col cols="5">
+                                <v-spacer></v-spacer>
+                                <v-col cols="auto">
                                     <v-data-footer
                                         :options="options"
                                         :pagination="pagination"
@@ -218,7 +218,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.custom-sheet{
-    border-radius: 8px 8px 8px 8px;
-}
+
 </style>

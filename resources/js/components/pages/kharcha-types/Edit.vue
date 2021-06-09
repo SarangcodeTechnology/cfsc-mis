@@ -29,7 +29,7 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 v-model="kharchaTypesData.kharcha_category_id"
                                 :items="kharchaCategories"
                                 :rules="[(v) => !!v || 'खर्च बर्गिकरण छनाेट गर्न अनिवार्य छ']"
@@ -38,22 +38,22 @@
                                 item-text="title"
                                 item-value="id"
                                 label="खर्च बर्गिकरण"
-                                outlined
+
                                 placeholder="खर्च बर्गिकरण छनाेट गर्नुहाेस् ।"
                             >
                             </v-autocomplete>
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="kharchaTypesData.title"
                                 label="खर्च बर्गिकरण प्रकारकाे नाम"
                                 placeholder="खर्च बर्गिकरण प्रकारकाे नाम राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="kharchaTypesData.order"
                                 label="खर्च बर्गिकरण प्रकारकाे अर्डर"
                                 placeholder="खर्च बर्गिकरण प्रकारकाे अर्डर राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
                         </v-col>

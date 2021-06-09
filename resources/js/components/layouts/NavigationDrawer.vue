@@ -4,50 +4,71 @@
         nav
     >
         <div v-for="(item, i) in items" :key="i">
-            <v-list-item
-                v-if="!item.subItems && checkPermission(item.can)"
-                :to="item.route"
-                color="white"
-                link
-                router
-            >
-                <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                    <v-list-item-title class="pt-1"
-                    ><strong>{{ item.title }}</strong></v-list-item-title
+            <v-tooltip right>
+                <template v-slot:activator="{on, attrs}">
+                    <v-list-item
+                        v-bind="attrs"
+                        v-on="on"
+                        v-if="!item.subItems && checkPermission(item.can)"
+                        :to="item.route"
+                        color="white"
+                        link
+                        router
                     >
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-group v-if="item.subItems && checkPermissionForSubItems(item.subItems)" :prepend-icon="item.icon"
-                          color="grey lighten-3">
-                <template v-slot:activator>
-                    <v-list-item-content>
-                        <v-list-item-title class="pt-1"
-                        ><strong>{{ item.title }}</strong></v-list-item-title
-                        >
-                    </v-list-item-content>
+                        <v-list-item-icon>
+                            <v-icon>{{ item.icon }}</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title class="pt-1"
+                            ><strong>{{ item.title }}</strong></v-list-item-title
+                            >
+                        </v-list-item-content>
+                    </v-list-item>
                 </template>
-                <v-list-item
-                    v-for="(subItem, j) in item.subItems"
-                    v-if="checkPermission(subItem.can)"
-                    :key="j"
-                    :to="subItem.route"
-                    color="white"
-                    link
-                    router
-                >
-                    <v-list-item-icon>
-                        <v-icon>{{ subItem.icon }}</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title class="pt-1"
-                        ><strong>{{ subItem.title }}</strong></v-list-item-title
+                <span>{{ item.title }}</span>
+            </v-tooltip>
+
+            <v-tooltip right>
+                <template v-slot:activator="{on, attrs}">
+                    <v-list-group v-on="on" v-bind="attrs" v-if="item.subItems && checkPermissionForSubItems(item.subItems)"
+                                  :prepend-icon="item.icon"
+                                  color="grey lighten-3">
+                        <template v-slot:activator>
+                            <v-list-item-content>
+                                <v-list-item-title class="pt-1"
+                                ><strong>{{ item.title }}</strong></v-list-item-title
+                                >
+                            </v-list-item-content>
+                        </template>
+                        <div v-for="(subItem, j) in item.subItems" :key="j" v-if="checkPermission(subItem.can)"
                         >
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list-group>
+                            <v-tooltip right>
+                                <template v-slot:activator="{on, attrs}">
+                                    <v-list-item
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        :to="subItem.route"
+                                        color="white"
+                                        link
+                                        router
+                                    >
+                                        <v-list-item-icon>
+                                            <v-icon>{{ subItem.icon }}</v-icon>
+                                        </v-list-item-icon>
+                                        <v-list-item-content>
+                                            <v-list-item-title class="pt-1"
+                                            ><strong>{{ subItem.title }}</strong></v-list-item-title
+                                            >
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </template>
+                                <span>{{ subItem.title }}</span>
+                            </v-tooltip>
+                        </div>
+                    </v-list-group>
+                </template>
+                <span>{{ item.title }}</span>
+            </v-tooltip>
         </div>
     </v-list>
 </template>
@@ -77,8 +98,18 @@ export default {
                 {
                     title: "फारम", icon: "mdi-note", subItems: [
                         {title: "सामुदायिक वन थप", icon: "mdi-plus", route: "/cf-data-edit", can: "dashboard-browse"},
-                        {title: "खर्च विवरण थप", icon: "mdi-cash-plus", route: "/kharcha-edit", can: "dashboard-browse"},
-                        {title: "आम्दानी विवरण थप", icon: "mdi-cash-minus", route: "/income-edit", can: "dashboard-browse"},
+                        {
+                            title: "खर्च विवरण थप",
+                            icon: "mdi-cash-plus",
+                            route: "/kharcha-edit",
+                            can: "dashboard-browse"
+                        },
+                        {
+                            title: "आम्दानी विवरण थप",
+                            icon: "mdi-cash-minus",
+                            route: "/income-edit",
+                            can: "dashboard-browse"
+                        },
                     ]
                 },
                 {
@@ -95,12 +126,32 @@ export default {
                 },
                 {
                     title: "संसाधनहरु", icon: "mdi-folder", subItems: [
-                        {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa',can:"dashboard-browse"},
+                        {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa', can: "dashboard-browse"},
                         {title: 'कार्यलय', icon: 'mdi-folder', route: '/kaaryalaya', can: "kaaryalaya-browse"},
-                        {title: 'खर्च बर्गिकरणहरु', icon: 'mdi-cash-plus', route: '/kharcha-categories',can:"dashboard-browse"},
-                        {title: 'खर्च प्रकारहरु', icon: 'mdi-cash-plus', route: '/kharcha-types',can:"dashboard-browse"},
-                        {title: 'आम्दानी बर्गिकरणहरु', icon: 'mdi-cash-minus', route: '/income-categories', can: "dashboard-browse"},
-                        {title: 'आम्दानी प्रकारहरु', icon: 'mdi-cash-minus', route: '/income-types', can: "dashboard-browse"},
+                        {
+                            title: 'खर्च बर्गिकरणहरु',
+                            icon: 'mdi-cash-plus',
+                            route: '/kharcha-categories',
+                            can: "dashboard-browse"
+                        },
+                        {
+                            title: 'खर्च प्रकारहरु',
+                            icon: 'mdi-cash-plus',
+                            route: '/kharcha-types',
+                            can: "dashboard-browse"
+                        },
+                        {
+                            title: 'आम्दानी बर्गिकरणहरु',
+                            icon: 'mdi-cash-minus',
+                            route: '/income-categories',
+                            can: "dashboard-browse"
+                        },
+                        {
+                            title: 'आम्दानी प्रकारहरु',
+                            icon: 'mdi-cash-minus',
+                            route: '/income-types',
+                            can: "dashboard-browse"
+                        },
                     ]
                 },
             ],
@@ -118,7 +169,7 @@ export default {
             this.$store.dispatch("setMiniVariant", tempthis.miniVariant);
         },
         checkPermission(can) {
-            const tempthis=this;
+            const tempthis = this;
             return tempthis.userPermissions.includes(can);
         },
         checkPermissionForSubItems(subItems) {
@@ -144,7 +195,7 @@ export default {
 }
 
 .v-list-group {
-    &--active{
+    &--active {
         background: #0e360c;
         border-radius: 5px;
     }

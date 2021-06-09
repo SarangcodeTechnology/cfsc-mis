@@ -73,29 +73,29 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.fug_name"
                                 label="सामुदायिक वनकाे नाम (FUG Name)"
                                 hint="E.g. : Ukhubari"
                                 placeholder="सामुदायिक वनकाे नाम राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.fug_code"
                                 label="सामुदायिक वनकाे काेड (FUG Code)"
                                 hint="E.g. : KAS/NI/06/20"
                                 placeholder="सामुदायिक वनकाे काेड राख्नुहाेस् ।"
                                 :readonly="isCfDataView"
-                                outlined
+
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-if="approvalDates[0]"
                                 v-model="approvalDates[0].date"
                                 label="स्विक्रित मिती"
@@ -103,7 +103,7 @@
                                 @change="saveApprovalDates"
                                 placeholder="स्विक्रित मिती राख्नुहाेस् ।"
                                 :readonly="isCfDataView"
-                                outlined
+
                             >
                                 <template v-slot:append-outer>
                                     <v-tooltip bottom>
@@ -177,8 +177,8 @@
                                         >
                                             <v-row :id="`item-${approvalDateIndex}`">
                                                 <v-col cols="12">
-                                                    <v-text-field
-                                                        outlined
+                                                    <v-text-field outlined
+
                                                         label="मिती"
                                                         hint="MM/DD/YYYY format"
                                                         prepend-inner-icon="mdi-calendar"
@@ -215,111 +215,111 @@
                             </v-dialog>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.fug_pan_no"
                                 label="समूहको प्यान नं"
                                 hint="E.g. : 9327/232"
                                 placeholder="समूहको प्यान नं राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.hh"
                                 label="घरधुरी संख्या"
                                 hint="E.g. : 9327"
                                 placeholder="घरधुरी संख्या राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="2">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.population"
                                 label="कूल जनसंख्या"
                                 hint="E.g. : 932721"
                                 placeholder="कूल जनसंख्या राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="2">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.women_population"
                                 label="महिला जनसंख्या"
                                 hint="E.g. : 962721"
                                 placeholder="महिला जनसंख्या राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="2">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.men_population"
                                 label="पुरुष जनसंख्या"
                                 hint="E.g. : 932721"
                                 placeholder="पुरुष जनसंख्या राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.area_ha"
                                 label="वनको क्षेत्रफल हे."
                                 hint="E.g. : 23"
                                 placeholder="वनको क्षेत्रफल हे. राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.scientific_forest_approval_date"
                                 label="वैज्ञानिक वन ब्यवस्थापन भएको मिती"
                                 hint="E.g. : 2010/05/20"
                                 placeholder="वैज्ञानिक वन ब्यवस्थापन भएको मिती राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.scientific_forest_area_ha"
                                 label="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे."
                                 hint="E.g. : 230.32"
                                 placeholder="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे. राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.forest_based_industry_operations"
                                 label="वन उद्यम संचालन"
                                 hint="E.g. : 23"
                                 placeholder="वन उद्यम संचालन राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.forest_based_tourism_operations"
                                 label="पर्यापर्यटन गतिबिधी संचालन"
                                 hint="E.g. : पदमार्ग निर्माण"
                                 placeholder="पर्यापर्यटन गतिबिधी संचालन राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -329,7 +329,7 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="3">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 clearable
                                 v-model="cfData.province_id"
                                 :items="provinces"
@@ -338,13 +338,13 @@
                                 label="प्रदेश"
                                 hint="E.g. : Province-4"
                                 placeholder="प्रदेश छनाैट गर्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 clearable
                                 v-model="cfData.district_id"
                                 :items="districts"
@@ -353,13 +353,13 @@
                                 label="जिल्ला"
                                 hint="E.g. : Kaski"
                                 placeholder="जिल्ला छनाैट गर्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 clearable
                                 v-model="cfData.local_level_id"
                                 :items="localLevels"
@@ -368,18 +368,18 @@
                                 label="पालिका"
                                 hint="E.g. : Pokhara Lekhnath"
                                 placeholder="पालिका छनाैट गर्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.ward"
                                 label="वार्ड नं"
                                 hint="E.g. : 11"
                                 placeholder="वार्ड नं लेख्नुहोस्"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -390,34 +390,34 @@
 
                     <v-row>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.no_of_person_in_committee"
                                 label="कमिटीमा कुल ब्यक्तिकाे संख्या"
                                 hint="E.g. : 8"
                                 placeholder="सामुदायिक वनकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.women_in_committee"
                                 label="कमिटीमा कुल महिलाकाे संख्या"
                                 hint="E.g. : 4"
                                 placeholder="सामुदायिक वनकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.men_in_committee"
                                 label="कमिटीमा कुल पुरुष संख्या"
                                 hint="E.g. : 4"
                                 placeholder="सामुदायिक वनकाे कमिटीमा कुल पुरुष संख्या राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -426,12 +426,12 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="3">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="cfData.remarks"
                                 label="कैफियत"
                                 hint="E.g. : Remarks"
                                 placeholder="कैफियत राख्नुहाेस् ।"
-                                outlined
+
                                 :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -452,7 +452,7 @@
                 class="ma-2"
                 :close="!isCfDataView"
                 small
-                outlined
+
                 style="text-decoration: none"
             >
               {{ auditReportItem.name }}
@@ -482,7 +482,7 @@
                 class="ma-2"
                 :close="!isCfDataView"
                 small
-                outlined
+
                 style="text-decoration: none"
             >
               {{ mapItem.name }}

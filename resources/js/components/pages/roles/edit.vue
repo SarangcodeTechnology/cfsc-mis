@@ -29,11 +29,11 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="roleData.name"
                                 label="प्रयोगकर्ता नाम"
                                 placeholder="प्रयोगकर्ताको नाम राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
                         </v-col>
@@ -43,7 +43,7 @@
                         <div class="sub-item"  v-for="(titleValue,titleKey,titleIndex) in formattedPermissions" :key="titleIndex">
                             <v-card
                                 max-width="400"
-                                outlined
+
                             >
                                 <v-card-text>
                                     <p class="permissionTitle">{{ titleKey.split('_').join(' ') }}</p>

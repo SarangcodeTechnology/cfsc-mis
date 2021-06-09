@@ -24,21 +24,21 @@
                                         गर्नको लागी आफ्नाे खातामा साईन ईन गर्नुहोस् ।</p>
                                     <v-divider></v-divider>
                                     <v-form>
-                                        <v-text-field
+                                        <v-text-field outlined
                                             v-model="user.email"
                                             append-icon="fas fa-user"
                                             autocomplete="on"
                                             label="यूजरनेम"
-                                            outlined
+
                                             placeholder="यूजरनेम हाल्नुहा्ेस्"
                                             v-on:keyup.enter="login"
                                         ></v-text-field>
-                                        <v-text-field
+                                        <v-text-field outlined
                                             v-model="user.password"
                                             append-icon="fas fa-key"
                                             autocomplete="on"
                                             label="पासवर्ड"
-                                            outlined
+
                                             placeholder="पासवर्ड हाल्नुहा्ेस्"
                                             type="password"
                                             v-on:keyup.enter="login"

@@ -24,7 +24,7 @@
                 <v-container class="pa-0 ma-0">
                     <v-row>
                         <v-col cols="4">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 v-model="filterData.aarthikBarsa"
                                 :items="aarthikBarsas"
                                 :rules="[(v) => !!v || 'आर्थिक वर्ष छनाैट गर्न अनिवार्य छ']"
@@ -33,14 +33,14 @@
                                 item-text="name"
                                 item-value="id"
                                 label="आर्थिक वर्ष"
-                                outlined
+
                                 placeholder="आर्थिक वर्ष छनाैट गर्नुहाेस् ।"
                                 @input="getDataFromApi()"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="4">
-                            <v-autocomplete
+                            <v-autocomplete outlined
                                 v-model="filterData.cfug"
                                 :items="cfugs"
                                 :rules="[(v) => !!v || 'वन उपभाेक्ता समूह छनाैट गर्न अनिवार्य छ']"
@@ -49,7 +49,7 @@
                                 item-text="fug_name"
                                 item-value="id"
                                 label="वन उपभाेक्ता समूह"
-                                outlined
+
                                 placeholder="वन उपभाेक्ता समूह छनाैट गर्नुहाेस् ।"
                                 @input="getDataFromApi()"
                             >
@@ -65,7 +65,7 @@
                         <div class="sub-item" v-for="(incomeCategory,incomeCategoryIndex) in incomeData"
                              :key="incomeCategoryIndex">
                             <v-card
-                                outlined
+
                             >
                                 <v-card-text>
                                     <h4><strong>{{ incomeCategory.title }}</strong></h4>
@@ -75,7 +75,7 @@
                                         <h5>{{ incomeType.title }}</h5>
                                         <v-row>
                                             <v-col cols="6">
-                                                <v-text-field outlined type="number"
+                                                <v-text-field outlined  type="number"
                                                               v-model="incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income.jamma"
                                                               @input="addIncomeInEditedIncomeData(incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income)"
                                                               placeholder="रकम (रु) राख्नुहाेस्"

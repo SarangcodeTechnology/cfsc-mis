@@ -29,18 +29,18 @@
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="kharchaCategoriesData.title"
                                 label="खर्च बर्गिकरणकाे नाम"
                                 placeholder="खर्च बर्गिकरणकाे नाम राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
-                            <v-text-field
+                            <v-text-field outlined
                                 v-model="kharchaCategoriesData.order"
                                 label="खर्च बर्गिकरणकाे अर्डर"
                                 placeholder="खर्च बर्गिकरणकाे अर्डर राख्नुहोस्"
-                                outlined
+
                             >
                             </v-text-field>
                         </v-col>
