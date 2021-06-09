@@ -9,14 +9,33 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     class="ma-2"
+                    @click="addIncomeDetails()"
+                    depressed
+                    dark
+                    color="blue darken-1"
+                >
+                    <v-icon>mdi-plus</v-icon>
+                    <span>आम्दानी विवरणहरू थप्नुहोस्</span>
+                </v-btn>
+                <v-btn
+                    class="ma-2"
+                    @click="addKharchaDetails()"
+                    depressed
+                    dark
+                    color="blue darken-1"
+                >
+                    <v-icon>mdi-plus</v-icon>
+                    <span>खर्च विवरणहरू थप्नुहोस्</span>
+                </v-btn>
+                <v-btn
+                    class="ma-2"
                     @click="saveCfData()"
-                    hint="E.g. : Save"
                     depressed
                     dark
                     color="green darken-1"
                 >
                     <v-icon>mdi-floppy</v-icon>
-                    <span>Save</span>
+                    <span>सेभ</span>
                 </v-btn>
             </v-toolbar>
 
@@ -479,6 +498,12 @@ export default {
         };
     },
     methods: {
+        addKharchaDetails(){
+            this.$router.push("/kharcha-edit");
+        },
+        addIncomeDetails(){
+            this.$router.push("/income-edit");
+        },
         saveCfData() {
             let formData = new FormData();
             if (this.auditReports.length > 0) {
