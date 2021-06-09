@@ -56,35 +56,44 @@
                             </v-autocomplete>
                         </v-col>
                     </v-row>
-                    <span  v-if="kharchaData.length>0"
+                    <span v-if="kharchaData.length>0"
                     >कृपया तलकाे फारम
             मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
                     >
                     <v-divider v-if="kharchaData.length>0"></v-divider>
                     <div class="item">
-                    <div class="sub-item" v-for="(kharchaCategory,kharchaCategoryIndex) in kharchaData" :key="kharchaCategoryIndex">
-                        <h4><strong>{{ kharchaCategory.title }}</strong></h4>
-                        <v-divider></v-divider>
-                        <div v-for="(kharchaType,kharchaTypeIndex) in kharchaCategory.kharcha_types"
-                             :key="kharchaTypeIndex">
-                            <h5>{{ kharchaType.title }}</h5>
-                            <v-row>
-                                <v-col cols="2">
-                                    <v-text-field outlined type="number"
-                                                  v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.jamma"
-                                                  @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)"
-                                                  placeholder="रकम (रु) राख्नुहाेस्" label="जम्मा"></v-text-field>
-                                </v-col>
-                                <v-col cols="2">
-                                    <v-text-field outlined
-                                                  v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.kaifiyat"
-                                                  @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)"
-                                                  placeholder="कैफियत राख्नुहाेस्" label="कैफियत"></v-text-field>
-                                </v-col>
-                            </v-row>
+                        <div class="sub-item" v-for="(kharchaCategory,kharchaCategoryIndex) in kharchaData"
+                             :key="kharchaCategoryIndex">
+                            <v-card
+                                outlined
+                            >
+                                <v-card-text>
+                                    <h4><strong>{{ kharchaCategory.title }}</strong></h4>
+                                    <v-divider></v-divider>
+                                    <div v-for="(kharchaType,kharchaTypeIndex) in kharchaCategory.kharcha_types"
+                                         :key="kharchaTypeIndex">
+                                        <h5>{{ kharchaType.title }}</h5>
+                                        <v-row>
+                                            <v-col cols="6">
+                                                <v-text-field outlined type="number"
+                                                              v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.jamma"
+                                                              @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)"
+                                                              placeholder="रकम (रु) राख्नुहाेस्"
+                                                              label="जम्मा"></v-text-field>
+                                            </v-col>
+                                            <v-col cols="6">
+                                                <v-text-field outlined
+                                                              v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.kaifiyat"
+                                                              @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)"
+                                                              placeholder="कैफियत राख्नुहाेस्"
+                                                              label="कैफियत"></v-text-field>
+                                            </v-col>
+                                        </v-row>
 
+                                    </div>
+                                </v-card-text>
+                            </v-card>
                         </div>
-                    </div>
                     </div>
                 </v-container>
             </v-card-text>
@@ -165,7 +174,7 @@ export default {
 <style scoped>
 .item {
     width: 100%;
-    columns: 4;
+    columns: 2;
     column-gap: 2px;
 }
 
