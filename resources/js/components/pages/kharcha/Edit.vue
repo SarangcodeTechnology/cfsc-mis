@@ -1,5 +1,5 @@
 <template>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" v-model="valid">
         <v-toolbar color="#E0E0E0" dark flat></v-toolbar>
         <v-card class="mx-11 my-n11">
             <v-toolbar flat>
@@ -56,18 +56,31 @@
                             </v-autocomplete>
                         </v-col>
                     </v-row>
-                    <span
+                    <span  v-if="kharchaData.length>0"
                     >कृपया तलकाे फारम
             मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
                     >
-                    <v-divider></v-divider>
-                    <div v-for="(kharchaCategory,kharchaCategoryIndex) in kharchaData" :key="kharchaCategoryIndex">
-                        <h5>{{kharchaCategory.title}}</h5>
-                        <div v-for="(kharchaType,kharchaTypeIndex) in kharchaCategory.kharcha_types" :key="kharchaTypeIndex">
-                            <h6>{{kharchaType.title}}</h6>
+                    <v-divider v-if="kharchaData.length>0"></v-divider>
+                    <div class="item">
+                    <div class="sub-item" v-for="(kharchaCategory,kharchaCategoryIndex) in kharchaData" :key="kharchaCategoryIndex">
+                        <h4><strong>{{ kharchaCategory.title }}</strong></h4>
+                        <v-divider></v-divider>
+                        <div v-for="(kharchaType,kharchaTypeIndex) in kharchaCategory.kharcha_types"
+                             :key="kharchaTypeIndex">
+                            <h5>{{ kharchaType.title }}</h5>
                             <v-row>
-                                <v-col cols="3"><v-text-field type="number" v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.jamma" @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)" placeholder="जम्मा"></v-text-field></v-col>
-                                <v-col cols="3"><v-text-field v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.kaifiyat" @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)" placeholder="कैफियत"></v-text-field></v-col>
+                                <v-col cols="2">
+                                    <v-text-field outlined type="number"
+                                                  v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.jamma"
+                                                  @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)"
+                                                  placeholder="रकम (रु) राख्नुहाेस्" label="जम्मा"></v-text-field>
+                                </v-col>
+                                <v-col cols="2">
+                                    <v-text-field outlined
+                                                  v-model="kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.kaifiyat"
+                                                  @input="addKharchaInEditedKharchaData(kharchaData[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha)"
+                                                  placeholder="कैफियत राख्नुहाेस्" label="कैफियत"></v-text-field>
+                                </v-col>
                             </v-row>
 
                         </div>
@@ -89,8 +102,8 @@ export default {
                 aarthikBarsa: "",
                 cfug: ""
             },
-            kharchaData:[],
-            editedKharchaData:[]
+            kharchaData: [],
+            editedKharchaData: []
         }
     },
     computed: {
@@ -101,23 +114,23 @@ export default {
         }),
     },
     methods: {
-        addKharchaInEditedKharchaData(item){
-            if(!this.editedKharchaData.includes(item)){
+        addKharchaInEditedKharchaData(item) {
+            if (!this.editedKharchaData.includes(item)) {
                 this.editedKharchaData.push(item);
             }
         },
         getDataFromApi() {
             var tempthis = this;
-            if (this.valid) {
+            if (this.$refs.form.validate()) {
                 this.$store.dispatch("makePostRequest", {
                     data: tempthis.filterData,
                     route: 'kharcha-data'
                 }).then((response) => {
                     var tempKharchaData = [];
-                    response.kharchaData.forEach((kharchaCategory,index) => {
+                    response.kharchaData.forEach((kharchaCategory, index) => {
                         var tempKharchaType = [];
                         kharchaCategory.kharcha_types.forEach((kharchaType) => {
-                            if(kharchaType.kharcha==null){
+                            if (kharchaType.kharcha == null) {
                                 kharchaType.kharcha = {
                                     fug_id: tempthis.filterData.cfug,
                                     aarthik_barsa_id: tempthis.filterData.aarthikBarsa,
@@ -133,10 +146,15 @@ export default {
                     });
                     tempthis.kharchaData = tempKharchaData;
                 })
+            } else {
+                tempthis.kharchaData = [];
             }
         },
         saveKharcha() {
-            this.$store.dispatch('makePostRequest', {data:{items:this.editedKharchaData},route:'save-kharcha-data'});
+            this.$store.dispatch('makePostRequest', {
+                data: {items: this.editedKharchaData},
+                route: 'save-kharcha-data'
+            });
         }
     }
 
