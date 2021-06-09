@@ -1,18 +1,41 @@
 <template>
-    <v-container fluid>
+        <v-card>
+            <v-container fluid>
 
+            <v-row >
+            <v-col cols="9">
+                <div class="d-flex align-content-center">
+                    <h5 class="mb-0 align-self-center">खर्च विवरणहरु</h5>
+                    <v-divider class="mx-4 mt-0" inset vertical></v-divider>
+                    <v-btn
+                        class="d-flex align-self-center"
+                        color="primary"
+                        @click="goToEditPage"
+                    >
+                        <v-icon left>mdi-plus-circle-outline</v-icon>
+                        <span>नयाँ</span></v-btn
+                    >
+                </div>
+            </v-col>
+            <v-col cols="3"><v-btn @click="filter=!filter" color="secondary">Filter</v-btn>
+                <v-btn @click="csvExport(csvData)" color="secondary">Export</v-btn>
+            </v-col>
+        </v-row>
+
+        <v-row v-if="filter">
+            <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.aarthikBarsaIds" :items="aarthikBarsas" item-text="name" multiple item-value="id" label="आर्थिक वर्ष"></v-autocomplete></v-col>
+            <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.cfugIds" :items="cfugs" item-text="fug_name" multiple item-value="id" label="वन उपभोक्ता समूह"></v-autocomplete></v-col>
+        </v-row>
         <v-row>
             <v-col>
-                <v-row v-if="filter">
-                    <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.aarthikBarsaIds" :items="aarthikBarsas" item-text="name" multiple item-value="id" label="आर्थिक वर्ष"></v-autocomplete></v-col>
-                    <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.cfugIds" :items="cfugs" item-text="fug_name" multiple item-value="id" label="वन उपभोक्ता समूह"></v-autocomplete></v-col>
-                </v-row>
+
                 <v-data-table
                     :headers="headers"
                     :hide-default-footer="true"
                     :items="kharcha"
                     :items-per-page="20"
                     :loading="loading"
+                    :search="search"
                     :options.sync="options"
                     :page="page"
                     :pageCount="numberOfPages"
@@ -30,33 +53,23 @@
                         </thead>
                     </template>
                     <template v-slot:top="{ pagination, options, updateOptions }">
-                        <v-container fluid>
                             <v-row>
-                                <v-col cols="4">
-                                    <div class="d-flex align-content-center">
-                                        <h5 class="mb-0 align-self-center">खर्च विवरणहरु</h5>
-                                        <v-divider class="mx-4 mt-0" inset vertical></v-divider>
-                                        <v-btn
-                                            class="d-flex align-self-center"
-                                            color="primary"
-                                            @click="goToEditPage"
-                                        >
-                                            <v-icon left>mdi-plus-circle-outline</v-icon>
-                                            <span>नयाँ</span></v-btn
-                                        >
-                                    </div>
+                                <v-col cols="7">
+                                    <v-text-field
+                                        v-model="search"
+                                        append-icon="mdi-magnify"
+                                        label="Search"
+                                        outlined
+                                    ></v-text-field>
                                 </v-col>
-                                <v-col cols="6">
+                                <v-col cols="5">
                                     <v-data-footer
                                         :options="options"
                                         :pagination="pagination"
                                         items-per-page-text="$vuetify.dataTable.itemsPerPageText"
                                     />
                                 </v-col>
-                                <v-col cols="1"><v-btn @click="filter=!filter" color="secondary">Filter</v-btn></v-col>
-                                <v-col cols="1"><v-btn @click="csvExport(csvData)" color="secondary">Export</v-btn></v-col>
                             </v-row>
-                        </v-container>
                     </template>
                     <template v-slot:item.actions="{ item }">
                         <div class="d-flex justify-content-center align-items-center">
@@ -74,7 +87,9 @@
                 </v-data-table>
             </v-col>
         </v-row>
-    </v-container>
+            </v-container>
+
+        </v-card>
 </template>
 
 <script>
