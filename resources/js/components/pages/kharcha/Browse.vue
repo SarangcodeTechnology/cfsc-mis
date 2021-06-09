@@ -4,8 +4,16 @@
         <v-row>
             <v-col>
                 <v-row v-if="filter">
-                    <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.aarthikBarsaIds" :items="aarthikBarsas" item-text="name" multiple item-value="id" label="आर्थिक वर्ष"></v-autocomplete></v-col>
-                    <v-col cols="4"><v-autocomplete @input="getDataFromApi" v-model="filterData.cfugIds" :items="cfugs" item-text="fug_name" multiple item-value="id" label="वन उपभोक्ता समूह"></v-autocomplete></v-col>
+                    <v-col cols="auto">
+                        <v-autocomplete chips outlined @input="getDataFromApi" v-model="filterData.aarthikBarsaIds"
+                                        :items="aarthikBarsas" item-text="name" multiple item-value="id"
+                                        label="आर्थिक वर्ष"></v-autocomplete>
+                    </v-col>
+                    <v-col cols="auto">
+                        <v-autocomplete chips outlined @input="getDataFromApi" v-model="filterData.cfugIds" :items="cfugs"
+                                        item-text="fug_name" multiple item-value="id"
+                                        label="वन उपभोक्ता समूह"></v-autocomplete>
+                    </v-col>
                 </v-row>
                 <v-data-table
                     :headers="headers"
@@ -25,7 +33,8 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th v-for="categoryItem in categoryHeader" :colspan="categoryItem.colspan"><strong>({{categoryItem.title}})</strong></th>
+                            <th v-for="categoryItem in categoryHeader" :colspan="categoryItem.colspan">
+                                <strong>({{ categoryItem.title }})</strong></th>
                         </tr>
                         </thead>
                     </template>
@@ -53,8 +62,12 @@
                                         items-per-page-text="$vuetify.dataTable.itemsPerPageText"
                                     />
                                 </v-col>
-                                <v-col cols="1"><v-btn @click="filter=!filter" color="secondary">Filter</v-btn></v-col>
-                                <v-col cols="1"><v-btn @click="csvExport(myData)" color="secondary">Export</v-btn></v-col>
+                                <v-col cols="1">
+                                    <v-btn @click="filter=!filter" color="secondary">Filter</v-btn>
+                                </v-col>
+                                <v-col cols="1">
+                                    <v-btn @click="csvExport(myData)" color="secondary">Export</v-btn>
+                                </v-col>
                             </v-row>
                         </v-container>
                     </template>
@@ -88,20 +101,16 @@ export default {
             page: 1,
             numberOfPages: 0,
             options: {},
-            headers: [
-
-            ],
-            categoryHeader:[],
+            headers: [],
+            categoryHeader: [],
             loading: true,
-            filterData:{
-                aarthikBarsaIds:[],
-                cfugIds:[]
+            filterData: {
+                aarthikBarsaIds: [],
+                cfugIds: []
             },
-            printData:[
-
-            ],
-            kharcha:[],
-            filter:false
+            printData: [],
+            kharcha: [],
+            filter: false
         };
     },
     watch: {
@@ -124,7 +133,6 @@ export default {
                 aarthikBarsas: (state) => state.webservice.resources.aarthikBarsas,
                 cfugs: (state) => state.webservice.resources.cfugs,
             },
-
         ),
     },
     methods: {
@@ -148,14 +156,17 @@ export default {
             this.loading = true;
             const {page, itemsPerPage} = tempthis.options;
             let pageNumber = page - 1;
-            this.$store.dispatch("makeGetRequest", {route:'kharcha',data:{filterData:this.filterData}}).then(function (response) {
+            this.$store.dispatch("makeGetRequest", {
+                route: 'kharcha',
+                data: {filterData: this.filterData}
+            }).then(function (response) {
                 tempthis.loading = false;
                 tempthis.headers = response.data.data.headers;
                 tempthis.kharcha = response.data.data.kharcha;
                 tempthis.categoryHeader = response.data.data.categoryHeader;
                 var myCsvData = [];
-                tempthis.kharcha.forEach(function(item){
-                    tempthis.categoryHeader.forEach(function(headerItem){
+                tempthis.kharcha.forEach(function (item) {
+                    tempthis.categoryHeader.forEach(function (headerItem) {
                         myCsvData[headerItem.text] = item[headerItem.value]
                     })
                 })
