@@ -7,36 +7,57 @@
                     <strong>सामुदायिक वन विवरण फारम</strong>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn
-                    class="ma-2"
-                    @click="addIncomeDetails()"
-                    depressed
-                    dark
-                    color="blue darken-1"
-                >
-                    <v-icon>mdi-plus</v-icon>
-                    <span>आम्दानी विवरणहरू थप्नुहोस्</span>
-                </v-btn>
-                <v-btn
-                    class="ma-2"
-                    @click="addKharchaDetails()"
-                    depressed
-                    dark
-                    color="blue darken-1"
-                >
-                    <v-icon>mdi-plus</v-icon>
-                    <span>खर्च विवरणहरू थप्नुहोस्</span>
-                </v-btn>
-                <v-btn
-                    class="ma-2"
-                    @click="saveCfData()"
-                    depressed
-                    dark
-                    color="green darken-1"
-                >
-                    <v-icon>mdi-floppy</v-icon>
-                    <span>सेभ</span>
-                </v-btn>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            class="ma-2"
+                            @click="addIncomeDetails()"
+                            depressed
+                            dark
+                            color="blue darken-1"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            <v-icon>mdi-cash-plus</v-icon>
+                            <span>आम्दानी विवरणहरू थप्नुहोस्</span>
+                        </v-btn>
+                    </template>
+                    <span>Add Income Data</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{on, attrs}">
+                        <v-btn
+                            class="ma-2"
+                            @click="addKharchaDetails()"
+                            depressed
+                            dark
+                            color="blue darken-1"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            <v-icon>mdi-cash-minus</v-icon>
+                            <span>खर्च विवरणहरू थप्नुहोस्</span>
+                        </v-btn>
+                    </template>
+                    <span>Add Expenditure Data</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{on, attrs}">
+                        <v-btn
+                            class="ma-2"
+                            @click="saveCfData()"
+                            depressed
+                            dark
+                            color="green darken-1"
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            <v-icon>mdi-floppy</v-icon>
+                            <span>सेभ</span>
+                        </v-btn>
+                    </template>
+                    <span>Save</span>
+                </v-tooltip>
             </v-toolbar>
 
             <v-divider class="ma-0 pa-0"></v-divider>
@@ -89,21 +110,22 @@
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-btn
                                                 color="primary"
+                                                depressed
                                                 dark
-                                                icon
                                                 v-bind="attrs"
                                                 v-on="on"
                                                 @click="approveDialog = true"
+                                                small
                                             >
                                                 <v-icon>mdi-calendar-plus</v-icon>
                                             </v-btn>
                                         </template>
+                                        <span >कार्ययाेजना स्विक्रित मितीहरु</span>
                                         <div class="d-flex flex-column">
-                      <span
-                          v-for="(approvalDateItem, k) in approvalDates"
-                          :key="k"
-                      >{{ approvalDateItem.date }}</span
-                      >
+                                        <span
+                                          v-for="(approvalDateItem, k) in approvalDates"
+                                          :key="k"
+                                        >{{ approvalDateItem.date }}</span>
                                         </div>
                                     </v-tooltip>
                                 </template>
@@ -118,9 +140,10 @@
                             >
                                 <v-card>
                                     <v-card-title
-                                        class="headline green white--text d-flex justify-space-between position-relative"
                                     >
-                                        <span>समुह डाटालाई स्विक्रित गर्नुहाेस्।</span>
+                                        <h5><strong><span>कार्ययाेजना स्विक्रित मिती सम्पादन गर्नुहोस् ।</span></strong>
+                                        </h5>
+                                        <v-spacer></v-spacer>
                                         <div>
                                             <a class="close" @click="closeApprovalDates"
                                             >
@@ -130,21 +153,20 @@
                                             <v-btn
                                                 class=""
                                                 @click="saveApprovalDates"
-                                                hint="E.g. : Save"
                                                 depressed
                                                 dark
                                                 color="green darken-4"
                                             >
                                                 <v-icon>mdi-floppy</v-icon>
-                                                <span>Save</span>
+                                                <span>सेभ</span>
                                             </v-btn>
                                         </div>
                                     </v-card-title>
-
+                                    <v-divider></v-divider>
                                     <v-card-text>
                                         <div class="mt-3">
                                             <strong
-                                            >सामुदायिक वन विवरण फारमका पुर्व स्विक्रित
+                                            >वन उपभाेक्ता समूहकाे पुर्व कार्ययाेजना स्विक्रित
                                                 मितीहरु</strong
                                             >
                                         </div>
@@ -153,24 +175,28 @@
                                             v-for="(item, approvalDateIndex) in approvalDates"
                                             :key="approvalDateIndex"
                                         >
-                                            <v-row class="mb-2" :id="`item-${approvalDateIndex}`">
-                                                <v-col cols="10">
+                                            <v-row :id="`item-${approvalDateIndex}`">
+                                                <v-col cols="12">
                                                     <v-text-field
+                                                        outlined
                                                         label="मिती"
                                                         hint="MM/DD/YYYY format"
-                                                        prepend-icon="mdi-calendar"
+                                                        prepend-inner-icon="mdi-calendar"
                                                         v-model="item.date"
                                                         :readonly="isCfDataView"
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="2" v-if="approvalDateIndex != 0 && !isCfDataView">
-                                                    <v-btn
-                                                        @click="removeApprovalDate(approvalDateIndex)"
-                                                        class="error mt-2"
                                                     >
-                                                        <v-icon>mdi-delete</v-icon>
-                                                    </v-btn
-                                                    >
+                                                        <template v-slot:append-outer
+                                                                  v-if="approvalDateIndex !== 0 && !isCfDataView">
+                                                            <v-btn
+                                                                @click="removeApprovalDate(approvalDateIndex)"
+                                                                icon
+                                                                color="error"
+                                                            >
+                                                                <v-icon>mdi-delete</v-icon>
+                                                            </v-btn
+                                                            >
+                                                        </template>
+                                                    </v-text-field>
                                                 </v-col>
                                             </v-row>
                                         </div>
@@ -180,8 +206,9 @@
 
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="primary" text @click="addApprovalDate" v-if="!isCfDataView">
-                                            Add
+                                        <v-btn depressed color="primary" @click="addApprovalDate" v-if="!isCfDataView">
+                                            <v-icon>mdi-plus</v-icon>
+                                            <span>Add</span>
                                         </v-btn>
                                     </v-card-actions>
                                 </v-card>
@@ -423,7 +450,7 @@
                 :to="`/storage/${cfData.id}/audit-reports/${auditReportItem.file}`"
                 @click:close="deleteAuditReport(auditReportIndex)"
                 class="ma-2"
-                :close = "!isCfDataView"
+                :close="!isCfDataView"
                 small
                 outlined
                 style="text-decoration: none"
@@ -453,7 +480,7 @@
                 :to="`/storage/${cfData.id}/maps/${mapItem.file}`"
                 @click:close="deleteMap(mapIndex)"
                 class="ma-2"
-                :close = "!isCfDataView"
+                :close="!isCfDataView"
                 small
                 outlined
                 style="text-decoration: none"
@@ -498,10 +525,10 @@ export default {
         };
     },
     methods: {
-        addKharchaDetails(){
+        addKharchaDetails() {
             this.$router.push("/kharcha-edit");
         },
-        addIncomeDetails(){
+        addIncomeDetails() {
             this.$router.push("/income-edit");
         },
         saveCfData() {
