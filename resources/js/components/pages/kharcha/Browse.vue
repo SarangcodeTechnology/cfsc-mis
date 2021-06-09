@@ -1,69 +1,71 @@
 <template>
-        <v-card>
-            <v-container fluid>
+        <v-container>
+            <v-row>
+                <v-col cols="9">
+                    <div class="d-flex align-content-center">
+                        <h5 class="mb-0 align-self-center">खर्च विवरणहरु</h5>
+                        <v-divider class="mx-4 mt-0" inset vertical></v-divider>
+                        <v-btn
+                            class="d-flex align-self-center"
+                            color="primary"
+                            @click="goToEditPage"
+                        >
+                            <v-icon left>mdi-plus-circle-outline</v-icon>
+                            <span>नयाँ</span></v-btn
+                        >
+                    </div>
+                </v-col>
+                <v-col cols="3">
+                    <v-btn @click="filter=!filter" color="secondary">Filter</v-btn>
+                    <v-btn @click="csvExport(csvData)" color="secondary">Export</v-btn>
+                </v-col>
+            </v-row>
+            <v-divider></v-divider>
+                <v-sheet  v-if="filter" color="#E8F5E9" class="pa-2 custom-sheet">
+                    <v-row>
+                        <v-col cols="auto">
+                            <v-autocomplete background-color="white" chips outlined @input="getDataFromApi" v-model="filterData.aarthikBarsaIds"
+                                            :items="aarthikBarsas" item-text="name" multiple item-value="id"
+                                            label="आर्थिक वर्ष"></v-autocomplete>
+                        </v-col>
+                        <v-col cols="auto">
+                            <v-autocomplete background-color="white" chips outlined @input="getDataFromApi" v-model="filterData.cfugIds"
+                                            :items="cfugs"
+                                            item-text="fug_name" multiple item-value="id"
+                                            label="वन उपभोक्ता समूह"></v-autocomplete>
+                        </v-col>
+                    </v-row>
 
-            <v-row >
-            <v-col cols="9">
-                <div class="d-flex align-content-center">
-                    <h5 class="mb-0 align-self-center">खर्च विवरणहरु</h5>
-                    <v-divider class="mx-4 mt-0" inset vertical></v-divider>
-                    <v-btn
-                        class="d-flex align-self-center"
-                        color="primary"
-                        @click="goToEditPage"
+                </v-sheet>
+            <v-row>
+                <v-col>
+                    <v-data-table
+                        :headers="headers"
+                        :hide-default-footer="true"
+                        :items="kharcha"
+                        :items-per-page="20"
+                        :loading="loading"
+                        :search="search"
+                        :options.sync="options"
+                        :page="page"
+                        :pageCount="numberOfPages"
+                        fixed-header
+                        loading-text="Loading Data... Please wait"
                     >
-                        <v-icon left>mdi-plus-circle-outline</v-icon>
-                        <span>नयाँ</span></v-btn
-                    >
-                </div>
-            </v-col>
-            <v-col cols="3"><v-btn @click="filter=!filter" color="secondary">Filter</v-btn>
-                <v-btn @click="csvExport(csvData)" color="secondary">Export</v-btn>
-            </v-col>
-        </v-row>
-
-                <v-row v-if="filter">
-                    <v-col cols="auto">
-                        <v-autocomplete chips outlined @input="getDataFromApi" v-model="filterData.aarthikBarsaIds"
-                                        :items="aarthikBarsas" item-text="name" multiple item-value="id"
-                                        label="आर्थिक वर्ष"></v-autocomplete>
-                    </v-col>
-                    <v-col cols="auto">
-                        <v-autocomplete chips outlined @input="getDataFromApi" v-model="filterData.cfugIds" :items="cfugs"
-                                        item-text="fug_name" multiple item-value="id"
-                                        label="वन उपभोक्ता समूह"></v-autocomplete>
-                    </v-col>
-                </v-row>
-                <v-row>
-            <v-col>
-
-                <v-data-table
-                    :headers="headers"
-                    :hide-default-footer="true"
-                    :items="kharcha"
-                    :items-per-page="20"
-                    :loading="loading"
-                    :search="search"
-                    :options.sync="options"
-                    :page="page"
-                    :pageCount="numberOfPages"
-                    fixed-header
-                    loading-text="Loading Data... Please wait"
-                >
-                    <template v-slot:header>
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th v-for="categoryItem in categoryHeader" :colspan="categoryItem.colspan">
-                                <strong>({{ categoryItem.title }})</strong></th>
-                        </tr>
-                        </thead>
-                    </template>
-                    <template v-slot:top="{ pagination, options, updateOptions }">
+                        <template v-slot:header>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th v-for="categoryItem in categoryHeader" :colspan="categoryItem.colspan">
+                                    <strong>({{ categoryItem.title }})</strong></th>
+                            </tr>
+                            </thead>
+                        </template>
+                        <template v-slot:top="{ pagination, options, updateOptions }">
                             <v-row>
-                                <v-col cols="7">
+                                <v-col cols="4">
                                     <v-text-field
                                         v-model="search"
                                         append-icon="mdi-magnify"
@@ -79,26 +81,25 @@
                                     />
                                 </v-col>
                             </v-row>
-                    </template>
-                    <template v-slot:item.actions="{ item }">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <v-btn icon x-small @click="editData(item)">
-                                <v-icon>mdi-pencil</v-icon>
-                            </v-btn>
+                        </template>
+                        <template v-slot:item.actions="{ item }">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <v-btn icon x-small @click="editData(item)">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
 
-                            <v-btn color="red" icon x-small @click="confirm(item)">
-                                <v-icon>mdi-delete</v-icon>
-                            </v-btn>
-                        </div>
-                    </template>
-                    <template v-slot:item.title="{ item }">{{ item.title }}
-                    </template>
-                </v-data-table>
-            </v-col>
-        </v-row>
-            </v-container>
+                                <v-btn color="red" icon x-small @click="confirm(item)">
+                                    <v-icon>mdi-delete</v-icon>
+                                </v-btn>
+                            </div>
+                        </template>
+                        <template v-slot:item.title="{ item }">{{ item.title }}
+                        </template>
+                    </v-data-table>
+                </v-col>
+            </v-row>
+        </v-container>
 
-        </v-card>
 </template>
 
 <script>
@@ -119,12 +120,10 @@ export default {
                 aarthikBarsaIds: [],
                 cfugIds: []
             },
-            printData:[
-
-            ],
-            kharcha:[],
-            filter:false,
-            csvData:[]
+            printData: [],
+            kharcha: [],
+            filter: false,
+            csvData: []
         };
     },
     watch: {
@@ -217,3 +216,9 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scoped>
+.custom-sheet{
+    border-radius: 8px 8px 8px 8px;
+}
+</style>
