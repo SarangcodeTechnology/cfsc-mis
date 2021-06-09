@@ -92,6 +92,11 @@ export default {
 </script>
 
 <style lang="scss">
+
+.theme--light.v-data-table .v-data-footer {
+    border-top: none !important;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;

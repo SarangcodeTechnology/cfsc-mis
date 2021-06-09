@@ -214,8 +214,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.theme--light.v-data-table .v-data-footer {
-    border-top: none !important;
-}
+<style lang="scss">
 </style>

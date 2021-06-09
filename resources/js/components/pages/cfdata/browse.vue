@@ -51,7 +51,8 @@ append-icon="mdi-magnify"
                     @change="getDataFromApi"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="6">
+                  <v-spacer></v-spacer>
+                <v-col cols="auto">
                   <v-data-footer
                     :items-per-page-options="[20, 50, 100, 500]"
                     :options="options"
@@ -282,7 +283,6 @@ append-icon="mdi-magnify"
               <v-col>
                 <v-text-field outlined
                   v-model="filterData.menPopulation.to"
-
                   dense
                   @keyup="getDataFromApi"
                   chips
@@ -328,7 +328,6 @@ append-icon="mdi-magnify"
               <v-col>
                 <v-text-field outlined
                   v-model="filterData.numberOfPersonInCommittee.from"
-
                   dense
                   chips
                   number
