@@ -169,9 +169,13 @@ export default {
             }
         },
         saveKharcha() {
+            var tempthis = this;
             this.$store.dispatch('makePostRequest', {
                 data: {items: this.editedKharchaData},
                 route: 'save-kharcha-data'
+            }).then(function(response){
+                tempthis.editedKharchaData = [];
+                tempthis.getDataFromApi();
             });
         }
     }

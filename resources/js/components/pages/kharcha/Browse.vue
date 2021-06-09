@@ -165,9 +165,9 @@ export default {
                 tempthis.kharcha = response.data.data.kharcha;
                 tempthis.categoryHeader = response.data.data.categoryHeader;
                 var myCsvData = [];
-                tempthis.kharcha.forEach(function (item) {
-                    tempthis.categoryHeader.forEach(function (headerItem) {
-                        myCsvData[headerItem.text] = item[headerItem.value]
+                tempthis.kharcha.forEach(function(item){
+                    tempthis.categoryHeader.forEach(function(headerItem){
+                        myCsvData[headerItem.text] = 'helo'
                     })
                 })
                 console.log(myCsvData)
