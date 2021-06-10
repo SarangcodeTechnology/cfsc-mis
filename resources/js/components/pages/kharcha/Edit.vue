@@ -33,7 +33,7 @@
                                 item-text="name"
                                 item-value="id"
                                 label="आर्थिक वर्ष"
-
+                                :disabled="aarthikBarsaDisable"
                                 placeholder="आर्थिक वर्ष छनाैट गर्नुहाेस् ।"
                                 @input="getDataFromApi"
                             >
@@ -49,7 +49,7 @@
                                 item-text="fug_name"
                                 item-value="id"
                                 label="वन उपभाेक्ता समूह"
-
+                                :disabled="cfugDisable"
                                 placeholder="वन उपभाेक्ता समूह छनाैट गर्नुहाेस् ।"
                                 @input="getDataFromApi"
                             >
@@ -113,7 +113,8 @@ export default {
                 cfug: ""
             },
             kharchaData: [],
-            editedKharchaData: []
+            editedKharchaData: [],
+            aarthikBarsaDisable:false
         }
     },
     mounted(){
@@ -130,6 +131,7 @@ export default {
             // kharchaData: (state) => state.webservice.editKharchaData,
             aarthikBarsas: (state) => state.webservice.resources.aarthikBarsas,
             cfugs: (state) => state.webservice.resources.cfugs,
+            cfugDisable: (state,getters) => !getters.CHECK_PERMISSION('income-select_cfug'),
         }),
     },
     methods: {
