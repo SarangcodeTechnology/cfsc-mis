@@ -50,6 +50,7 @@ const IncomeEdit = () => import("./components/pages/income/Edit");
 
 const Kaaryalaya = () => import("./components/pages/kaaryalaya/browse");
 const KaaryalayaEdit = () => import("./components/pages/kaaryalaya/edit");
+const PrintIncome = () => import("./components/pages/print/Income");
 
 const opts = {
     mode: "history",
@@ -527,6 +528,17 @@ const opts = {
                     next("/dashboard");
                 } else {
                     next();
+                }
+            },
+        },
+        {
+            path: "/print",
+            component: PrintIncome,
+            name: 'print',
+            meta: {
+                breadcrumb: {
+                    text: "Print",
+                    link: "/print"
                 }
             },
         },

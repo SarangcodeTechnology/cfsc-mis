@@ -178,6 +178,10 @@ export default {
                 tempthis.income = response.data.data.income;
                 tempthis.categoryHeader = response.data.data.categoryHeader;
                 tempthis.csvData = response.data.data.csvData;
+                tempthis.$store.dispatch("setPrintData", {
+                    data : tempthis.csvData,
+                    categoryHeader : tempthis.categoryHeader,
+                });
             });
         },
         goToEditPage() {

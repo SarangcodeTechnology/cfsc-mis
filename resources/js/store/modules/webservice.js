@@ -56,10 +56,14 @@ const state = {
 
     income: [],
     editIncomeData: {},
+
+    printData:{}
 };
 
 const mutations = {
-
+    SET_PRINT_DATA(state,payload){
+        state.printData = payload;
+    },
     // aarthikBarsa
     SET_AARTHIK_BARSA(state, payload) {
         state.aarthikBarsa = payload
@@ -152,6 +156,9 @@ const mutations = {
 };
 
 const actions = {
+    setPrintData(state,payload){
+        state.commit("SET_PRINT_DATA",payload);
+    },
     //aarthik barsha
     getAarthikBarsa(state, payload) {
         return new Promise((resolve, reject) => {

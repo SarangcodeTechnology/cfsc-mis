@@ -40,22 +40,7 @@ class TestController extends Controller
         return $cfData;
     }
     public function index(){
-        $i = 0;
-        $fug_id=1;
 
-        foreach(Kharcha::where('fug_id',$fug_id)->select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
-            $aarthik_barsa_id = $item->aarthik_barsa_id;
-            $fug_id = $item->fug_id;
-            $kharcha[$i]['aarthik_barsa'] = AarthikBarsa::find($aarthik_barsa_id);
-            $kharcha[$i]['fug'] = CfData::find($fug_id);
-            $kharcha[$i]['items'] = KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
-                $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
-                    $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
-                });
-            }])->get();
-            $i++;
-        }
-        return $kharcha;
 
 
 
