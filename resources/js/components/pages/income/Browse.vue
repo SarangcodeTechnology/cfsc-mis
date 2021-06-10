@@ -181,6 +181,7 @@ export default {
                 tempthis.$store.dispatch("setPrintData", {
                     data : tempthis.csvData,
                     categoryHeader : tempthis.categoryHeader,
+                    myHeaders: tempthis.headers
                 });
             });
         },

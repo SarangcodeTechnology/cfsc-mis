@@ -1,8 +1,15 @@
 <template>
     <div class="container">
-        <table>
+        <table border="1">
             <thead>
-                
+                <tr>
+                    <td rowspan="2">वन उपभाेक्ता समूह</td>
+                    <td rowspan="2">आर्थिक वर्ष</td>
+                    <td v-for="categoryHeader in printData.categoryHeader" :colspan="categoryHeader.colspan">{{categoryHeader.title}}</td>
+                </tr>
+                <tr>
+                    <td v-for="tempHeader in "></td>
+                </tr>
             </thead>
         </table>
 
