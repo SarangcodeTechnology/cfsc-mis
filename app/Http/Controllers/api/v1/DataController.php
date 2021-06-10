@@ -98,6 +98,7 @@ class DataController extends Controller
                     ->with(['district', 'province', 'localLevel','fug_approval_dates','fug_audit_reports','fug_maps'])->orderBy('created_at','desc')->paginate($request->totalItems);
             }
             // for kharcha data in fug
+            $kharcha = [];
             foreach($cfData as $cfDataKey=>$cfDataItem){
                 $fug_id = $cfDataItem->id;
                 foreach(Kharcha::where('fug_id',$fug_id)->select('fug_id','aarthik_barsa_id')->distinct()->get() as $i=>$item){

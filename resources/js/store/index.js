@@ -55,7 +55,7 @@ const opts = {
         }
     },
     plugins: [createPersistedState({
-            storage: window.sessionStorage,
+            storage: window.localStorage,
         }
     )]
 }

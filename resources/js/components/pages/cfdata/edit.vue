@@ -7,7 +7,7 @@
                     <strong>सामुदायिक वन विवरण फारम</strong>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-tooltip bottom>
+                <v-tooltip bottom v-if="cfData.id">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
                             class="ma-2"
@@ -17,6 +17,7 @@
                             color="blue darken-1"
                             v-bind="attrs"
                             v-on="on"
+                            v-if="cfData.id"
                         >
                             <v-icon>mdi-cash-plus</v-icon>
                             <span>आम्दानी विवरणहरू थप्नुहोस्</span>
@@ -24,7 +25,7 @@
                     </template>
                     <span>Add Income Data</span>
                 </v-tooltip>
-                <v-tooltip bottom>
+                <v-tooltip bottom v-if="cfData.id">
                     <template v-slot:activator="{on, attrs}">
                         <v-btn
                             class="ma-2"
@@ -33,6 +34,7 @@
                             dark
                             color="blue darken-1"
                             v-bind="attrs"
+                            v-if="cfData.id"
                             v-on="on"
                         >
                             <v-icon>mdi-cash-minus</v-icon>
