@@ -11,8 +11,10 @@ use App\Models\ForestType;
 use App\Models\FugApprovalDate;
 use App\Models\FugAuditReport;
 use App\Models\FugMap;
+use App\Models\Income;
 use App\Models\IncomeCategory;
 use App\Models\IncomeType;
+use App\Models\Kharcha;
 use App\Models\KharchaCategory;
 use App\Models\KharchaType;
 use App\Models\Kaaryalaya;
@@ -94,6 +96,42 @@ class DataController extends Controller
                 } )
 
                     ->with(['district', 'province', 'localLevel','fug_approval_dates','fug_audit_reports','fug_maps'])->orderBy('created_at','desc')->paginate($request->totalItems);
+            }
+            // for kharcha data in fug
+            foreach($cfData as $cfDataKey=>$cfDataItem){
+                $fug_id = $cfDataItem->id;
+                foreach(Kharcha::where('fug_id',$fug_id)->select('fug_id','aarthik_barsa_id')->distinct()->get() as $i=>$item){
+                    $aarthik_barsa_id = $item->aarthik_barsa_id;
+                    $fug_id = $item->fug_id;
+                    $kharcha[$i]['aarthik_barsa'] = AarthikBarsa::find($aarthik_barsa_id);
+                    $kharcha[$i]['fug'] = CfData::find($fug_id);
+                    $kharcha[$i]['items'] = KharchaCategory::with(['kharcha_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
+                        $query->with('kharcha',function($kharchaQuery) use ($aarthik_barsa_id,$fug_id){
+                            $kharchaQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
+                        });
+                    }])->get();
+                }
+                $cfData[$cfDataKey]['kharcha'] = $kharcha;
+                $kharcha = [];
+            }
+
+            // for income data in fug
+            $income=[];
+            foreach($cfData as $cfDataKey=>$cfDataItem){
+                $fug_id = $cfDataItem->id;
+                foreach(Income::where('fug_id',$fug_id)->select('fug_id','aarthik_barsa_id')->distinct()->get() as $i=>$item){
+                    $aarthik_barsa_id = $item->aarthik_barsa_id;
+                    $fug_id = $item->fug_id;
+                    $income[$i]['aarthik_barsa'] = AarthikBarsa::find($aarthik_barsa_id);
+                    $income[$i]['fug'] = CfData::find($fug_id);
+                    $income[$i]['items'] = IncomeCategory::with(['income_types'=>function($query) use ($aarthik_barsa_id,$fug_id){
+                        $query->with('income',function($incomeQuery) use ($aarthik_barsa_id,$fug_id){
+                            $incomeQuery->where('aarthik_barsa_id',$aarthik_barsa_id)->where('fug_id',$fug_id);
+                        });
+                    }])->get();
+                }
+                $cfData[$cfDataKey]['income'] = $income;
+                $income = [];
             }
             return response([
                 'status' => 200,

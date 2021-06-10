@@ -1368,6 +1368,9 @@ const getters = {
         return data;
 
     },
+    CHECK_PERMISSION:(state) => (can) => {
+        return state.resources.userPermissions.includes(can);
+    },
     getCanBrowseUsers(state, payload) {
         if (state.resources.userPermissions.includes("can_browse_users")) {
             return true;

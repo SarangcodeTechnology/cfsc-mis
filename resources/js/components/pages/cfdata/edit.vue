@@ -64,45 +64,45 @@
 
             <v-card-text>
                 <v-container class="pa-0 ma-0">
-          <span
-          >सामुदायिक वन विवरण फारममा तपाइहरुलाइ स्वागत छ । कृपया तलकाे फारम
+                     <span
+                     >सामुदायिक वन विवरण फारममा तपाइहरुलाइ स्वागत छ । कृपया तलकाे फारम
             मार्फत आफ्नाे विवरण सूचना प्रणालीमा सुनिश्चित गर्नुहाेस् ।</span
-          >
+                     >
                     <v-divider></v-divider>
                     <h5><strong>परिचय विवरण</strong></h5>
                     <v-divider></v-divider>
                     <v-row>
                         <v-col cols="4">
                             <v-text-field outlined
-                                v-model="cfData.fug_name"
-                                label="सामुदायिक वनकाे नाम (FUG Name)"
-                                hint="E.g. : Ukhubari"
-                                placeholder="सामुदायिक वनकाे नाम राख्नुहाेस् ।"
+                                          v-model="cfData.fug_name"
+                                          label="सामुदायिक वनकाे नाम (FUG Name)"
+                                          hint="E.g. : Ukhubari"
+                                          placeholder="सामुदायिक वनकाे नाम राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.fug_code"
-                                label="सामुदायिक वनकाे काेड (FUG Code)"
-                                hint="E.g. : KAS/NI/06/20"
-                                placeholder="सामुदायिक वनकाे काेड राख्नुहाेस् ।"
-                                :readonly="isCfDataView"
+                                          v-model="cfData.fug_code"
+                                          label="सामुदायिक वनकाे काेड (FUG Code)"
+                                          hint="E.g. : KAS/NI/06/20"
+                                          placeholder="सामुदायिक वनकाे काेड राख्नुहाेस् ।"
+                                          :readonly="isCfDataView"
 
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="4">
                             <v-text-field outlined
-                                v-if="approvalDates[0]"
-                                v-model="approvalDates[0].date"
-                                label="स्विक्रित मिती"
-                                hint="E.g. : 2070/06/12"
-                                @change="saveApprovalDates"
-                                placeholder="स्विक्रित मिती राख्नुहाेस् ।"
-                                :readonly="isCfDataView"
+                                          v-if="approvalDates[0]"
+                                          v-model="approvalDates[0].date"
+                                          label="स्विक्रित मिती"
+                                          hint="E.g. : 2070/06/12"
+                                          @change="saveApprovalDates"
+                                          placeholder="स्विक्रित मिती राख्नुहाेस् ।"
+                                          :readonly="isCfDataView"
 
                             >
                                 <template v-slot:append-outer>
@@ -120,11 +120,11 @@
                                                 <v-icon>mdi-calendar-plus</v-icon>
                                             </v-btn>
                                         </template>
-                                        <span >कार्ययाेजना स्विक्रित मितीहरु</span>
+                                        <span>कार्ययाेजना स्विक्रित मितीहरु</span>
                                         <div class="d-flex flex-column">
                                         <span
-                                          v-for="(approvalDateItem, k) in approvalDates"
-                                          :key="k"
+                                            v-for="(approvalDateItem, k) in approvalDates"
+                                            :key="k"
                                         >{{ approvalDateItem.date }}</span>
                                         </div>
                                     </v-tooltip>
@@ -179,11 +179,11 @@
                                                 <v-col cols="12">
                                                     <v-text-field outlined
 
-                                                        label="मिती"
-                                                        hint="MM/DD/YYYY format"
-                                                        prepend-inner-icon="mdi-calendar"
-                                                        v-model="item.date"
-                                                        :readonly="isCfDataView"
+                                                                  label="मिती"
+                                                                  hint="MM/DD/YYYY format"
+                                                                  prepend-inner-icon="mdi-calendar"
+                                                                  v-model="item.date"
+                                                                  :readonly="isCfDataView"
                                                     >
                                                         <template v-slot:append-outer
                                                                   v-if="approvalDateIndex !== 0 && !isCfDataView">
@@ -216,111 +216,111 @@
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.fug_pan_no"
-                                label="समूहको प्यान नं"
-                                hint="E.g. : 9327/232"
-                                placeholder="समूहको प्यान नं राख्नुहाेस् ।"
+                                          v-model="cfData.fug_pan_no"
+                                          label="समूहको प्यान नं"
+                                          hint="E.g. : 9327/232"
+                                          placeholder="समूहको प्यान नं राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.hh"
-                                label="घरधुरी संख्या"
-                                hint="E.g. : 9327"
-                                placeholder="घरधुरी संख्या राख्नुहाेस् ।"
+                                          v-model="cfData.hh"
+                                          label="घरधुरी संख्या"
+                                          hint="E.g. : 9327"
+                                          placeholder="घरधुरी संख्या राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="2">
                             <v-text-field outlined
-                                v-model="cfData.population"
-                                label="कूल जनसंख्या"
-                                hint="E.g. : 932721"
-                                placeholder="कूल जनसंख्या राख्नुहाेस् ।"
+                                          v-model="cfData.population"
+                                          label="कूल जनसंख्या"
+                                          hint="E.g. : 932721"
+                                          placeholder="कूल जनसंख्या राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="2">
                             <v-text-field outlined
-                                v-model="cfData.women_population"
-                                label="महिला जनसंख्या"
-                                hint="E.g. : 962721"
-                                placeholder="महिला जनसंख्या राख्नुहाेस् ।"
+                                          v-model="cfData.women_population"
+                                          label="महिला जनसंख्या"
+                                          hint="E.g. : 962721"
+                                          placeholder="महिला जनसंख्या राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="2">
                             <v-text-field outlined
-                                v-model="cfData.men_population"
-                                label="पुरुष जनसंख्या"
-                                hint="E.g. : 932721"
-                                placeholder="पुरुष जनसंख्या राख्नुहाेस् ।"
+                                          v-model="cfData.men_population"
+                                          label="पुरुष जनसंख्या"
+                                          hint="E.g. : 932721"
+                                          placeholder="पुरुष जनसंख्या राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.area_ha"
-                                label="वनको क्षेत्रफल हे."
-                                hint="E.g. : 23"
-                                placeholder="वनको क्षेत्रफल हे. राख्नुहाेस् ।"
+                                          v-model="cfData.area_ha"
+                                          label="वनको क्षेत्रफल हे."
+                                          hint="E.g. : 23"
+                                          placeholder="वनको क्षेत्रफल हे. राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.scientific_forest_approval_date"
-                                label="वैज्ञानिक वन ब्यवस्थापन भएको मिती"
-                                hint="E.g. : 2010/05/20"
-                                placeholder="वैज्ञानिक वन ब्यवस्थापन भएको मिती राख्नुहाेस् ।"
+                                          v-model="cfData.scientific_forest_approval_date"
+                                          label="वैज्ञानिक वन ब्यवस्थापन भएको मिती"
+                                          hint="E.g. : 2010/05/20"
+                                          placeholder="वैज्ञानिक वन ब्यवस्थापन भएको मिती राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.scientific_forest_area_ha"
-                                label="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे."
-                                hint="E.g. : 230.32"
-                                placeholder="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे. राख्नुहाेस् ।"
+                                          v-model="cfData.scientific_forest_area_ha"
+                                          label="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे."
+                                          hint="E.g. : 230.32"
+                                          placeholder="वैज्ञानिक वन ब्यवस्थापन भएको क्षेत्रफल हे. राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.forest_based_industry_operations"
-                                label="वन उद्यम संचालन"
-                                hint="E.g. : 23"
-                                placeholder="वन उद्यम संचालन राख्नुहाेस् ।"
+                                          v-model="cfData.forest_based_industry_operations"
+                                          label="वन उद्यम संचालन"
+                                          hint="E.g. : 23"
+                                          placeholder="वन उद्यम संचालन राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.forest_based_tourism_operations"
-                                label="पर्यापर्यटन गतिबिधी संचालन"
-                                hint="E.g. : पदमार्ग निर्माण"
-                                placeholder="पर्यापर्यटन गतिबिधी संचालन राख्नुहाेस् ।"
+                                          v-model="cfData.forest_based_tourism_operations"
+                                          label="पर्यापर्यटन गतिबिधी संचालन"
+                                          hint="E.g. : पदमार्ग निर्माण"
+                                          placeholder="पर्यापर्यटन गतिबिधी संचालन राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -330,57 +330,57 @@
                     <v-row>
                         <v-col cols="3">
                             <v-autocomplete outlined
-                                clearable
-                                v-model="cfData.province_id"
-                                :items="provinces"
-                                item-text="name"
-                                item-value="id"
-                                label="प्रदेश"
-                                hint="E.g. : Province-4"
-                                placeholder="प्रदेश छनाैट गर्नुहाेस् ।"
+                                            clearable
+                                            v-model="cfData.province_id"
+                                            :items="provinces"
+                                            item-text="name"
+                                            item-value="id"
+                                            label="प्रदेश"
+                                            hint="E.g. : Province-4"
+                                            placeholder="प्रदेश छनाैट गर्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                            :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3">
                             <v-autocomplete outlined
-                                clearable
-                                v-model="cfData.district_id"
-                                :items="districts"
-                                item-text="name"
-                                item-value="id"
-                                label="जिल्ला"
-                                hint="E.g. : Kaski"
-                                placeholder="जिल्ला छनाैट गर्नुहाेस् ।"
+                                            clearable
+                                            v-model="cfData.district_id"
+                                            :items="districts"
+                                            item-text="name"
+                                            item-value="id"
+                                            label="जिल्ला"
+                                            hint="E.g. : Kaski"
+                                            placeholder="जिल्ला छनाैट गर्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                            :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3">
                             <v-autocomplete outlined
-                                clearable
-                                v-model="cfData.local_level_id"
-                                :items="localLevels"
-                                item-text="name"
-                                item-value="id"
-                                label="पालिका"
-                                hint="E.g. : Pokhara Lekhnath"
-                                placeholder="पालिका छनाैट गर्नुहाेस् ।"
+                                            clearable
+                                            v-model="cfData.local_level_id"
+                                            :items="localLevels"
+                                            item-text="name"
+                                            item-value="id"
+                                            label="पालिका"
+                                            hint="E.g. : Pokhara Lekhnath"
+                                            placeholder="पालिका छनाैट गर्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                            :readonly="isCfDataView"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.ward"
-                                label="वार्ड नं"
-                                hint="E.g. : 11"
-                                placeholder="वार्ड नं लेख्नुहोस्"
+                                          v-model="cfData.ward"
+                                          label="वार्ड नं"
+                                          hint="E.g. : 11"
+                                          placeholder="वार्ड नं लेख्नुहोस्"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -391,34 +391,34 @@
                     <v-row>
                         <v-col cols="4">
                             <v-text-field outlined
-                                v-model="cfData.no_of_person_in_committee"
-                                label="कमिटीमा कुल ब्यक्तिकाे संख्या"
-                                hint="E.g. : 8"
-                                placeholder="सामुदायिक वनकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
+                                          v-model="cfData.no_of_person_in_committee"
+                                          label="कमिटीमा कुल ब्यक्तिकाे संख्या"
+                                          hint="E.g. : 8"
+                                          placeholder="सामुदायिक वनकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="4">
                             <v-text-field outlined
-                                v-model="cfData.women_in_committee"
-                                label="कमिटीमा कुल महिलाकाे संख्या"
-                                hint="E.g. : 4"
-                                placeholder="सामुदायिक वनकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
+                                          v-model="cfData.women_in_committee"
+                                          label="कमिटीमा कुल महिलाकाे संख्या"
+                                          hint="E.g. : 4"
+                                          placeholder="सामुदायिक वनकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
                         <v-col cols="4">
                             <v-text-field outlined
-                                v-model="cfData.men_in_committee"
-                                label="कमिटीमा कुल पुरुष संख्या"
-                                hint="E.g. : 4"
-                                placeholder="सामुदायिक वनकाे कमिटीमा कुल पुरुष संख्या राख्नुहाेस् ।"
+                                          v-model="cfData.men_in_committee"
+                                          label="कमिटीमा कुल पुरुष संख्या"
+                                          hint="E.g. : 4"
+                                          placeholder="सामुदायिक वनकाे कमिटीमा कुल पुरुष संख्या राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -427,12 +427,12 @@
                     <v-row>
                         <v-col cols="3">
                             <v-text-field outlined
-                                v-model="cfData.remarks"
-                                label="कैफियत"
-                                hint="E.g. : Remarks"
-                                placeholder="कैफियत राख्नुहाेस् ।"
+                                          v-model="cfData.remarks"
+                                          label="कैफियत"
+                                          hint="E.g. : Remarks"
+                                          placeholder="कैफियत राख्नुहाेस् ।"
 
-                                :readonly="isCfDataView"
+                                          :readonly="isCfDataView"
                             >
                             </v-text-field>
                         </v-col>
@@ -499,6 +499,137 @@
                             ></v-file-input>
                         </v-col>
                     </v-row>
+
+                    <h5 v-if="JSON.stringify(cfData.kharcha)"><strong>खर्च विवरण</strong></h5>
+                    <v-divider v-if="JSON.stringify(cfData.kharcha)"></v-divider>
+                    <div class="item mb-3" v-if="JSON.stringify(cfData.kharcha)">
+                        <div class="sub-item" v-for="(kharchaItem,kharchaIndex) in cfData.kharcha"
+                             :key="kharchaIndex">
+                            <v-card
+
+                            >
+                                <v-card-text>
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="mb-0"><strong>आर्थिक वर्ष: {{ kharchaItem.aarthik_barsa.name }}</strong></h5>
+                                        <v-tooltip bottom>
+                                            <template v-slot:activator="{on, attrs}">
+                                                <v-btn
+                                                    class="ma-2"
+                                                    @click="editKharchaDetails(cfData.id,kharchaItem.aarthik_barsa.id)"
+                                                    depressed
+                                                    dark
+                                                    color="blue darken-1"
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                >
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                    <span>खर्च सम्पादन गर्नुहोस्</span>
+                                                </v-btn>
+                                            </template>
+                                            <span>Edit This Data</span>
+                                        </v-tooltip>
+                                    </div>
+                                    <v-divider></v-divider>
+                                    <div v-for="(kharchaCategory,kharchaCategoryIndex) in kharchaItem.items"
+                                         :key="kharchaCategoryIndex">
+                                        <div v-if="kharchaCategory.kharcha_types.length>0">
+                                            <v-card class="mb-2">
+                                                <v-card-text>
+                                                    <p><strong>{{ kharchaCategory.title }}</strong></p>
+                                                    <v-divider></v-divider>
+                                                    <div class="item">
+                                                        <div class="sub-item"
+                                                             v-for="(kharchaType,kharchaTypeIndex) in kharchaCategory.kharcha_types"
+                                                             :key="kharchaTypeIndex">
+                                                            <v-card v-if="kharchaType.kharcha">
+                                                                <v-card-text>
+                                                                    <p><strong>{{ kharchaType.title }}</strong></p>
+                                                                    <v-divider></v-divider>
+                                                                    <p><strong>जम्मा</strong>: {{
+                                                                            kharchaItem.items[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.jamma
+                                                                        }}</p>
+                                                                    <p><strong>कैफियत</strong>: {{
+                                                                            kharchaItem.items[kharchaCategoryIndex].kharcha_types[kharchaTypeIndex].kharcha.kaifiyat
+                                                                        }}</p>
+                                                                </v-card-text>
+                                                            </v-card>
+                                                        </div>
+                                                    </div>
+                                                </v-card-text>
+                                            </v-card>
+
+                                        </div>
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </div>
+
+                    <h5 v-if="JSON.stringify(cfData.income)"><strong>आम्दानी विवरण</strong></h5>
+                    <v-divider v-if="JSON.stringify(cfData.income)"></v-divider>
+                    <div class="item" v-if="JSON.stringify(cfData.income)">
+                        <div class="sub-item" v-for="(incomeItem,incomeIndex) in cfData.income"
+                             :key="incomeIndex">
+                            <v-card
+
+                            >
+                                <v-card-text>
+                                    <div class="d-flex align-items-center">
+                                        <h5 class="mb-0"><strong>आर्थिक वर्ष: {{ incomeItem.aarthik_barsa.name }}</strong></h5>
+                                        <v-tooltip bottom>
+                                            <template v-slot:activator="{on, attrs}">
+                                                <v-btn
+                                                    class="ma-2"
+                                                    @click="editIncomeDetails(cfData.id,incomeItem.aarthik_barsa.id)"
+                                                    depressed
+                                                    dark
+                                                    color="blue darken-1"
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                >
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                    <span>खर्च सम्पादन गर्नुहोस्</span>
+                                                </v-btn>
+                                            </template>
+                                            <span>Edit This Data</span>
+                                        </v-tooltip>
+                                    </div>
+                                    <v-divider></v-divider>
+                                    <div v-for="(incomeCategory,incomeCategoryIndex) in incomeItem.items"
+                                         :key="incomeCategoryIndex">
+                                        <div v-if="incomeCategory.income_types.length>0">
+                                            <v-card class="mb-2">
+                                                <v-card-text>
+                                                    <p><strong>{{ incomeCategory.title }}</strong></p>
+                                                    <v-divider></v-divider>
+                                                    <div class="item">
+                                                        <div class="sub-item"
+                                                             v-for="(incomeType,incomeTypeIndex) in incomeCategory.income_types"
+                                                             :key="incomeTypeIndex">
+                                                            <v-card v-if="incomeType.income">
+                                                                <v-card-text>
+                                                                    <p><strong>{{ incomeType.title }}</strong></p>
+                                                                    <v-divider></v-divider>
+                                                                    <p><strong>जम्मा</strong>: {{
+                                                                            incomeItem.items[incomeCategoryIndex].income_types[incomeTypeIndex].income.jamma
+                                                                        }}</p>
+                                                                    <p><strong>कैफियत</strong>: {{
+                                                                            incomeItem.items[incomeCategoryIndex].income_types[incomeTypeIndex].income.kaifiyat
+                                                                        }}</p>
+                                                                </v-card-text>
+                                                            </v-card>
+                                                        </div>
+                                                    </div>
+                                                </v-card-text>
+                                            </v-card>
+
+                                        </div>
+                                    </div>
+                                </v-card-text>
+                            </v-card>
+                        </div>
+                    </div>
+
                 </v-container>
             </v-card-text>
         </v-card>
@@ -525,11 +656,17 @@ export default {
         };
     },
     methods: {
+        editKharchaDetails(cfug,aarthikBarsa){
+            this.$router.push(`/kharcha-edit?cfug=${cfug}&aarthik_barsa=${aarthikBarsa}`)
+        },
+        editIncomeDetails(cfug,aarthikBarsa){
+            this.$router.push(`/income-edit?cfug=${cfug}&aarthik_barsa=${aarthikBarsa}`)
+        },
         addKharchaDetails() {
-            this.$router.push("/kharcha-edit");
+            this.$router.push(`/kharcha-edit?cfug=${this.cfData.id}`);
         },
         addIncomeDetails() {
-            this.$router.push("/income-edit");
+            this.$router.push(`/income-edit?cfug=${this.cfData.id}`);
         },
         saveCfData() {
             let formData = new FormData();
@@ -674,5 +811,19 @@ export default {
     top: 0;
     background: #fff;
     border-radius: 4px;
+}
+
+.item {
+    width: 100%;
+    columns: 2;
+    column-gap: 2px;
+}
+
+.sub-item {
+    width: 100%;
+    margin: 0 0 5px;
+    padding: 5px;
+    overflow: hidden;
+    break-inside: avoid;
 }
 </style>

@@ -102,13 +102,13 @@ export default {
                             title: "खर्च विवरण थप",
                             icon: "mdi-cash-plus",
                             route: "/kharcha-edit",
-                            can: "dashboard-browse"
+                            can: "kharcha-browse"
                         },
                         {
                             title: "आम्दानी विवरण थप",
                             icon: "mdi-cash-minus",
                             route: "/income-edit",
-                            can: "dashboard-browse"
+                            can: "income-browse"
                         },
                     ]
                 },

@@ -13,7 +13,7 @@ class IncomeType extends Model
     protected $table = 'income_type';
 
     public function income(){
-        return $this->hasMany(Income::class,'income_type_id');
+        return $this->hasOne(Income::class,'income_type_id');
     }
 
     public function incomeCategory(){

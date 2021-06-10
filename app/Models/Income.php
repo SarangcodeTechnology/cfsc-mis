@@ -10,4 +10,6 @@ class Income extends Model
     use HasFactory;
     protected $connection = 'cfsc_mis_data';
     protected $table="income";
+    protected $guarded = [];
+
 }

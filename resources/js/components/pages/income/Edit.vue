@@ -3,7 +3,7 @@
         <v-toolbar color="#E0E0E0" dark flat></v-toolbar>
         <v-card class="mx-11 my-n11">
             <v-toolbar flat>
-                <strong>आम्दानी विवरणहरु सम्पादन गर्नुहोस्</strong>
+                <strong>खर्च विवरणहरु सम्पादन गर्नुहोस्</strong>
                 <v-spacer></v-spacer>
                 <v-btn
                     :disabled="!valid"
@@ -25,33 +25,33 @@
                     <v-row>
                         <v-col cols="4">
                             <v-autocomplete outlined
-                                v-model="filterData.aarthikBarsa"
-                                :items="aarthikBarsas"
-                                :rules="[(v) => !!v || 'आर्थिक वर्ष छनाैट गर्न अनिवार्य छ']"
-                                clearable
-                                hint="E.g. : 2078/079"
-                                item-text="name"
-                                item-value="id"
-                                label="आर्थिक वर्ष"
-
-                                placeholder="आर्थिक वर्ष छनाैट गर्नुहाेस् ।"
-                                @input="getDataFromApi()"
+                                            v-model="filterData.aarthikBarsa"
+                                            :items="aarthikBarsas"
+                                            :rules="[(v) => !!v || 'आर्थिक वर्ष छनाैट गर्न अनिवार्य छ']"
+                                            clearable
+                                            hint="E.g. : 2078/079"
+                                            item-text="name"
+                                            item-value="id"
+                                            label="आर्थिक वर्ष"
+                                            :disabled="aarthikBarsaDisable"
+                                            placeholder="आर्थिक वर्ष छनाैट गर्नुहाेस् ।"
+                                            @input="getDataFromApi"
                             >
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="4">
                             <v-autocomplete outlined
-                                v-model="filterData.cfug"
-                                :items="cfugs"
-                                :rules="[(v) => !!v || 'वन उपभाेक्ता समूह छनाैट गर्न अनिवार्य छ']"
-                                clearable
-                                hint="E.g. : फलानाे वन उपभाेक्ता समूह"
-                                item-text="fug_name"
-                                item-value="id"
-                                label="वन उपभाेक्ता समूह"
-
-                                placeholder="वन उपभाेक्ता समूह छनाैट गर्नुहाेस् ।"
-                                @input="getDataFromApi()"
+                                            v-model="filterData.cfug"
+                                            :items="cfugs"
+                                            :rules="[(v) => !!v || 'वन उपभाेक्ता समूह छनाैट गर्न अनिवार्य छ']"
+                                            clearable
+                                            hint="E.g. : फलानाे वन उपभाेक्ता समूह"
+                                            item-text="fug_name"
+                                            item-value="id"
+                                            label="वन उपभाेक्ता समूह"
+                                            :disabled="cfugDisable"
+                                            placeholder="वन उपभाेक्ता समूह छनाैट गर्नुहाेस् ।"
+                                            @input="getDataFromApi"
                             >
                             </v-autocomplete>
                         </v-col>
@@ -86,7 +86,8 @@
                                                               v-model="incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income.kaifiyat"
                                                               @input="addIncomeInEditedIncomeData(incomeData[incomeCategoryIndex].income_types[incomeTypeIndex].income)"
                                                               placeholder="कैफियत राख्नुहाेस्"
-                                                              label="कैफियत"></v-text-field>
+                                                              label="कैफियत"
+                                                ></v-text-field>
                                             </v-col>
                                         </v-row>
 
@@ -113,7 +114,17 @@ export default {
                 cfug: ""
             },
             incomeData: [],
-            editedIncomeData: []
+            editedIncomeData: [],
+            aarthikBarsaDisable:false
+        }
+    },
+    mounted(){
+        if(this.$route.query.aarthik_barsa || this.$route.query.cfug){
+            this.filterData.aarthikBarsa = parseInt(this.$route.query.aarthik_barsa)
+            this.filterData.cfug = parseInt(this.$route.query.cfug);
+            if(this.$route.query.aarthik_barsa && this.$route.query.cfug){
+                this.getDataFromApi();
+            }
         }
     },
     computed: {
@@ -121,6 +132,7 @@ export default {
             // incomeData: (state) => state.webservice.editIncomeData,
             aarthikBarsas: (state) => state.webservice.resources.aarthikBarsas,
             cfugs: (state) => state.webservice.resources.cfugs,
+            cfugDisable: (state,getters) => !getters.CHECK_PERMISSION('income-select_cfug'),
         }),
     },
     methods: {
@@ -131,7 +143,8 @@ export default {
         },
         getDataFromApi() {
             var tempthis = this;
-            if (this.$refs.form.validate()) {
+            // if (this.$refs.form.validate()) {
+            if (this.filterData.aarthikBarsa && this.filterData.cfug ) {
                 this.$store.dispatch("makePostRequest", {
                     data: tempthis.filterData,
                     route: 'income-data'
@@ -156,14 +169,18 @@ export default {
                     });
                     tempthis.incomeData = tempIncomeData;
                 })
-            } else {
-                tempthis.incomeData = [];
+            }else{
+                this.incomeData = [];
             }
         },
         saveIncome() {
+            var tempthis = this;
             this.$store.dispatch('makePostRequest', {
                 data: {items: this.editedIncomeData},
                 route: 'save-income-data'
+            }).then(function(response){
+                tempthis.editedIncomeData = [];
+                tempthis.getDataFromApi();
             });
         }
     }

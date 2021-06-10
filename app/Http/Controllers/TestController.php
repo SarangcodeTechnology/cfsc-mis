@@ -41,7 +41,9 @@ class TestController extends Controller
     }
     public function index(){
         $i = 0;
-        foreach(Kharcha::select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
+        $fug_id=1;
+
+        foreach(Kharcha::where('fug_id',$fug_id)->select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
             $aarthik_barsa_id = $item->aarthik_barsa_id;
             $fug_id = $item->fug_id;
             $kharcha[$i]['aarthik_barsa'] = AarthikBarsa::find($aarthik_barsa_id);
@@ -53,6 +55,10 @@ class TestController extends Controller
             }])->get();
             $i++;
         }
+        return $kharcha;
+
+
+
         $aarthik_barsa_ids = [];
         $fug_ids = [];
         $kharchaCollection  = collect($kharcha);

@@ -117,10 +117,12 @@ export default {
         }
     },
     mounted(){
-        if(this.$route.query.aarthik_barsa && this.$route.query.cfug){
+        if(this.$route.query.aarthik_barsa || this.$route.query.cfug){
             this.filterData.aarthikBarsa = parseInt(this.$route.query.aarthik_barsa)
             this.filterData.cfug = parseInt(this.$route.query.cfug);
-            this.getDataFromApi();
+            if(this.$route.query.aarthik_barsa && this.$route.query.cfug){
+                this.getDataFromApi();
+            }
         }
     },
     computed: {
