@@ -52,6 +52,10 @@ const Kaaryalaya = () => import("./components/pages/kaaryalaya/browse");
 const KaaryalayaEdit = () => import("./components/pages/kaaryalaya/edit");
 const PrintIncome = () => import("./components/pages/print/Income");
 
+const Division = () => import("./components/pages/divisions/Browse");
+const Subdivision = () => import("./components/pages/sub-divisions/Browse");
+
+
 const opts = {
     mode: "history",
     routes: [
@@ -324,6 +328,28 @@ const opts = {
                         breadcrumb: {
                             text: "Income Types Edit",
                             link: "/income-types-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/divisions",
+                    component: Division,
+                    name: 'divisions',
+                    meta: {
+                        breadcrumb: {
+                            text: "Division",
+                            link: "/divisions"
+                        }
+                    },
+                },
+                {
+                    path: "/subdivisions",
+                    component: Subdivision,
+                    name: 'subdivisions',
+                    meta: {
+                        breadcrumb: {
+                            text: "Subdivisions",
+                            link: "/subdivisions"
                         }
                     },
                 },

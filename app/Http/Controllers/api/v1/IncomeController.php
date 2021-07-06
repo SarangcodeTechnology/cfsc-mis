@@ -16,6 +16,7 @@ class IncomeController extends Controller
     {
         try {
             $i = 0;
+            $income = [];
             foreach(Income::select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
                 $aarthik_barsa_id = $item->aarthik_barsa_id;
                 $fug_id = $item->fug_id;
@@ -37,13 +38,16 @@ class IncomeController extends Controller
             })->when(!empty($fug_ids),function($query) use ($fug_ids){
                 return $query->whereIn('fug.id',$fug_ids);
             })->values();
+
             $csvData = $this->makeCsvData($income);
+
             $headers = [
                 ['text' => "कार्यहरु", 'value'=> "actions"],
                 ['text' => "वन उपभाेक्ता समूह", 'value'=> "fug.fug_name"],
                 ['text' => "आर्थिक वर्ष", 'value'=> "aarthik_barsa.name"],
             ];
             $categoryHeader = [];
+
             foreach(IncomeCategory::all() as $itemKey=>$item){
                 $colspan = 0;
                 foreach($item->income_types as $subItemKey=>$subItem){
@@ -56,6 +60,7 @@ class IncomeController extends Controller
                 $categoryData['colspan'] = $colspan;
                 if($colspan) array_push($categoryHeader,$categoryData);
             }
+
             return response(
                 [
                     'status' => 200,
@@ -76,7 +81,7 @@ class IncomeController extends Controller
     public function makeCsvData($income){
         $csvData = [];
         foreach($income as $incomeKey=>$incomeItem){
-            $csvData[$incomeKey]['वन उपभाेक्ता समूह'] = $incomeItem['fug']['fug_name'];
+            $csvData[$incomeKey]['वन उपभाेक्ता समूह'] = optional($incomeItem['fug'])['fug_name'];
             $csvData[$incomeKey]['आर्थिक वर्ष'] = $incomeItem['aarthik_barsa']['name'];
             foreach(IncomeCategory::all() as $categoryKey=>$categoryItem){
                 foreach($categoryItem->income_types as $typeKey=>$typeItem){

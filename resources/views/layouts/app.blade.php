@@ -17,6 +17,7 @@
     <router-view/>
 </div>
 @include('includes.scripts')
+<script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
 </body>
 
 </html>

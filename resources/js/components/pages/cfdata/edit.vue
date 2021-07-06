@@ -1,5 +1,5 @@
 <template>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" v-model="valid">
         <v-toolbar color="#E0E0E0" dark flat></v-toolbar>
         <v-card class="mx-11 my-n11">
             <v-toolbar flat>
@@ -49,10 +49,10 @@
                             class="ma-2"
                             @click="saveCfData()"
                             depressed
-                            dark
                             color="green darken-1"
                             v-bind="attrs"
                             v-on="on"
+                            :disabled="!valid"
                         >
                             <v-icon>mdi-floppy</v-icon>
                             <span>सेभ</span>
@@ -74,6 +74,18 @@
                     <h5><strong>परिचय विवरण</strong></h5>
                     <v-divider></v-divider>
                     <v-row>
+                        <v-col cols="4">
+                            <v-select outlined
+                                      v-model="cfData.cfug_type_id"
+                                      label="वनकाे प्रकार (CFUG Type)"
+                                      :items="cfugTypes"
+                                      item-value="id"
+                                      item-text="name"
+                                      placeholder="वनकाे प्रकार राख्नुहाेस् ।"
+                                      :readonly="isCfDataView"
+                            >
+                            </v-select>
+                        </v-col>
                         <v-col cols="4">
                             <v-text-field outlined
                                           v-model="cfData.fug_name"
@@ -219,10 +231,10 @@
                         <v-col cols="3">
                             <v-text-field outlined
                                           v-model="cfData.fug_pan_no"
-                                          label="समूहको प्यान नं"
+                                          label="समूहको प्यान नं*"
                                           hint="E.g. : 9327/232"
                                           placeholder="समूहको प्यान नं राख्नुहाेस् ।"
-
+                                          :rules="[(v) => !!v || 'समूहको प्यान नं अनिवार्य छ']"
                                           :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -233,7 +245,7 @@
                                           label="घरधुरी संख्या"
                                           hint="E.g. : 9327"
                                           placeholder="घरधुरी संख्या राख्नुहाेस् ।"
-
+                                          type="number"
                                           :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -244,7 +256,7 @@
                                           label="कूल जनसंख्या"
                                           hint="E.g. : 932721"
                                           placeholder="कूल जनसंख्या राख्नुहाेस् ।"
-
+                                          type="number"
                                           :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -255,7 +267,7 @@
                                           label="महिला जनसंख्या"
                                           hint="E.g. : 962721"
                                           placeholder="महिला जनसंख्या राख्नुहाेस् ।"
-
+                                          type="number"
                                           :readonly="isCfDataView"
                             >
                             </v-text-field>
@@ -266,6 +278,8 @@
                                           label="पुरुष जनसंख्या"
                                           hint="E.g. : 932721"
                                           placeholder="पुरुष जनसंख्या राख्नुहाेस् ।"
+                                          type="number"
+
 
                                           :readonly="isCfDataView"
                             >
@@ -277,6 +291,7 @@
                                           label="वनको क्षेत्रफल हे."
                                           hint="E.g. : 23"
                                           placeholder="वनको क्षेत्रफल हे. राख्नुहाेस् ।"
+                                          type="number"
 
                                           :readonly="isCfDataView"
                             >
@@ -330,6 +345,30 @@
                     <h5><strong>ठेगाना विवरण</strong></h5>
                     <v-divider></v-divider>
                     <v-row>
+                        <v-col cols="3">
+                            <v-select outlined
+                                      v-model="cfData.division_id"
+                                      label="डिभिजन"
+                                      :items="divisions"
+                                      item-value="id"
+                                      item-text="name"
+                                      placeholder="डिभिजन राख्नुहाेस् ।"
+                                      :readonly="isCfDataView"
+                            >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="3">
+                            <v-select outlined
+                                      v-model="cfData.subdivision_id"
+                                      label="सबडिभिजन"
+                                      :items="subDivisions"
+                                      item-value="id"
+                                      item-text="name"
+                                      placeholder="सबडिभिजन राख्नुहाेस् ।"
+                                      :readonly="isCfDataView"
+                            >
+                            </v-select>
+                        </v-col>
                         <v-col cols="3">
                             <v-autocomplete outlined
                                             clearable
@@ -512,7 +551,9 @@
                             >
                                 <v-card-text>
                                     <div class="d-flex align-items-center">
-                                        <h5 class="mb-0"><strong>आर्थिक वर्ष: {{ kharchaItem.aarthik_barsa.name }}</strong></h5>
+                                        <h5 class="mb-0"><strong>आर्थिक वर्ष: {{
+                                                kharchaItem.aarthik_barsa.name
+                                            }}</strong></h5>
                                         <v-tooltip bottom>
                                             <template v-slot:activator="{on, attrs}">
                                                 <v-btn
@@ -577,7 +618,9 @@
                             >
                                 <v-card-text>
                                     <div class="d-flex align-items-center">
-                                        <h5 class="mb-0"><strong>आर्थिक वर्ष: {{ incomeItem.aarthik_barsa.name }}</strong></h5>
+                                        <h5 class="mb-0"><strong>आर्थिक वर्ष: {{
+                                                incomeItem.aarthik_barsa.name
+                                            }}</strong></h5>
                                         <v-tooltip bottom>
                                             <template v-slot:activator="{on, attrs}">
                                                 <v-btn
@@ -658,10 +701,10 @@ export default {
         };
     },
     methods: {
-        editKharchaDetails(cfug,aarthikBarsa){
+        editKharchaDetails(cfug, aarthikBarsa) {
             this.$router.push(`/kharcha-edit?cfug=${cfug}&aarthik_barsa=${aarthikBarsa}`)
         },
-        editIncomeDetails(cfug,aarthikBarsa){
+        editIncomeDetails(cfug, aarthikBarsa) {
             this.$router.push(`/income-edit?cfug=${cfug}&aarthik_barsa=${aarthikBarsa}`)
         },
         addKharchaDetails() {
@@ -769,6 +812,8 @@ export default {
             provinces: (state) => state.webservice.resources.provinces,
             isCfDataView: (state) => state.webservice.isCfDataView,
             cfData: (state) => state.webservice.editCfData,
+            cfugTypes: (state) => state.webservice.resources.cfug_types,
+            divisions: (state) => state.webservice.resources.divisions,
             subDivisions: (state) => state.webservice.resources.subdivisions,
             physiographies: (state) => state.webservice.resources.physiographies,
             vegetationTypes: (state) => state.webservice.resources.vegetation_types,

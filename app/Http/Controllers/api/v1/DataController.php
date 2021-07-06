@@ -6,6 +6,8 @@ use App\Helpers\CollectionHelper;
 use App\Http\Controllers\Controller;
 use App\Models\AarthikBarsa;
 use App\Models\CfData;
+use App\Models\CfugType;
+use App\Models\Division;
 use App\Models\ForestCondition;
 use App\Models\ForestType;
 use App\Models\FugApprovalDate;
@@ -95,7 +97,7 @@ class DataController extends Controller
                         $query->where('women_in_committee','>=',(int)$filterData->womenInCommittee->from)->where('women_in_committee','<=',(int)$filterData->womenInCommittee->to);
                 } )
 
-                    ->with(['district', 'province', 'localLevel','fug_approval_dates','fug_audit_reports','fug_maps'])->orderBy('created_at','desc')->paginate($request->totalItems);
+                    ->with(['division','subDivision','cfugType','district', 'province', 'localLevel','fug_approval_dates','fug_audit_reports','fug_maps'])->orderBy('created_at','desc')->paginate($request->totalItems);
             }
             // for kharcha data in fug
             $kharcha = [];
@@ -213,6 +215,9 @@ class DataController extends Controller
                 }
                 $cfData = CfData::find($cfDataFromFrontEnd['id']);
                 $cfData->fug_name = $cfDataFromFrontEnd['fug_name'];
+                $cfData->division_id = $cfDataFromFrontEnd['division_id'];
+                $cfData->subdivision_id = $cfDataFromFrontEnd['subdivision_id'];
+                $cfData->cfug_type_id = $cfDataFromFrontEnd['cfug_type_id'];
                 $cfData->fug_code = $cfDataFromFrontEnd['fug_code'];
                 $cfData->fug_pan_no = $cfDataFromFrontEnd['fug_pan_no'];
                 $cfData->hh = $cfDataFromFrontEnd['hh'];
@@ -380,9 +385,11 @@ class DataController extends Controller
         try {
             $provinces = Province::with('districts.localLevels')->get();
             $subdivisions = SubDivision::orderBy('name')->get();
+            $divisions = Division::orderBy('name')->get();
             $physiographies = Physiography::orderBy('name')->get();
             $vegetation_types = VegetationType::orderBy('code')->get();
             $forest_types = ForestType::orderBy('name')->get();
+            $cfug_types = CfugType::orderBy('name')->get();
             $forest_conditions = ForestCondition::orderBy('code')->get();
             $localLevelWithWard = CfData::select('local_level_id','ward')->get();
             $kharchaCategories = KharchaCategory::with('kharcha_types')->select('id','title','order')->get();
@@ -424,7 +431,7 @@ class DataController extends Controller
                 'status' => 200,
                 'type' => 'success',
                 'message' => 'Resources loaded successfully',
-                'data' => compact('kaaryalaya','formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions','incomeCategories','kharchaCategories','cfugs','aarthikBarsas')
+                'data' => compact('divisions','cfug_types','kaaryalaya','formattedPermissions','provinces','subdivisions','physiographies','vegetation_types','forest_types','forest_conditions','roles','permissions','localLevelWithWard','dashboard_items','userPermissions','incomeCategories','kharchaCategories','cfugs','aarthikBarsas')
             ]);
         } catch (Exception $e) {
             return response([

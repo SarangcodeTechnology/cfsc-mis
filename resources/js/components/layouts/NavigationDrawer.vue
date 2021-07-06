@@ -127,6 +127,8 @@ export default {
                 {
                     title: "संसाधनहरु", icon: "mdi-folder", subItems: [
                         {title: 'आर्थिक वर्ष', icon: 'mdi-calendar', route: '/aarthik-barsa', can: "dashboard-browse"},
+                        {title: 'डिभिजन', icon: 'mdi-folder', route: '/divisions', can: "dashboard-browse"},
+                        {title: 'सब डिभिजन', icon: 'mdi-folder', route: '/subdivisions', can: "dashboard-browse"},
                         {title: 'कार्यलय', icon: 'mdi-folder', route: '/kaaryalaya', can: "kaaryalaya-browse"},
                         {
                             title: 'खर्च बर्गिकरणहरु',

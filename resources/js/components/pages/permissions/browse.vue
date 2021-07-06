@@ -142,7 +142,6 @@ export default {
           }).catch(function (error) {
               tempthis.deleteLoading = false;
           });
-
       },
   },
 };
