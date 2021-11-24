@@ -16,6 +16,7 @@ class KharchaController extends Controller
     {
         try {
             $i = 0;
+            $kharcha =[];
             foreach(Kharcha::select('fug_id','aarthik_barsa_id')->distinct()->get() as $item){
                 $aarthik_barsa_id = $item->aarthik_barsa_id;
                 $fug_id = $item->fug_id;

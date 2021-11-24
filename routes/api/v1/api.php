@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\v1\AarthikBarsaController;
 use App\Http\Controllers\api\v1\DataController;
+use App\Http\Controllers\api\v1\DivisionController;
 use App\Http\Controllers\api\v1\IncomeCategoryController;
 use App\Http\Controllers\api\v1\IncomeController;
 use App\Http\Controllers\api\v1\IncomeTypeController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\api\v1\DeleteController;
 use App\Http\Controllers\api\v1\KharchaCategoryController;
 use App\Http\Controllers\api\v1\KharchaController;
 use App\Http\Controllers\api\v1\KharchaTypeController;
+use App\Http\Controllers\api\v1\SubdivisionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KaaryalayaController;
 use App\Http\Controllers\PermissionController;
@@ -88,6 +90,11 @@ Route::middleware('auth:api')->post('save-kharcha',[KharchaController::class,'sa
 Route::middleware('auth:api')->post('delete-kharcha',[KharchaController::class,'deleteKharcha']);
 
 
+Route::middleware('auth:api')->get('divisions', [DivisionController::class,'index']);
+Route::middleware('auth:api')->post('divisions', [DivisionController::class,'createOrUpdate']);
+
+Route::middleware('auth:api')->get('subdivisions', [SubdivisionController::class,'index']);
+Route::middleware('auth:api')->post('subdivisions', [SubdivisionController::class,'createOrUpdate']);
 
 //delete
 Route::middleware('auth:api')->post('delete',[DeleteController::class,'delete']);

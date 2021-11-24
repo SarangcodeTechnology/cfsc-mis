@@ -1334,9 +1334,10 @@ const actions = {
                     });
                 }
             }).catch(function (error) {
+                reject(error);
                 state.dispatch("addNotification", {
                     type: "error",
-                    message: error,
+                    message: error.message,
                 });
             });
         });

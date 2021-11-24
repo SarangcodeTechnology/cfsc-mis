@@ -24,6 +24,13 @@ class CfData extends Model
 
     protected $guarded = ['first_fug_approval_date'];
 
+    public function cfugType(){
+        return $this->belongsTo(CfugType::class,'cfug_type_id');
+    }
+    public function division(){
+        return $this->belongsTo(Division::class,'division_id');
+    }
+
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id');
@@ -44,7 +51,7 @@ class CfData extends Model
         return $this->belongsTo(Physiography::class, 'physiography_id');
     }
 
-    public function subdivision()
+    public function subDivision()
     {
         return $this->belongsTo(SubDivision::class, 'subdivision_id');
     }

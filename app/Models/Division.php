@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubDivision extends Model
+class Division extends Model
 {
-    protected $table = 'subdivisions';
+    use HasFactory;
     protected $connection = 'cfsc_mis_data';
-    public $timestamps = false;
     protected $guarded = ['id','created_at','updated_at'];
-
     public function district(){
         return $this->belongsTo(District::class,'district_id');
     }
@@ -21,7 +19,6 @@ class SubDivision extends Model
     public function province(){
         return $this->belongsTo(Province::class,'province_id');
     }
-    public function division(){
-        return $this->belongsTo(Division::class,'division_id');
-    }
+
+
 }
