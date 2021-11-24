@@ -36,7 +36,6 @@
                                         v-model="search" outlined
                                         dense
                                         label="खोजी गर्नुहोस्"
-
                                         @change="getDataFromApi"
                                     ></v-text-field>
                                 </v-col>
