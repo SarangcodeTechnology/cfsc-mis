@@ -90,7 +90,7 @@ Route::middleware('auth:api')->post('save-kharcha',[KharchaController::class,'sa
 Route::middleware('auth:api')->post('delete-kharcha',[KharchaController::class,'deleteKharcha']);
 
 
-Route::middleware('auth:api')->get('divisions', [DivisionController::class,'index']);
+Route::middleware('auth:api')->get('divisions', [DivisionController::class,'inde  x']);
 Route::middleware('auth:api')->post('divisions', [DivisionController::class,'createOrUpdate']);
 
 Route::middleware('auth:api')->get('subdivisions', [SubdivisionController::class,'index']);
