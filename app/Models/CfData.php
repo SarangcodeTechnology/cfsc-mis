@@ -14,8 +14,8 @@ class CfData extends Model
         "province_id" => "integer",
         "district_id" => "integer",
         "local_level_id" => "integer",
-        "hh" => "integer",
         "area_ha" => "float",
+        "hh" => "integer",
         "no_of_person_in_committee" => "integer",
         "women_in_committee" => "integer",
         "men_in_committee" => "integer",
@@ -84,5 +84,24 @@ class CfData extends Model
     public function fug_maps()
     {
         return $this->hasMany(FugMap::class, 'fug_id');
+    }
+
+    public function kharcha()
+    {
+        return $this->hasMany(Kharcha::class, 'fug_id');
+    }
+
+    public function income()
+    {
+        return $this->hasMany(Income::class, 'fug_id');
+    }
+
+    public function kaaryalaya()
+    {
+        return $this->belongsTo(Kaaryalaya::class, 'kaaryalaya_id');
+    }
+    public function cfFyData()
+    {
+        return $this->hasMany(CfFyData::class, 'fug_id');
     }
 }

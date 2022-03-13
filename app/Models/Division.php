@@ -19,6 +19,4 @@ class Division extends Model
     public function province(){
         return $this->belongsTo(Province::class,'province_id');
     }
-
-
 }

@@ -12,4 +12,6 @@ class Kharcha extends Model
     protected $table  = 'kharcha';
     protected $guarded = [];
 
+
+
 }

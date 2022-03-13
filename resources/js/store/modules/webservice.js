@@ -5,7 +5,9 @@ import router from '../../routes';
 
 const state = {
     resources: {
-        userPermissions: ""
+        userPermissions: "",
+        udhyam_types: "",
+        registration_types: "",
     },
     editCfData: {
         fug_approval_dates: [
@@ -16,7 +18,44 @@ const state = {
         fug_audit_reports: [],
         fug_maps: [],
     },
+    editUdhyamFyData:{
+        id:null,
+        udhyam_id:null,
+        aarthik_barsa_id:null,
+        pratakchya_rojgari:null,
+        apratakchya_rojgari:null,
+        punji:null,
+    },
+    editFugFyData:{
+        fug_id:null,
+        aarthik_barsa_id:null,
+        id:null,
+        hh: null,
+        population: null,
+        women_population: null,
+        men_population: null,
+        no_of_person_in_committee: null,
+        women_in_committee: null,
+        men_in_committee: null,
+        forest_based_industry_operations: null,
+        forest_based_tourism_operations: null,
+    },
+    editUdhyamData: {
+        id: null,
+        kaaryalaya_id: null,
+        udhyam_name: "",
+        udhyam_type_id: null,
+        pan_vat_no: null,
+        registration_type_id: null,
+        registration_no: null,
+        registration_date: null,
+        province_id: null,
+        district_id: null,
+        local_level_id: null,
+        ward: null,
+    },
     isCfDataView: false,
+    isUdhyamDataView: false,
     users: [],
     editUserData: {
         name: "",
@@ -57,11 +96,11 @@ const state = {
     income: [],
     editIncomeData: {},
 
-    printData:{}
+    printData: {}
 };
 
 const mutations = {
-    SET_PRINT_DATA(state,payload){
+    SET_PRINT_DATA(state, payload) {
         state.printData = payload;
     },
     // aarthikBarsa
@@ -113,8 +152,20 @@ const mutations = {
     SET_IS_CFDATA_VIEW(state, payload) {
         state.isCfDataView = payload;
     },
+    SET_IS_UDHYAMDATA_VIEW(state, payload) {
+        state.isUdhyamDataView = payload;
+    },
     SET_EDIT_CF_DATA(state, payload) {
         state.editCfData = payload
+    },
+    SET_EDIT_UDHYAM_DATA(state, payload) {
+        state.editUdhyamData = payload
+    },
+    SET_EDIT_UDHYAM_FY_DATA(state, payload) {
+        state.editUdhyamFyData = payload
+    },
+    SET_EDIT_FUG_FY_DATA(state, payload) {
+        state.editFugFyData = payload
     },
     UPDATE_APPROVAL_DATE(state, payload) {
         state.editCfData.fug_approval_dates.push(payload.fugApprovalDate)
@@ -156,8 +207,8 @@ const mutations = {
 };
 
 const actions = {
-    setPrintData(state,payload){
-        state.commit("SET_PRINT_DATA",payload);
+    setPrintData(state, payload) {
+        state.commit("SET_PRINT_DATA", payload);
     },
     //aarthik barsha
     getAarthikBarsa(state, payload) {
@@ -195,6 +246,12 @@ const actions = {
     setAarthikBarsaEditData(state, payload) {
         state.commit("SET_AARTHIK_BARSA_EDIT_DATA", payload);
         router.push("/aarthik-barsa-edit");
+    },
+    setUdhyamFyEditData(state, payload) {
+        state.commit("SET_EDIT_UDHYAM_FY_DATA", payload);
+    },
+    setFugFyEditData(state, payload) {
+        state.commit("SET_EDIT_FUG_FY_DATA", payload);
     },
     saveAarthikBarsa(state, payload) {
         axios.post('/api/v1/save-aarthik-barsa', {data: payload}, {
@@ -890,6 +947,10 @@ const actions = {
         state.commit("SET_EDIT_CF_DATA", payload);
         router.push("/cf-data-edit");
     },
+    setUdhyamEditData(state, payload) {
+        state.commit("SET_EDIT_UDHYAM_DATA", payload);
+        router.push("/udhyam-data-edit");
+    },
     loadResources(state, payload) {
         return new Promise((resolve, reject) => {
             axios
@@ -951,7 +1012,116 @@ const actions = {
             });
         });
     },
+    saveUdhyamData(state, payload) {
+        axios.post('/api/v1/save-udhyam-data', payload, {
+            headers: {
+                Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN,
+            }
+        }).then(function (response) {
+            if (response.data.status === 200) {
+                router.push("/udhyam-data");
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            } else {
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            }
 
+        }).catch(function (error) {
+            state.dispatch("addNotification", {
+                type: "error",
+                message: error,
+            });
+        });
+    },
+
+    saveUdhyamFyData(state, payload) {
+        axios.post('/api/v1/save-udhyam-fy-data', payload, {
+            headers: {
+                Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN,
+            }
+        }).then(function (response) {
+            if (response.data.status === 200) {
+                router.push("/udhyam-data");
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            } else {
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            }
+        }).catch(function (error) {
+            state.dispatch("addNotification", {
+                type: "error",
+                message: error,
+            });
+        });
+    },
+
+    saveFugFyData(state, payload) {
+        axios.post('/api/v1/save-fug-fy-data', payload, {
+            headers: {
+                Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN,
+            }
+        }).then(function (response) {
+            if (response.data.status === 200) {
+                router.push("/cf-data");
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            } else {
+                state.dispatch("addNotification", {
+                    type: response.data.type,
+                    message: response.data.message,
+                });
+            }
+        }).catch(function (error) {
+            state.dispatch("addNotification", {
+                type: "error",
+                message: error,
+            });
+        });
+    },
+
+    deleteUdhyamData(state, payload) {
+        return new Promise((resolve, reject) => {
+            axios.post('/api/v1/delete-udhyam-data', payload, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                }
+            }).then(function (response) {
+                if (response.data.status === 200) {
+                    state.dispatch("addNotification", {
+                        type: response.data.type,
+                        message: response.data.message,
+                    });
+                } else {
+                    state.dispatch("addNotification", {
+                        type: response.data.type,
+                        message: response.data.message,
+                    });
+                }
+                resolve(response);
+            }).catch(function (error) {
+                state.dispatch("addNotification", {
+                    type: "error",
+                    message: error,
+                });
+                reject(error);
+
+            })
+        });
+
+    },
     deleteCfData(state, payload) {
         return new Promise((resolve, reject) => {
             axios.post('/api/v1/delete-cf-data', payload, {
@@ -984,6 +1154,41 @@ const actions = {
 
     },
 
+    getUdhyamData(state, payload) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get('/api/v1/udhyam-data', {
+                    params: {
+                        page: payload.page,
+                        totalItems: payload.totalItems,
+                        search: payload.search,
+                        filterData: payload.filterData
+                    },
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + state.getters.GET_ACCESS_TOKEN
+                    }
+                })
+                .then(function (response) {
+                    if (response.data.status === 200) {
+                        resolve(response)
+                    } else {
+                        state.dispatch("addNotification", {
+                            type: response.data.type,
+                            message: response.data.message,
+                        });
+                    }
+                    resolve(response);
+                })
+                .catch(function (error) {
+                    state.dispatch("addNotification", {
+                        type: "error",
+                        message: error,
+                    });
+                    reject(error);
+                });
+        });
+    },
     getCfData(state, payload) {
         return new Promise((resolve, reject) => {
 
@@ -1321,7 +1526,7 @@ const actions = {
             }).then(function (response) {
                 if (response.data.status === 200) {
                     resolve(response.data.data);
-                    if(response.data.message){
+                    if (response.data.message) {
                         state.dispatch("addNotification", {
                             type: response.data.type,
                             message: response.data.message,
@@ -1355,6 +1560,7 @@ const actions = {
                 if (response.data.status === 200) {
                     resolve(response);
                 } else {
+                    console.log(response);
                     state.dispatch("addNotification", {
                         type: response.data.type,
                         message: response.data.message,
@@ -1376,7 +1582,7 @@ const getters = {
         return data;
 
     },
-    CHECK_PERMISSION:(state) => (can) => {
+    CHECK_PERMISSION: (state) => (can) => {
         return state.resources.userPermissions.includes(can);
     },
     getCanBrowseUsers(state, payload) {
