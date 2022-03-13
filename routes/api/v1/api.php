@@ -37,7 +37,14 @@ Route::middleware('auth:api')->post('save-cf-data',[DataController::class,'saveC
 Route::middleware('auth:api')->post('delete-cf-data',[DataController::class,'deleteCfData']);
 Route::middleware('auth:api')->post('fug-approval-date',[DataController::class,'saveFugApprovalDate']);
 
+Route::middleware('auth:api')->get('udhyam-data', [DataController::class,'udhyamData']);
+Route::middleware('auth:api')->post('save-udhyam-data',[DataController::class,'saveUdhyamData']);
+Route::middleware('auth:api')->post('save-udhyam-fy-data',[DataController::class,'saveUdhyamFyData']);
+Route::middleware('auth:api')->post('delete-udhyam-data',[DataController::class,'deleteUdhyamData']);
+Route::middleware('auth:api')->post('get-udhyam-fy-data', [DataController::class,'getUdhyamFyData']);
 
+Route::middleware('auth:api')->post('save-fug-fy-data',[DataController::class,'saveFugFyData']);
+Route::middleware('auth:api')->post('get-fug-fy-data', [DataController::class,'getFugFyData']);
 
 
 Route::middleware('auth:api')->get('load-resources',[DataController::class,'loadResources']);
@@ -83,6 +90,9 @@ Route::middleware('auth:api')->post('delete-income-types',[IncomeTypeController:
 Route::middleware('auth:api')->get('income', [IncomeController::class,'index']);
 Route::middleware('auth:api')->post('save-income',[IncomeController::class,'saveIncome']);
 Route::middleware('auth:api')->post('delete-income',[IncomeController::class,'deleteIncome']);
+//Income and Kharcha Headers
+Route::middleware('auth:api')->get('get-income-headers', [DataController::class,'getIncomeHeaders']);
+Route::middleware('auth:api')->get('get-kharcha-headers', [DataController::class,'getKharchaHeaders']);
 
 // kharcha-types
 Route::middleware('auth:api')->get('kharcha', [KharchaController::class,'index']);
@@ -90,7 +100,7 @@ Route::middleware('auth:api')->post('save-kharcha',[KharchaController::class,'sa
 Route::middleware('auth:api')->post('delete-kharcha',[KharchaController::class,'deleteKharcha']);
 
 
-Route::middleware('auth:api')->get('divisions', [DivisionController::class,'index']);
+Route::middleware('auth:api')->get('divisions', [DivisionController::class,'inde  x']);
 Route::middleware('auth:api')->post('divisions', [DivisionController::class,'createOrUpdate']);
 
 Route::middleware('auth:api')->get('subdivisions', [SubdivisionController::class,'index']);

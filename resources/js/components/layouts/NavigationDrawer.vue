@@ -97,7 +97,13 @@ export default {
                 },
                 {
                     title: "फारम", icon: "mdi-note", subItems: [
-                        {title: "सामुदायिक वन थप", icon: "mdi-plus", route: "/cf-data-edit", can: "dashboard-browse"},
+                        {title: "वन उपभाेक्ता समुह थप", icon: "mdi-plus", route: "/cf-data-edit", can: "dashboard-browse"},
+                        {
+                            title: "वन उपभाेक्ता समुह आ.व. विवरण थप",
+                            icon: "mdi-calendar",
+                            route: "/fug-fy-data-edit",
+                            can: "cfdata-browse"
+                        },
                         {
                             title: "खर्च विवरण थप",
                             icon: "mdi-cash-plus",
@@ -110,18 +116,36 @@ export default {
                             route: "/income-edit",
                             can: "income-browse"
                         },
+                        {
+                            title: "उद्यम थप",
+                            icon: "mdi-factory",
+                            route: "/udhyam-data-edit",
+                            can: "udhyam-browse"
+                        },
+                        {
+                            title: "उद्यम आ.व. विवरण थप",
+                            icon: "mdi-calendar",
+                            route: "/udhyam-fy-data-edit",
+                            can: "udhyam-browse"
+                        },
                     ]
                 },
                 {
                     title: "प्रतिवेदन", icon: "mdi-file-document", subItems: [
                         {
-                            title: "सामुदायिक वन विवरण",
+                            title: "वन उपभाेक्ता समुह विवरण",
                             icon: "mdi-border-all",
                             route: "/cf-data",
                             can: "dashboard-browse"
                         },
                         {title: "खर्च विवरण", icon: "mdi-cash-plus", route: "/kharcha", can: "dashboard-browse"},
                         {title: "आम्दानी विवरण", icon: "mdi-cash-minus", route: "/income", can: "dashboard-browse"},
+                        {
+                            title: "उद्यम विवरण",
+                            icon: "mdi-factory",
+                            route: "/udhyam-data",
+                            can: "udhyam-browse"
+                        },
                     ]
                 },
                 {

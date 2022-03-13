@@ -55,6 +55,11 @@ const PrintIncome = () => import("./components/pages/print/Income");
 const Division = () => import("./components/pages/divisions/Browse");
 const Subdivision = () => import("./components/pages/sub-divisions/Browse");
 
+const UdhyamData = () => import("./components/pages/udhyamdata/browse");
+const UdhyamDataEdit = () => import("./components/pages/udhyamdata/edit");
+const UdhyamFyDataEdit = () => import("./components/pages/udhyamdata/udhyamFyDataEdit");
+const FugFyDataEdit = () => import("./components/pages/cfdata/cfFyDataEdit");
+
 
 const opts = {
     mode: "history",
@@ -373,9 +378,9 @@ const opts = {
                         if (from.name !== 'income-categories') {
                             store.commit("SET_INCOME_CATEGORIES_EDIT_DATA", {
                                 id: null,
-                                created_at:"" ,
-                                updated_at:"" ,
-                                title:"" ,
+                                created_at: "",
+                                updated_at: "",
+                                title: "",
                                 order: null,
                             });
                         }
@@ -479,11 +484,11 @@ const opts = {
                         store.commit("SET_PREVIOUS_ROUTE", from.name)
                         if (from.name !== 'kharcha') {
                             store.commit("SET_KHARCHA_EDIT_DATA", {
-                                fug_id:null,
-                                aarthik_barsa_id:null,
-                                kharcha_type_id:null,
-                                kharcha:null,
-                                kaifiyat:"",
+                                fug_id: null,
+                                aarthik_barsa_id: null,
+                                kharcha_type_id: null,
+                                kharcha: null,
+                                kaifiyat: "",
 
                             });
                         }
@@ -514,11 +519,11 @@ const opts = {
                         store.commit("SET_PREVIOUS_ROUTE", from.name)
                         if (from.name !== 'income') {
                             store.commit("SET_INCOME_EDIT_DATA", {
-                                fug_id:null,
-                                aarthik_barsa_id:null,
-                                income_type_id:null,
-                                income:null,
-                                kaifiyat:"",
+                                fug_id: null,
+                                aarthik_barsa_id: null,
+                                income_type_id: null,
+                                income: null,
+                                kaifiyat: "",
                             });
                         }
                         next();
@@ -531,6 +536,107 @@ const opts = {
                         }
                     },
                 },
+                {
+                    path: "/udhyam-data",
+                    component: UdhyamData,
+                    name: 'udhyam-data',
+                    meta: {
+                        breadcrumb: {
+                            text: "Udhyam Details",
+                            link: "/udhyam-data"
+                        }
+                    },
+                },
+                {
+                    path: "/udhyam-data-edit",
+                    component: UdhyamDataEdit,
+                    beforeEnter(to, from, next) {
+                        //TODO aj33b fix this later
+
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if ( from.name !== 'udhyam-data' && from.name !== 'udhyam-fy-data-edit') {
+                            store.commit("SET_EDIT_UDHYAM_DATA", {
+                                id: null,
+                                kaaryalaya_id: null,
+                                udhyam_name: "",
+                                udhyam_type_id: null,
+                                pan_vat_no: null,
+                                registration_type_id: null,
+                                registration_no: null,
+                                registration_date: null,
+                                province_id: null,
+                                district_id: null,
+                                local_level_id: null,
+                                ward: null,
+                            });
+                        }
+                        next();
+                    },
+                    name: 'udhyam-data-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Udhyam Data Edit",
+                            link: "/udhyam-data-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/udhyam-fy-data-edit",
+                    component: UdhyamFyDataEdit,
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'udhyam-data-edit') {
+                            store.commit("SET_EDIT_UDHYAM_FY_DATA", {
+                                id:null,
+                                udhyam_id:null,
+                                aarthik_barsa_id:null,
+                                pratakchya_rojgari:null,
+                                apratakchya_rojgari:null,
+                                punji:null,
+                            });
+                        }
+                        next();
+                    },
+                    name: 'udhyam-fy-data-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "Udhyam F.Y. Data Edit",
+                            link: "/udhyam-fy-data-edit"
+                        }
+                    },
+                },
+                {
+                    path: "/fug-fy-data-edit",
+                    component: FugFyDataEdit,
+                    beforeEnter(to, from, next) {
+                        store.commit("SET_PREVIOUS_ROUTE", from.name)
+                        if (from.name !== 'cf-data-edit') {
+                            store.commit("SET_EDIT_FUG_FY_DATA", {
+                                aarthik_barsa_id:null,
+                                fug_id:null,
+                                id:null,
+                                hh: null,
+                                population: null,
+                                women_population: null,
+                                men_population: null,
+                                no_of_person_in_committee: null,
+                                women_in_committee: null,
+                                men_in_committee: null,
+                                forest_based_industry_operations: null,
+                                forest_based_tourism_operations: null,
+                            });
+                        }
+                        next();
+                    },
+                    name: 'fug-fy-data-edit',
+                    meta: {
+                        breadcrumb: {
+                            text: "FUG F.Y. Data Edit",
+                            link: "/fug-fy-data-edit"
+                        }
+                    },
+                },
+
             ]
         },
         {
