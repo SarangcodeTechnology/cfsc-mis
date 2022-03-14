@@ -97,9 +97,9 @@ export default {
                 },
                 {
                     title: "फारम", icon: "mdi-note", subItems: [
-                        {title: "वन उपभाेक्ता समुह थप", icon: "mdi-plus", route: "/cf-data-edit", can: "dashboard-browse"},
+                        {title: "समुह थप", icon: "mdi-plus", route: "/cf-data-edit", can: "dashboard-browse"},
                         {
-                            title: "वन उपभाेक्ता समुह आ.व. विवरण थप",
+                            title: "समुह आ.व. विवरण थप",
                             icon: "mdi-calendar",
                             route: "/fug-fy-data-edit",
                             can: "cfdata-browse"
@@ -133,7 +133,7 @@ export default {
                 {
                     title: "प्रतिवेदन", icon: "mdi-file-document", subItems: [
                         {
-                            title: "वन उपभाेक्ता समुह विवरण",
+                            title: "समुह विवरण",
                             icon: "mdi-border-all",
                             route: "/cf-data",
                             can: "dashboard-browse"

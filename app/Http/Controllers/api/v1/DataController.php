@@ -770,8 +770,8 @@ class DataController extends Controller
             $formattedPermissions = $this->formattedPermissions();
             $dashboard_items = [
                 0 => [
-                    'title' => 'वन उपभाेक्ता समुह विवरण',
-                    'subTitle' => 'कुल वन उपभाेक्ता समुह विवरणकाे संख्या',
+                    'title' => 'समुह विवरण',
+                    'subTitle' => 'कुल समुह विवरणकाे संख्या',
                     'count' => $this->englishToNepali(number_format(CfData::all()->count())),
                     'lastEntry' => CfData::orderBy('created_at', 'desc')->first() ? CfData::orderBy('created_at', 'desc')->first()->created_at->diffForHumans() : '',
                 ],

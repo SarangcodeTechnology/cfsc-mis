@@ -4,7 +4,7 @@
         <v-card class="mx-11 my-n11">
             <v-toolbar flat>
                 <v-toolbar-title>
-                    <strong>वन उपभाेक्ता समुह विवरण फारम</strong>
+                    <strong>समुह विवरण फारम</strong>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
@@ -52,10 +52,10 @@
                         <v-text-field v-model="cfData.fug_name"
                                       :readonly="isCfDataView"
                                       hint="E.g. : Ukhubari"
-                                      label="वन उपभाेक्ता समुहकाे नाम (FUG Name)"
+                                      label="समुहकाे नाम"
                                       outlined
 
-                                      placeholder="वन उपभाेक्ता समुहकाे नाम राख्नुहाेस् ।"
+                                      placeholder="समुहकाे नाम राख्नुहाेस् ।"
                         >
                         </v-text-field>
                     </v-col>
@@ -63,9 +63,9 @@
                         <v-text-field v-model="cfData.fug_code"
                                       :readonly="isCfDataView"
                                       hint="E.g. : KAS/NI/06/20"
-                                      label="वन उपभाेक्ता समुहकाे काेड (FUG Code)"
+                                      label="समुहकाे काेड (FUG Code)"
                                       outlined
-                                      placeholder="वन उपभाेक्ता समुहकाे काेड राख्नुहाेस् ।"
+                                      placeholder="समुहकाे काेड राख्नुहाेस् ।"
 
                         >
                         </v-text-field>

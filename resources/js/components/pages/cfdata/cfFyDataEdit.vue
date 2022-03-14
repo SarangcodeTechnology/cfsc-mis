@@ -3,7 +3,7 @@
         <v-toolbar color="#E0E0E0" dark flat></v-toolbar>
         <v-card class="mx-11 my-n11">
             <v-toolbar flat>
-                <strong>वन उपभाेक्ता समुह आ.व. विवरणहरु सम्पादन गर्नुहोस्</strong>
+                <strong>समुह आ.व. विवरणहरु सम्पादन गर्नुहोस्</strong>
                 <v-spacer></v-spacer>
                 <v-btn
                     :disabled="!valid"
@@ -40,14 +40,14 @@
                         <v-col cols="4">
                             <v-autocomplete v-model="fugFyData.fug_id"
                                             :items="fugs"
-                                            :rules="[(v) => !!v || 'वन उपभाेक्ता समुह छनाैट गर्न अनिवार्य छ']"
+                                            :rules="[(v) => !!v || 'समुह छनाैट गर्न अनिवार्य छ']"
                                             clearable
-                                            hint="E.g. : फलानाे वन उपभाेक्ता समुह"
+                                            hint="E.g. : फलानाे समुह"
                                             item-text="fug_name"
                                             item-value="id"
-                                            label="वन उपभाेक्ता समुह"
+                                            label="समुह"
                                             outlined
-                                            placeholder="वन उपभाेक्ता समुह छनाैट गर्नुहाेस् ।"
+                                            placeholder="समुह छनाैट गर्नुहाेस् ।"
                             >
                             </v-autocomplete>
                         </v-col>
@@ -134,7 +134,7 @@
                                               label="कमिटीमा कुल ब्यक्तिकाे संख्या"
                                               outlined
 
-                                              placeholder="वन उपभाेक्ता समुहकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
+                                              placeholder="समुहकाे कमिटीमा कुल ब्यक्तिकाे संख्या राख्नुहाेस् ।"
                                 >
                                 </v-text-field>
                             </v-col>
@@ -144,7 +144,7 @@
                                               label="कमिटीमा कुल महिलाकाे संख्या"
                                               outlined
 
-                                              placeholder="वन उपभाेक्ता समुहकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
+                                              placeholder="समुहकाे कमिटीमा कुल महिलाकाे संख्या राख्नुहाेस् ।"
                                 >
                                 </v-text-field>
                             </v-col>
@@ -154,7 +154,7 @@
                                               label="कमिटीमा कुल पुरुष संख्या"
                                               outlined
 
-                                              placeholder="वन उपभाेक्ता समुहकाे कमिटीमा कुल पुरुष संख्या राख्नुहाेस् ।"
+                                              placeholder="समुहकाे कमिटीमा कुल पुरुष संख्या राख्नुहाेस् ।"
                                 >
                                 </v-text-field>
                             </v-col>

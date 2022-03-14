@@ -5,7 +5,7 @@
                 <v-container fluid>
                     <v-row>
                         <v-col cols="6">
-                            <h3 class="mb-0 strong align-self-center">वन उपभाेक्ता समुह विवरण</h3>
+                            <h3 class="mb-0 strong align-self-center">समुह विवरण</h3>
                             <v-divider class="mx-4 mt-0" inset vertical></v-divider>
                         </v-col>
 
